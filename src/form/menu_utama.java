@@ -58,7 +58,7 @@ public class menu_utama extends javax.swing.JFrame {
     }
 
     private void tampilalamatService() {
-        String teksAlamatPanjang = "Jl. Raya Tengah No.80, RT.6/RW.1, Gedong, Kec. Ps.Rebo, Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta 13760, Indonesia";
+        String teksAlamatPanjang = "ITC DEPOK, LANTAI 3 NOMOR 129, Telp 0821-1460-1461";
         alamat_label.setText("<html><p style=' text-align: center;'>" + teksAlamatPanjang + "</p></html>");
     }
 
@@ -106,33 +106,29 @@ public class menu_utama extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
-        jPanel1.setBackground(new java.awt.Color(102, 102, 255));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("version 1.0 made by kelompok 1");
         jLabel2.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 0, 0, 0, new java.awt.Color(255, 255, 255)));
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/menu_logo_1.png"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/menu_super.png"))); // NOI18N
 
         label_selamatdatang.setFont(new java.awt.Font("Tahoma", 1, 28)); // NOI18N
-        label_selamatdatang.setForeground(new java.awt.Color(255, 255, 255));
         label_selamatdatang.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_selamatdatang.setText("HALLO");
 
         tanggal_label.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        tanggal_label.setForeground(new java.awt.Color(255, 255, 255));
         tanggal_label.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         tanggal_label.setText("Tanggal Hari Ini");
 
         jam_label.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jam_label.setForeground(new java.awt.Color(255, 255, 255));
         jam_label.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jam_label.setText("Jam Hari Ini");
 
-        jPanel3.setBackground(new java.awt.Color(102, 102, 255));
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -145,7 +141,7 @@ public class menu_utama extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel5.setBackground(new java.awt.Color(102, 102, 255));
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -159,9 +155,8 @@ public class menu_utama extends javax.swing.JFrame {
         );
 
         alamat_label.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        alamat_label.setForeground(new java.awt.Color(255, 255, 255));
         alamat_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        alamat_label.setText("TEKS ALAMAT GADGET HOUSE");
+        alamat_label.setText("TEKS ALAMAT SUPER CELULER");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -458,7 +453,6 @@ public class menu_utama extends javax.swing.JFrame {
         form_report.report_aksesoris rak = new form_report.report_aksesoris();
         rak.setVisible(true);
         rak.setLocationRelativeTo(null);
-        this.dispose();// TODO add your handling code here:
     }//GEN-LAST:event_menu_raksesorisActionPerformed
 
     private void menu_pelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_pelangganActionPerformed

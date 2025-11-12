@@ -47,7 +47,7 @@
 			</staticText>
 			<image>
 				<reportElement x="446" y="28" width="100" height="100" uuid="654c7cb0-271c-4793-ae50-5c2675be33bb"/>
-				<imageExpression><![CDATA["../gambar/menu_logo_1.png"]]></imageExpression>
+				<imageExpression><![CDATA["../gambar/menu_super.png"]]></imageExpression>
 			</image>
 		</band>
 	</title>

@@ -61,7 +61,7 @@ ORDER BY
 			</line>
 			<image>
 				<reportElement x="702" y="0" width="100" height="100" uuid="b2a706dd-180a-4e4a-8307-b0546bb3e3d9"/>
-				<imageExpression><![CDATA["../gambar/menu_logo_1.png"]]></imageExpression>
+				<imageExpression><![CDATA["../gambar/menu_super.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="0" y="66" width="702" height="40" uuid="530d35b6-9e40-4463-bdce-1b1d5178fad8"/>
