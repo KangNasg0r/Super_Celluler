@@ -44,16 +44,16 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         aktif();
         kosong();
-        tampilkanIdTeknisi();
-        String teknisi = UserID.getNamaTeknisi();
-        label_namaTeknisi.setText(teknisi);
-//        tampilkanNamaTeknisi();
         almt_pelanggan.setLineWrap(true);
         almt_pelanggan.setWrapStyleWord(true);
         autonumber();
         
         addPlaceholder(qtySparepart, PLACEHOLDER_QTY);
         addPlaceholder(qtyAksesoris, PLACEHOLDER_QTY);
+    }
+    
+    public javax.swing.JPanel getMainPanel() {
+        return nota;
     }
     
     private void addPlaceholder(JTextField textField, String placeholderText) {
@@ -123,7 +123,6 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
         merk_barang.setText("");
         
         qtySparepart.setText(PLACEHOLDER_QTY);
-        //qtySparepart.setText("");
         
         subTotalSparepart.setText("");
         id_aksesoris.setText("");
@@ -132,21 +131,11 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
         harga_jualAk.setText("");
         
         qtyAksesoris.setText(PLACEHOLDER_QTY);
-        //qtyAksesoris.setText("");
         
         subTotalAksesoris.setText("");
         total_biaya.setText("");
     }
 
-    private void tampilkanIdTeknisi() {
-        String idTeknisi = UserID.getIdTeknisi();
-        label_idTeknisi.setText(idTeknisi);
-    }
-
-//    private void tampilkanNamaTeknisi() {
-//        String namaTeknisi = UserID.getNamaTeknisi();
-//        label_namaTeknisi.setText(namaTeknisi);
-//    }
 
     public void itemTerpilihPlgn() {
         poppup_pelanggan pp = new poppup_pelanggan();
@@ -227,14 +216,14 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
     
     public void cetak() {
         try{
-            String loginId = UserID.getIdTeknisi();
-            String loginTeknisi = "Tidak Diketahui";
+            String loginId = UserID.getIdKasir();
+            String loginKasir = "Tidak Diketahui";
             
             try (PreparedStatement teknama = conn.prepareStatement("SELECT nama FROM tb_login WHERE id_teknisi = ?")) {
                 teknama.setString(1, loginId);
                 try (ResultSet rsNama = teknama.executeQuery()) {
                     if (rsNama.next()) {
-                        loginTeknisi = rsNama.getString("nama");
+                        loginKasir = rsNama.getString("nama");
                     }
                 }
             }
@@ -242,7 +231,7 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
             String path="./src/report/nota1.jasper";
             HashMap parameter = new HashMap();
             parameter.put("id_nota",id_nota.getText());
-            parameter.put("TEKNISI", loginTeknisi);
+            parameter.put("TEKNISI", loginKasir);
             
             JasperPrint print = JasperFillManager.fillReport(path,parameter,conn);
             JasperViewer.viewReport(print,false);
@@ -282,7 +271,6 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
         bhapus_transaksi = new javax.swing.JButton();
         bsimpan = new javax.swing.JButton();
         bbatal = new javax.swing.JButton();
-        bkeluar = new javax.swing.JButton();
         jLabel44 = new javax.swing.JLabel();
         jLabel45 = new javax.swing.JLabel();
         total_biaya = new javax.swing.JTextField();
@@ -363,39 +351,33 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        nota.setBackground(new java.awt.Color(102, 102, 255));
+        nota.setBackground(new java.awt.Color(255, 255, 255));
 
         nota_pembayaran.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        nota_pembayaran.setForeground(new java.awt.Color(255, 255, 255));
         nota_pembayaran.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         nota_pembayaran.setText("NOTA PEMBAYARAN SERVICE GADGET");
+        nota_pembayaran.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        panel_teknisi.setBackground(new java.awt.Color(102, 102, 255));
+        panel_teknisi.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("ID Teknisi");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("Nama Teknisi");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText(":");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText(":");
 
-        label_idTeknisi.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        label_idTeknisi.setForeground(new java.awt.Color(255, 255, 255));
+        label_idTeknisi.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         label_idTeknisi.setText("MUNCUL ID TEKNISI");
 
-        label_namaTeknisi.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        label_namaTeknisi.setForeground(new java.awt.Color(255, 255, 255));
+        label_namaTeknisi.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         label_namaTeknisi.setText("MUNCUL NAMA TEKNISI");
 
         javax.swing.GroupLayout panel_teknisiLayout = new javax.swing.GroupLayout(panel_teknisi);
@@ -405,7 +387,7 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
             .addGroup(panel_teknisiLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panel_teknisiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panel_teknisiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -437,23 +419,19 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        panel_nota.setBackground(new java.awt.Color(102, 102, 255));
+        panel_nota.setBackground(new java.awt.Color(255, 255, 255));
 
-        labelnot.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        labelnot.setForeground(new java.awt.Color(255, 255, 255));
+        labelnot.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         labelnot.setText("ID Nota");
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel7.setText("Tanggal");
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText(":");
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText(":");
 
@@ -488,7 +466,7 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
                     .addGroup(panel_notaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(id_nota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(labelnot, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE))
+                    .addComponent(labelnot, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panel_notaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -498,9 +476,10 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel3.setBackground(new java.awt.Color(102, 102, 255));
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)), "Transaksi", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 255, 255))); // NOI18N
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Transaksi", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
+        tbl_transaksi.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tbl_transaksi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -536,10 +515,10 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bhapus_transaksi)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         bsimpan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/save.png"))); // NOI18N
@@ -558,24 +537,14 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
             }
         });
 
-        bkeluar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/back.png"))); // NOI18N
-        bkeluar.setText("KEMBALI");
-        bkeluar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bkeluarActionPerformed(evt);
-            }
-        });
-
         jLabel44.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel44.setForeground(new java.awt.Color(255, 255, 255));
         jLabel44.setText("Total");
 
         jLabel45.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel45.setForeground(new java.awt.Color(255, 255, 255));
         jLabel45.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel45.setText(":");
 
-        jPanel4.setBackground(new java.awt.Color(102, 102, 255));
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -588,7 +557,7 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel5.setBackground(new java.awt.Color(102, 102, 255));
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setAutoscrolls(true);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -602,14 +571,12 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel1.setBackground(new java.awt.Color(102, 102, 255));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        detail_aksesoris.setBackground(new java.awt.Color(102, 102, 255));
-        detail_aksesoris.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)), "AKSESORIS [OPSIONAL]", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 255, 255))); // NOI18N
-        detail_aksesoris.setForeground(new java.awt.Color(255, 255, 255));
+        detail_aksesoris.setBackground(new java.awt.Color(255, 255, 255));
+        detail_aksesoris.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "AKSESORIS [OPSIONAL]", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
         jLabel24.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel24.setForeground(new java.awt.Color(255, 255, 255));
         jLabel24.setText("ID Aksesoris");
 
         id_aksesoris.setBackground(java.awt.SystemColor.controlHighlight);
@@ -628,7 +595,6 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
         });
 
         jLabel26.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel26.setForeground(new java.awt.Color(255, 255, 255));
         jLabel26.setText("Nama");
 
         jLabel27.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -639,7 +605,6 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
         nama_aksesoris.setBackground(java.awt.SystemColor.controlHighlight);
 
         jLabel28.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel28.setForeground(new java.awt.Color(255, 255, 255));
         jLabel28.setText("Harga Beli");
 
         jLabel29.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -658,7 +623,6 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
         });
 
         jLabel30.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel30.setForeground(new java.awt.Color(255, 255, 255));
         jLabel30.setText("Kuantitas");
 
         jLabel31.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -673,7 +637,6 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
         });
 
         jLabel47.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel47.setForeground(new java.awt.Color(255, 255, 255));
         jLabel47.setText("Sub Total");
 
         jLabel48.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -684,7 +647,6 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
         subTotalAksesoris.setBackground(java.awt.SystemColor.controlHighlight);
 
         jLabel49.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel49.setForeground(new java.awt.Color(255, 255, 255));
         jLabel49.setText("Harga Jual");
 
         jLabel50.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -783,24 +745,19 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        panel_pelanggan.setBackground(new java.awt.Color(102, 102, 255));
-        panel_pelanggan.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)), "PELANGGAN", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 255, 255))); // NOI18N
-        panel_pelanggan.setForeground(new java.awt.Color(255, 255, 255));
+        panel_pelanggan.setBackground(new java.awt.Color(255, 255, 255));
+        panel_pelanggan.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "PELANGGAN", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("ID Pelanggan");
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("Nama");
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("Alamat");
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setText("Nomor Hp");
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -907,12 +864,10 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        detail_service.setBackground(new java.awt.Color(102, 102, 255));
-        detail_service.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)), "SERVICE", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 255, 255))); // NOI18N
-        detail_service.setForeground(new java.awt.Color(255, 255, 255));
+        detail_service.setBackground(new java.awt.Color(255, 255, 255));
+        detail_service.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "SERVICE DAN SPAREPART", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
         jLabel18.setText("ID Service");
 
         id_service.setBackground(java.awt.SystemColor.controlHighlight);
@@ -931,7 +886,6 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
         });
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
         jLabel20.setText("Jenis");
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -942,7 +896,6 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
         jenis_service.setBackground(java.awt.SystemColor.controlHighlight);
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel22.setForeground(new java.awt.Color(255, 255, 255));
         jLabel22.setText("Harga");
 
         jLabel23.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -953,7 +906,6 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
         biaya_service.setBackground(java.awt.SystemColor.controlHighlight);
 
         jLabel32.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel32.setForeground(new java.awt.Color(255, 255, 255));
         jLabel32.setText("Kode Barang");
 
         kd_barang.setBackground(java.awt.SystemColor.controlHighlight);
@@ -972,7 +924,6 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
         });
 
         jLabel34.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel34.setForeground(new java.awt.Color(255, 255, 255));
         jLabel34.setText("Nama Barang");
 
         jLabel35.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -983,7 +934,6 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
         nama_barang.setBackground(java.awt.SystemColor.controlHighlight);
 
         jLabel36.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel36.setForeground(new java.awt.Color(255, 255, 255));
         jLabel36.setText("Harga Beli");
 
         jLabel37.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -1001,11 +951,9 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
         jLabel39.setText(":");
 
         jLabel38.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel38.setForeground(new java.awt.Color(255, 255, 255));
         jLabel38.setText("Harga Jual");
 
         jLabel40.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel40.setForeground(new java.awt.Color(255, 255, 255));
         jLabel40.setText("Merk Barang");
 
         merk_barang.setBackground(java.awt.SystemColor.controlHighlight);
@@ -1016,7 +964,6 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
         jLabel41.setText(":");
 
         jLabel42.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel42.setForeground(new java.awt.Color(255, 255, 255));
         jLabel42.setText("Kuantitas");
 
         jLabel43.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -1039,13 +986,11 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
         });
 
         jLabel46.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel46.setForeground(new java.awt.Color(255, 255, 255));
         jLabel46.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel46.setText("Sparepart Yang Digunakan");
-        jLabel46.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, new java.awt.Color(255, 255, 255)));
+        jLabel46.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, new java.awt.Color(0, 0, 0)));
 
         jLabel51.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel51.setForeground(new java.awt.Color(255, 255, 255));
         jLabel51.setText("Sub Total");
 
         jLabel52.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -1245,8 +1190,6 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
                         .addComponent(bsimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(55, 55, 55)
                         .addComponent(bbatal, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(58, 58, 58)
-                        .addComponent(bkeluar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel44, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1271,13 +1214,12 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(notaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bsimpan)
                     .addComponent(bbatal)
-                    .addComponent(bkeluar)
                     .addComponent(jLabel44)
                     .addComponent(jLabel45)
                     .addComponent(total_biaya, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1305,10 +1247,6 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
         pp.setResizable(false);
         pp.setLocationRelativeTo(null);
     }//GEN-LAST:event_bcari_pelangganActionPerformed
-
-    private void bkeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bkeluarActionPerformed
-        dispose();
-    }//GEN-LAST:event_bkeluarActionPerformed
 
     private void bcari_serviceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bcari_serviceActionPerformed
         form_popup.poppup_service ps = new form_popup.poppup_service();
@@ -1518,7 +1456,6 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
     private javax.swing.JButton bcari_sparepart;
     private javax.swing.JButton bhapus_transaksi;
     private javax.swing.JTextField biaya_service;
-    private javax.swing.JButton bkeluar;
     private javax.swing.JButton bsimpan;
     private javax.swing.JButton btambah_aksesoris;
     private javax.swing.JButton btambah_sparepart;

@@ -7,6 +7,7 @@ package form;
 import java.sql.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import koneksi.koneksi;
 
@@ -24,7 +25,7 @@ public class login extends javax.swing.JFrame {
     }
 
     protected void aktif() {
-        id_teknisi.requestFocus();
+        id_kasir.requestFocus();
     }
 
     /**
@@ -41,7 +42,7 @@ public class login extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         bregis = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        id_teknisi = new javax.swing.JTextField();
+        id_kasir = new javax.swing.JTextField();
         sandi = new javax.swing.JPasswordField();
         blogin = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
@@ -59,7 +60,7 @@ public class login extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel2.setText("ID Teknisi :");
+        jLabel2.setText("ID Kasir :");
 
         bregis.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/create.png"))); // NOI18N
         bregis.setText("DAFTAR");
@@ -80,9 +81,9 @@ public class login extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel3.setText("Sandi :");
 
-        id_teknisi.addActionListener(new java.awt.event.ActionListener() {
+        id_kasir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                id_teknisiActionPerformed(evt);
+                id_kasirActionPerformed(evt);
             }
         });
 
@@ -146,7 +147,7 @@ public class login extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(153, 153, 153))
-                    .addComponent(id_teknisi)
+                    .addComponent(id_kasir)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(20, 20, 20))
         );
@@ -158,7 +159,7 @@ public class login extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(id_teknisi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(id_kasir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -193,22 +194,24 @@ public class login extends javax.swing.JFrame {
 
     private void bloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bloginActionPerformed
         try {
-            String sql = "SELECT * FROM tb_login WHERE BINARY id_teknisi = ? AND BINARY sandi = ?";
+            String sql = "SELECT * FROM tb_kasir WHERE BINARY id_kasir = ? AND BINARY sandi = ?";
             PreparedStatement stat = conn.prepareStatement(sql);
-            stat.setString(1, id_teknisi.getText());
+            stat.setString(1, id_kasir.getText());
             stat.setString(2, sandi.getText());
             ResultSet hasil = stat.executeQuery();
 
             if (hasil.next()) {
-                UserID.setIdTeknisi(hasil.getString("id_teknisi"));
-                UserID.setNamaTeknisi(hasil.getString("nama"));
+                UserID.setIdKasir(hasil.getString("id_kasir"));
+                UserID.setNamaKasir(hasil.getString("nama"));
                 JOptionPane.showMessageDialog(null, "Login Berhasil");
                 this.setVisible(false);
-                menu_utama sett = new menu_utama();
-                sett.setVisible(true);
+                menu_test sett = new menu_test();
                 sett.setLocationRelativeTo(null);
+                sett.setVisible(true);
+                sett.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+                
             } else {
-                JOptionPane.showMessageDialog(null, "ID Teknisi atau Sandi salah");
+                JOptionPane.showMessageDialog(null, "ID Kasir atau Sandi salah");
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Gagal Login: " + e);
@@ -220,9 +223,9 @@ public class login extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_sandiActionPerformed
 
-    private void id_teknisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_id_teknisiActionPerformed
+    private void id_kasirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_id_kasirActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_id_teknisiActionPerformed
+    }//GEN-LAST:event_id_kasirActionPerformed
 
     private void bregisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bregisActionPerformed
         registrasi rf = new registrasi();
@@ -285,7 +288,7 @@ public class login extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton blogin;
     private javax.swing.JButton bregis;
-    private javax.swing.JTextField id_teknisi;
+    private javax.swing.JTextField id_kasir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

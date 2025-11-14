@@ -11,7 +11,7 @@ public Connection connect(){
     catch(ClassNotFoundException ex){
         System.out.println("gagal connect"+ex);
     }
-    String url= "jdbc:mysql://localhost:3306/service_gadget";
+    String url= "jdbc:mysql://localhost:3306/super_celluler";
     try{
         koneksi=DriverManager.getConnection(url,"root","");
         System.out.println("");

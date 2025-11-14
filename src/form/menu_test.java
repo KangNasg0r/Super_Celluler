@@ -11,18 +11,23 @@ import java.text.SimpleDateFormat;
 import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import javax.swing.JFrame;
 
 /**
  *
  * @author Ahmad Nur Latif P
  */
-public class menu_utama extends javax.swing.JFrame {
+public class menu_test extends javax.swing.JFrame {
 
     /**
      * Creates new form menu_utama
      */
-    public menu_utama() {
+    public menu_test() {
         initComponents();
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setupResizeListener();
         String kasir = UserID.getNamaKasir();
         label_selamatdatang.setText("Hallo, "+kasir);
         tampilkanTanggal_hariini();
@@ -30,6 +35,38 @@ public class menu_utama extends javax.swing.JFrame {
         tampilkanWaktuSekarang();
         waktuBerjalan();
     }
+    
+    private void setupResizeListener() {
+        this.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                refreshLayeredPane();
+            }
+        });
+    }
+    
+    private void refreshLayeredPane() {
+        if (jLayeredPane1.getComponentCount() > 0) {
+            java.awt.Component comp = jLayeredPane1.getComponent(0);
+
+            comp.setBounds(0, 0, jLayeredPane1.getWidth(), jLayeredPane1.getHeight());
+
+            jLayeredPane1.revalidate();
+            jLayeredPane1.repaint();
+        }
+    }
+    
+    // Method untuk load panel ke layeredPane
+    private void loadPanel(javax.swing.JPanel panel) {
+    jLayeredPane1.removeAll();
+    javax.swing.JScrollPane scrollPane = new javax.swing.JScrollPane(panel);
+    scrollPane.setVerticalScrollBarPolicy(javax.swing.JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+    scrollPane.setHorizontalScrollBarPolicy(javax.swing.JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+    jLayeredPane1.add(scrollPane, java.awt.BorderLayout.CENTER);
+    
+    jLayeredPane1.revalidate();
+    jLayeredPane1.repaint();
+}
     
 
     private void tampilkanTanggal_hariini() {
@@ -74,17 +111,20 @@ public class menu_utama extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        panel_kiri = new javax.swing.JPanel();
         label_selamatdatang = new javax.swing.JLabel();
         tanggal_label = new javax.swing.JLabel();
         jam_label = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
         alamat_label = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLayeredPane1 = new javax.swing.JLayeredPane();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
         rep_teknisi = new javax.swing.JMenuBar();
         master = new javax.swing.JMenu();
         menu_teknisi = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         menu_pelanggan = new javax.swing.JMenuItem();
         menu_sparepart = new javax.swing.JMenuItem();
         menu_aksesoris = new javax.swing.JMenuItem();
@@ -92,7 +132,8 @@ public class menu_utama extends javax.swing.JFrame {
         transaksi = new javax.swing.JMenu();
         menu_pembayaran = new javax.swing.JMenuItem();
         report = new javax.swing.JMenu();
-        menu_rkasir = new javax.swing.JMenuItem();
+        menu_rtkasir = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         menu_rpelanggan = new javax.swing.JMenuItem();
         menu_rsparepart = new javax.swing.JMenuItem();
         menu_raksesoris = new javax.swing.JMenuItem();
@@ -108,96 +149,112 @@ public class menu_utama extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("version 1.0 made by kelompok 1");
-        jLabel2.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 0, 0, 0, new java.awt.Color(255, 255, 255)));
+        panel_kiri.setBackground(new java.awt.Color(102, 102, 255));
+        panel_kiri.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 3, new java.awt.Color(0, 0, 0)));
 
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/menu_super.png"))); // NOI18N
-
-        label_selamatdatang.setFont(new java.awt.Font("Tahoma", 1, 28)); // NOI18N
+        label_selamatdatang.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        label_selamatdatang.setForeground(new java.awt.Color(255, 255, 255));
         label_selamatdatang.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_selamatdatang.setText("HALLO");
-        label_selamatdatang.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
         label_selamatdatang.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
         tanggal_label.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        tanggal_label.setForeground(new java.awt.Color(255, 255, 255));
         tanggal_label.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         tanggal_label.setText("Tanggal Hari Ini");
 
         jam_label.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jam_label.setForeground(new java.awt.Color(255, 255, 255));
         jam_label.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jam_label.setText("Jam Hari Ini");
 
+        alamat_label.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        alamat_label.setForeground(new java.awt.Color(255, 255, 255));
+        alamat_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        alamat_label.setText("TEKS ALAMAT SUPER CELULER");
+
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/super_170_196.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 160, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
         );
 
-        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 160, Short.MAX_VALUE)
+        javax.swing.GroupLayout panel_kiriLayout = new javax.swing.GroupLayout(panel_kiri);
+        panel_kiri.setLayout(panel_kiriLayout);
+        panel_kiriLayout.setHorizontalGroup(
+            panel_kiriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_kiriLayout.createSequentialGroup()
+                .addGroup(panel_kiriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tanggal_label, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jam_label, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panel_kiriLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(panel_kiriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(label_selamatdatang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(alamat_label, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE))))
+                .addContainerGap())
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        panel_kiriLayout.setVerticalGroup(
+            panel_kiriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_kiriLayout.createSequentialGroup()
+                .addComponent(tanggal_label, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(jam_label, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(label_selamatdatang, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(alamat_label, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        alamat_label.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        alamat_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        alamat_label.setText("TEKS ALAMAT SUPER CELULER");
-        alamat_label.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 0, 0, 0, new java.awt.Color(0, 0, 0)));
+        jLayeredPane1.setBackground(new java.awt.Color(102, 102, 255));
+        jLayeredPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+        jLayeredPane1.setLayout(new java.awt.BorderLayout());
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/menu_super.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 647, Short.MAX_VALUE)
+        );
+
+        jLayeredPane1.add(jPanel2, java.awt.BorderLayout.CENTER);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(label_selamatdatang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(tanggal_label, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panel_kiri, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jam_label, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 553, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(alamat_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLayeredPane1))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tanggal_label, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jam_label, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(label_selamatdatang, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(alamat_label, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(panel_kiri, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLayeredPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         rep_teknisi.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -212,7 +269,7 @@ public class menu_utama extends javax.swing.JFrame {
         master.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         menu_teknisi.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        menu_teknisi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/teknisi.png"))); // NOI18N
+        menu_teknisi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/kasir.png"))); // NOI18N
         menu_teknisi.setText("Kasir");
         menu_teknisi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         menu_teknisi.addActionListener(new java.awt.event.ActionListener() {
@@ -221,6 +278,16 @@ public class menu_utama extends javax.swing.JFrame {
             }
         });
         master.add(menu_teknisi);
+
+        jMenuItem2.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/teknisi.png"))); // NOI18N
+        jMenuItem2.setText("Teknisi");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        master.add(jMenuItem2);
 
         menu_pelanggan.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         menu_pelanggan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/pelanggan.png"))); // NOI18N
@@ -291,16 +358,21 @@ public class menu_utama extends javax.swing.JFrame {
         report.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         report.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
-        menu_rkasir.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        menu_rkasir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/printer.png"))); // NOI18N
-        menu_rkasir.setText("Data Kasir");
-        menu_rkasir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        menu_rkasir.addActionListener(new java.awt.event.ActionListener() {
+        menu_rtkasir.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        menu_rtkasir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/printer.png"))); // NOI18N
+        menu_rtkasir.setText("Data Kasir");
+        menu_rtkasir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        menu_rtkasir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menu_rkasirActionPerformed(evt);
+                menu_rtkasirActionPerformed(evt);
             }
         });
-        report.add(menu_rkasir);
+        report.add(menu_rtkasir);
+
+        jMenuItem3.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/printer.png"))); // NOI18N
+        jMenuItem3.setText("Data Teknisi");
+        report.add(jMenuItem3);
 
         menu_rpelanggan.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         menu_rpelanggan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/printer.png"))); // NOI18N
@@ -408,11 +480,11 @@ public class menu_utama extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -429,17 +501,12 @@ public class menu_utama extends javax.swing.JFrame {
         keluarakun.setLocationRelativeTo(null);    // TODO add your handling code here:
     }//GEN-LAST:event_menu_keluarakunActionPerformed
 
-    private void menu_rkasirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_rkasirActionPerformed
-        form_report.report_kasir rk = new form_report.report_kasir();
-        rk.setVisible(true);
-        rk.setLocationRelativeTo(null); 
-    }//GEN-LAST:event_menu_rkasirActionPerformed
+    private void menu_rtkasirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_rtkasirActionPerformed
+        loadPanel(new form_report.report_kasir().getMainPanel());
+    }//GEN-LAST:event_menu_rtkasirActionPerformed
 
     private void menu_teknisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_teknisiActionPerformed
-        master_teknisi mt = new master_teknisi();
-        mt.setVisible(true);
-        mt.setLocationRelativeTo(null);
-        this.dispose();// TODO add your handling code here:
+        loadPanel(new master_kasir().getMainPanel());
     }//GEN-LAST:event_menu_teknisiActionPerformed
 
     private void menu_keluarapkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_keluarapkActionPerformed
@@ -450,74 +517,52 @@ public class menu_utama extends javax.swing.JFrame {
     }//GEN-LAST:event_menu_keluarapkActionPerformed
 
     private void menu_raksesorisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_raksesorisActionPerformed
-        form_report.report_aksesoris rak = new form_report.report_aksesoris();
-        rak.setVisible(true);
-        rak.setLocationRelativeTo(null);
+        loadPanel(new form_report.report_aksesoris().getMainPanel());
     }//GEN-LAST:event_menu_raksesorisActionPerformed
 
     private void menu_pelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_pelangganActionPerformed
-        master_pelanggan mp = new master_pelanggan();
-        mp.setVisible(true);
-        mp.setLocationRelativeTo(null);
-        this.dispose();
+        loadPanel(new master_pelanggan().getMainPanel());
     }//GEN-LAST:event_menu_pelangganActionPerformed
 
     private void menu_sparepartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_sparepartActionPerformed
-        master_sparepart ms = new master_sparepart();
-        ms.setVisible(true);
-        ms.setLocationRelativeTo(null);
-        this.dispose();// TODO add your handling code here:
+        loadPanel(new master_sparepart().getMainPanel());
     }//GEN-LAST:event_menu_sparepartActionPerformed
 
     private void menu_aksesorisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_aksesorisActionPerformed
-        master_aksesoris ma = new master_aksesoris();
-        ma.setVisible(true);
-        ma.setLocationRelativeTo(null);
-        this.dispose();
+        loadPanel(new master_aksesoris().getMainPanel());
     }//GEN-LAST:event_menu_aksesorisActionPerformed
 
     private void menu_serviceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_serviceActionPerformed
-        master_service mser = new master_service();
-        mser.setVisible(true);
-        mser.setLocationRelativeTo(null);
-        this.dispose();
+        loadPanel(new master_service().getMainPanel());
     }//GEN-LAST:event_menu_serviceActionPerformed
 
     private void menu_rpelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_rpelangganActionPerformed
-        form_report.report_pelanggan rp = new form_report.report_pelanggan();
-        rp.setVisible(true);
-        rp.setLocationRelativeTo(null);
+        loadPanel(new form_report.report_pelanggan().getMainPanel());
     }//GEN-LAST:event_menu_rpelangganActionPerformed
 
     private void menu_rsparepartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_rsparepartActionPerformed
-        form_report.report_sparepart rs = new form_report.report_sparepart();
-        rs.setVisible(true);
-        rs.setLocationRelativeTo(null);
+        loadPanel(new form_report.report_sparepart().getMainPanel());
     }//GEN-LAST:event_menu_rsparepartActionPerformed
 
     private void menu_rserviceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_rserviceActionPerformed
-        form_report.report_service rser = new form_report.report_service();
-        rser.setVisible(true);
-        rser.setLocationRelativeTo(null);
+        loadPanel(new form_report.report_service().getMainPanel());
     }//GEN-LAST:event_menu_rserviceActionPerformed
 
     private void menu_pembayaranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_pembayaranActionPerformed
-        transaksi_pembayaran tp = new transaksi_pembayaran();
-        tp.setVisible(true);
-        tp.setLocationRelativeTo(null);
+        loadPanel(new transaksi_pembayaran().getMainPanel());
     }//GEN-LAST:event_menu_pembayaranActionPerformed
 
     private void riwayat_transaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_riwayat_transaksiActionPerformed
-        form_report.riwayat_transaksi rt = new form_report.riwayat_transaksi();
-        rt.setVisible(true);
-        rt.setLocationRelativeTo(null);
+        loadPanel(new form_report.riwayat_transaksi().getMainPanel());
     }//GEN-LAST:event_riwayat_transaksiActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        form_report.report_penjualan rt = new form_report.report_penjualan();
-        rt.setVisible(true);
-        rt.setLocationRelativeTo(null);
+        loadPanel(new form_report.report_penjualan().getMainPanel());
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -536,20 +581,21 @@ public class menu_utama extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(menu_utama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(menu_test.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(menu_utama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(menu_test.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(menu_utama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(menu_test.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(menu_utama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(menu_test.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new menu_utama().setVisible(true);
+                new menu_test().setVisible(true);
                 
             }
         });
@@ -557,12 +603,15 @@ public class menu_utama extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel alamat_label;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JLabel jam_label;
     private javax.swing.JMenu keluar;
     private javax.swing.JLabel label_selamatdatang;
@@ -573,13 +622,14 @@ public class menu_utama extends javax.swing.JFrame {
     private javax.swing.JMenuItem menu_pelanggan;
     private javax.swing.JMenuItem menu_pembayaran;
     private javax.swing.JMenuItem menu_raksesoris;
-    private javax.swing.JMenuItem menu_rkasir;
     private javax.swing.JMenuItem menu_rpelanggan;
     private javax.swing.JMenuItem menu_rservice;
     private javax.swing.JMenuItem menu_rsparepart;
+    private javax.swing.JMenuItem menu_rtkasir;
     private javax.swing.JMenuItem menu_service;
     private javax.swing.JMenuItem menu_sparepart;
     private javax.swing.JMenuItem menu_teknisi;
+    private javax.swing.JPanel panel_kiri;
     private javax.swing.JMenuBar rep_teknisi;
     private javax.swing.JMenu report;
     private javax.swing.JMenuItem riwayat_transaksi;

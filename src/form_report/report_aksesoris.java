@@ -33,6 +33,10 @@ public class report_aksesoris extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         datatable();
     }
+    
+    public javax.swing.JPanel getMainPanel() {
+        return jPanel1;
+    }
 
     protected void datatable() {
         Object[] Baris = {"ID Aksesoris", "Nama Aksesoris", "Harga Beli(Rp)", "Harga Jual (Rp)"};
@@ -205,21 +209,21 @@ public class report_aksesoris extends javax.swing.JFrame {
 
     private void bprint_akActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bprint_akActionPerformed
         try {
-            String loginId = UserID.getIdTeknisi();
-            String loginTeknisi = "Tidak Diketahui";
+            String loginId = UserID.getIdKasir();
+            String loginKasir = "Tidak Diketahui";
 
-            try (PreparedStatement teknama = conn.prepareStatement("SELECT nama FROM tb_login WHERE id_teknisi = ?")) {
-                teknama.setString(1, loginId);
-                try (ResultSet rsNama = teknama.executeQuery()) {
+            try (PreparedStatement kasnama = conn.prepareStatement("SELECT nama FROM tb_kasir WHERE id_kasir = ?")) {
+                kasnama.setString(1, loginId);
+                try (ResultSet rsNama = kasnama.executeQuery()) {
                     if (rsNama.next()) {
-                        loginTeknisi = rsNama.getString("nama");
+                        loginKasir = rsNama.getString("nama");
                     }
                 }
             }
 
             String reportPath = "./src/report/rep_aksesoris.jasper";
             HashMap parameter = new HashMap();
-            parameter.put("TEKNISI", loginTeknisi);
+            parameter.put("KASIR", loginKasir);
 
             JasperPrint print = JasperFillManager.fillReport(reportPath,parameter,conn);
             JasperViewer.viewReport(print,false);

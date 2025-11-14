@@ -22,7 +22,7 @@ import java.util.HashMap;
  *
  * @author Ahmad Nur Latif P
  */
-public class report_teknisi extends javax.swing.JFrame {
+public class report_kasir extends javax.swing.JFrame {
 
     private Connection conn = new koneksi().connect();
     private DefaultTableModel tabmode;
@@ -30,24 +30,28 @@ public class report_teknisi extends javax.swing.JFrame {
     /**
      * Creates new form report_karyawan
      */
-    public report_teknisi() {
+    public report_kasir() {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         datatable();
     }
+    
+    public javax.swing.JPanel getMainPanel() {
+        return report_kasir;
+    }
 
     protected void datatable() {
-        Object[] Baris = {"ID Teknisi", "Password", "Nama", "Jenis Kelamin", "No Handphone","Alamat"};
+        Object[] Baris = {"ID Kasir", "Password", "Nama", "Jenis Kelamin", "No Handphone","Alamat"};
         tabmode = new DefaultTableModel(null, Baris);
-        String cariitem = cari_teknisi.getText();
+        String cariitem = cari_kasir.getText();
 
         try {
-            String sql = "SELECT * FROM tb_login WHERE id_teknisi LIKE '%" + cariitem + "%' "
+            String sql = "SELECT * FROM tb_kasir WHERE id_kasir LIKE '%" + cariitem + "%' "
                     + "OR nama LIKE '%" + cariitem + "%' "
                     + "OR jenkel LIKE '%" + cariitem + "%' "
                     + "OR hp LIKE '%" + cariitem + "%' "
                     + "OR alamat LIKE '%" + cariitem + "%' "
-                    + "ORDER BY id_teknisi ASC";
+                    + "ORDER BY id_kasir ASC";
             Statement stat = conn.createStatement();
             ResultSet hasil = stat.executeQuery(sql);
             while (hasil.next()) {
@@ -59,7 +63,7 @@ public class report_teknisi extends javax.swing.JFrame {
                     hasil.getString(5),
                     hasil.getString(6),});
             }
-            tblteknisi.setModel(tabmode);
+            tblkasir.setModel(tabmode);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "data gagal dipanggil" + e);
         }
@@ -74,20 +78,20 @@ public class report_teknisi extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        report_kasir = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblteknisi = new javax.swing.JTable();
-        cari_teknisi = new javax.swing.JTextField();
+        tblkasir = new javax.swing.JTable();
+        cari_kasir = new javax.swing.JTextField();
         bcari = new javax.swing.JButton();
-        bprint_tek = new javax.swing.JButton();
-        bkmbl_tek = new javax.swing.JButton();
+        bprint_kas = new javax.swing.JButton();
+        bkmbl_kas = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(102, 102, 255));
+        report_kasir.setBackground(new java.awt.Color(102, 102, 255));
 
-        tblteknisi.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        tblteknisi.setModel(new javax.swing.table.DefaultTableModel(
+        tblkasir.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        tblkasir.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -98,22 +102,22 @@ public class report_teknisi extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblteknisi.setGridColor(new java.awt.Color(255, 255, 255));
-        tblteknisi.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblkasir.setGridColor(new java.awt.Color(255, 255, 255));
+        tblkasir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblteknisiMouseClicked(evt);
+                tblkasirMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tblteknisi);
+        jScrollPane1.setViewportView(tblkasir);
 
-        cari_teknisi.addActionListener(new java.awt.event.ActionListener() {
+        cari_kasir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cari_teknisiActionPerformed(evt);
+                cari_kasirActionPerformed(evt);
             }
         });
-        cari_teknisi.addKeyListener(new java.awt.event.KeyAdapter() {
+        cari_kasir.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                cari_teknisiKeyPressed(evt);
+                cari_kasirKeyPressed(evt);
             }
         });
 
@@ -126,51 +130,51 @@ public class report_teknisi extends javax.swing.JFrame {
             }
         });
 
-        bprint_tek.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/printer.png"))); // NOI18N
-        bprint_tek.setText("CETAK");
-        bprint_tek.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        bprint_tek.addActionListener(new java.awt.event.ActionListener() {
+        bprint_kas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/printer.png"))); // NOI18N
+        bprint_kas.setText("CETAK");
+        bprint_kas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bprint_kas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bprint_tekActionPerformed(evt);
+                bprint_kasActionPerformed(evt);
             }
         });
 
-        bkmbl_tek.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/back.png"))); // NOI18N
-        bkmbl_tek.setText("KEMBALI");
-        bkmbl_tek.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        bkmbl_tek.addActionListener(new java.awt.event.ActionListener() {
+        bkmbl_kas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/back.png"))); // NOI18N
+        bkmbl_kas.setText("KEMBALI");
+        bkmbl_kas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bkmbl_kas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bkmbl_tekActionPerformed(evt);
+                bkmbl_kasActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout report_kasirLayout = new javax.swing.GroupLayout(report_kasir);
+        report_kasir.setLayout(report_kasirLayout);
+        report_kasirLayout.setHorizontalGroup(
+            report_kasirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(report_kasirLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(report_kasirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 741, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(cari_teknisi, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(report_kasirLayout.createSequentialGroup()
+                        .addComponent(cari_kasir, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(bcari)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bprint_tek)
+                        .addComponent(bprint_kas)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bkmbl_tek)))
+                        .addComponent(bkmbl_kas)))
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        report_kasirLayout.setVerticalGroup(
+            report_kasirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, report_kasirLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cari_teknisi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(report_kasirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cari_kasir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bcari)
-                    .addComponent(bprint_tek)
-                    .addComponent(bkmbl_tek))
+                    .addComponent(bprint_kas)
+                    .addComponent(bkmbl_kas))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
                 .addContainerGap())
@@ -180,64 +184,64 @@ public class report_teknisi extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(report_kasir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(report_kasir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tblteknisiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblteknisiMouseClicked
+    private void tblkasirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblkasirMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_tblteknisiMouseClicked
+    }//GEN-LAST:event_tblkasirMouseClicked
 
-    private void cari_teknisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cari_teknisiActionPerformed
+    private void cari_kasirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cari_kasirActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cari_teknisiActionPerformed
+    }//GEN-LAST:event_cari_kasirActionPerformed
 
-    private void cari_teknisiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cari_teknisiKeyPressed
+    private void cari_kasirKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cari_kasirKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             datatable();
         }    // TODO add your handling code here:
-    }//GEN-LAST:event_cari_teknisiKeyPressed
+    }//GEN-LAST:event_cari_kasirKeyPressed
 
     private void bcariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bcariActionPerformed
         datatable();    // TODO add your handling code here:
     }//GEN-LAST:event_bcariActionPerformed
 
-    private void bkmbl_tekActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bkmbl_tekActionPerformed
+    private void bkmbl_kasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bkmbl_kasActionPerformed
         dispose();
-    }//GEN-LAST:event_bkmbl_tekActionPerformed
+    }//GEN-LAST:event_bkmbl_kasActionPerformed
 
-    private void bprint_tekActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bprint_tekActionPerformed
+    private void bprint_kasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bprint_kasActionPerformed
         try {
-            String loginId = UserID.getIdTeknisi();
-            String loginTeknisi = "Tidak Diketahui";
+            String loginId = UserID.getIdKasir();
+            String loginKasir = "Tidak Diketahui";
 
-            try (PreparedStatement teknama = conn.prepareStatement("SELECT nama FROM tb_login WHERE id_teknisi = ?")) {
-                teknama.setString(1, loginId);
-                try (ResultSet rsNama = teknama.executeQuery()) {
+            try (PreparedStatement kasnama = conn.prepareStatement("SELECT nama FROM tb_kasir WHERE id_kasir = ?")) {
+                kasnama.setString(1, loginId);
+                try (ResultSet rsNama = kasnama.executeQuery()) {
                     if (rsNama.next()) {
-                        loginTeknisi = rsNama.getString("nama");
+                        loginKasir = rsNama.getString("nama");
                     }
                 }
             }
 
-            String reportPath = "./src/report/rep_teknisi.jasper";
+            String reportPath = "./src/report/rep_kasir.jasper";
             HashMap parameter = new HashMap();
-            parameter.put("TEKNISI", loginTeknisi);
+            parameter.put("KASIR", loginKasir);
 
             JasperPrint print = JasperFillManager.fillReport(reportPath,parameter,conn);
             JasperViewer.viewReport(print,false);
-
+            this.dispose();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Gagal mencetak report: " + e.getMessage());
             e.printStackTrace();
         }
-    }//GEN-LAST:event_bprint_tekActionPerformed
+    }//GEN-LAST:event_bprint_kasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -256,32 +260,34 @@ public class report_teknisi extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(report_teknisi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(report_kasir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(report_teknisi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(report_kasir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(report_teknisi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(report_kasir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(report_teknisi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(report_kasir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new report_teknisi().setVisible(true);
+                new report_kasir().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bcari;
-    private javax.swing.JButton bkmbl_tek;
-    private javax.swing.JButton bprint_tek;
-    private javax.swing.JTextField cari_teknisi;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton bkmbl_kas;
+    private javax.swing.JButton bprint_kas;
+    private javax.swing.JTextField cari_kasir;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblteknisi;
+    private javax.swing.JPanel report_kasir;
+    private javax.swing.JTable tblkasir;
     // End of variables declaration//GEN-END:variables
 }

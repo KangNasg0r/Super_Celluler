@@ -26,7 +26,11 @@ private Connection conn = new koneksi().connect();
         aktif();
         datatable();
     }
-
+    
+    public javax.swing.JPanel getMainPanel() {
+        return panel_aksesoris;
+    }
+    
     protected void aktif() {
         id_aksesoris.requestFocus();
     }
@@ -72,7 +76,7 @@ private Connection conn = new koneksi().connect();
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Panel_Service = new javax.swing.JPanel();
+        panel_aksesoris = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -99,24 +103,23 @@ private Connection conn = new koneksi().connect();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        Panel_Service.setBackground(new java.awt.Color(102, 102, 255));
+        panel_aksesoris.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("DATA AKSESORIS");
-        jLabel1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        jLabel1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 0, 2, 0, new java.awt.Color(0, 0, 0)));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("ID Aksesoris");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Nama :");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Harga Beli (Rp) :");
 
         bsimpan.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -164,7 +167,7 @@ private Connection conn = new koneksi().connect();
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Harga Jual (Rp) :");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -232,7 +235,7 @@ private Connection conn = new koneksi().connect();
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        panel_kiri.setBackground(new java.awt.Color(102, 102, 255));
+        panel_kiri.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout panel_kiriLayout = new javax.swing.GroupLayout(panel_kiri);
         panel_kiri.setLayout(panel_kiriLayout);
@@ -245,7 +248,7 @@ private Connection conn = new koneksi().connect();
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        panel_kanan.setBackground(new java.awt.Color(102, 102, 255));
+        panel_kanan.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout panel_kananLayout = new javax.swing.GroupLayout(panel_kanan);
         panel_kanan.setLayout(panel_kananLayout);
@@ -258,9 +261,10 @@ private Connection conn = new koneksi().connect();
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel2.setBackground(new java.awt.Color(102, 102, 255));
-        jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
 
+        table_aksesoris.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         table_aksesoris.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -331,19 +335,19 @@ private Connection conn = new koneksi().connect();
                     .addComponent(cari_aksesoris)
                     .addComponent(bprint_pel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
+                .addGap(13, 13, 13))
         );
 
-        javax.swing.GroupLayout Panel_ServiceLayout = new javax.swing.GroupLayout(Panel_Service);
-        Panel_Service.setLayout(Panel_ServiceLayout);
-        Panel_ServiceLayout.setHorizontalGroup(
-            Panel_ServiceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Panel_ServiceLayout.createSequentialGroup()
+        javax.swing.GroupLayout panel_aksesorisLayout = new javax.swing.GroupLayout(panel_aksesoris);
+        panel_aksesoris.setLayout(panel_aksesorisLayout);
+        panel_aksesorisLayout.setHorizontalGroup(
+            panel_aksesorisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_aksesorisLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(Panel_ServiceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(panel_aksesorisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, Panel_ServiceLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_aksesorisLayout.createSequentialGroup()
                         .addComponent(panel_kiri, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(45, 45, 45)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -352,13 +356,13 @@ private Connection conn = new koneksi().connect();
                 .addContainerGap())
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        Panel_ServiceLayout.setVerticalGroup(
-            Panel_ServiceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Panel_ServiceLayout.createSequentialGroup()
+        panel_aksesorisLayout.setVerticalGroup(
+            panel_aksesorisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_aksesorisLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(Panel_ServiceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(panel_aksesorisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(panel_kiri, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panel_kanan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -371,11 +375,11 @@ private Connection conn = new koneksi().connect();
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Panel_Service, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panel_aksesoris, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Panel_Service, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panel_aksesoris, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -493,10 +497,7 @@ private Connection conn = new koneksi().connect();
     }//GEN-LAST:event_bbatalActionPerformed
 
     private void bkeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bkeluarActionPerformed
-        menu_utama ma = new menu_utama();
-        ma.setVisible(true);
-        ma.setLocationRelativeTo(null);
-        this.dispose();
+         this.dispose();
     }//GEN-LAST:event_bkeluarActionPerformed
 
     private void table_aksesorisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_aksesorisMouseClicked
@@ -568,7 +569,6 @@ private Connection conn = new koneksi().connect();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel Panel_Service;
     private javax.swing.JButton bbatal;
     private javax.swing.JButton bhapus;
     private javax.swing.JButton bkeluar;
@@ -588,6 +588,7 @@ private Connection conn = new koneksi().connect();
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField nama_aksesoris;
+    private javax.swing.JPanel panel_aksesoris;
     private javax.swing.JPanel panel_kanan;
     private javax.swing.JPanel panel_kiri;
     private javax.swing.JTable table_aksesoris;

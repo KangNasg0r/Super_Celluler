@@ -41,28 +41,32 @@ public class riwayat_transaksi extends javax.swing.JFrame {
         datatable_transaksi();
         setupDateChooserListener();
     }
+    
+    public javax.swing.JPanel getMainPanel() {
+        return jPanel1;
+    }
 
-    protected void NamaDariId(String idTeknisi, String idPelanggan) {
-        label_teknisi.setText("------------");
+    protected void NamaDariId(String idKasir, String idPelanggan) {
+        label_kasir.setText("------------");
         label_pelanggan.setText("------------");
 
-        if (idTeknisi.isEmpty() || idPelanggan.isEmpty()) {
+        if (idKasir.isEmpty() || idPelanggan.isEmpty()) {
             return;
         }
         try (
-                PreparedStatement PTeknisi = conn.prepareStatement("SELECT nama FROM tb_login WHERE id_teknisi = ?");
+                PreparedStatement PKasir = conn.prepareStatement("SELECT nama FROM tb_kasir WHERE id_kasir = ?");
                 PreparedStatement PPelanggan = conn.prepareStatement("SELECT nama_pelanggan FROM tb_pelanggan WHERE id_pelanggan = ?")) {
-            // Ambil nama teknisi untuk cetak nota
-            PTeknisi.setString(1, idTeknisi);
-            try (ResultSet rsTeknisi = PTeknisi.executeQuery()) {
-                if (rsTeknisi.next()) {
-                    label_teknisi.setText(rsTeknisi.getString("nama"));
+            
+            PKasir.setString(1, idKasir);
+            try (ResultSet rsKasir = PKasir.executeQuery()) {
+                if (rsKasir.next()) {
+                    label_kasir.setText(rsKasir.getString("nama"));
                 } else {
-                    label_teknisi.setText("Nama Teknisi Tidak Ditemukan");
+                    label_kasir.setText("Nama Kasir Tidak Ditemukan");
                 }
             }
 
-            // Ambil nama pelanggan untuk cetak nota
+            
             PPelanggan.setString(1, idPelanggan);
             try (ResultSet rsPelanggan = PPelanggan.executeQuery()) {
                 if (rsPelanggan.next()) {
@@ -91,7 +95,7 @@ public class riwayat_transaksi extends javax.swing.JFrame {
         System.err.println("Mohon pilih tanggal");
     }
 
-    // Add listener for the end date chooser
+    
     if (cari_tanggal_akhir != null) {
         cari_tanggal_akhir.addPropertyChangeListener("date", new PropertyChangeListener() {
             @Override
@@ -105,10 +109,10 @@ public class riwayat_transaksi extends javax.swing.JFrame {
 }
     
     protected void datatable_nota() {
-        Object[] Baris = {"ID Nota", "Tanggal", "ID Teknisi", "ID Pelanggan"};
+        Object[] Baris = {"ID Nota", "Tanggal", "ID Kasir", "ID Pelanggan"};
         tabmode = new DefaultTableModel(null, Baris);
         String cariitem = txtcari.getText();
-        java.util.Date tanggalMulai = cari_tanggal.getDate(); // Your existing start date chooser
+        java.util.Date tanggalMulai = cari_tanggal.getDate();
         java.util.Date tanggalAkhir = cari_tanggal_akhir.getDate();
 
         try {
@@ -128,7 +132,7 @@ public class riwayat_transaksi extends javax.swing.JFrame {
                     + "ORDER BY id_nota ASC";
         } else {
             sql = "SELECT * FROM tb_nota WHERE id_nota LIKE '%" + cariitem + "%' "
-                    + "OR id_teknisi LIKE '%" + cariitem + "%' "
+                    + "OR id_kasir LIKE '%" + cariitem + "%' "
                     + "OR id_pelanggan LIKE '%" + cariitem + "%' "
                     + "ORDER BY id_nota ASC";
         }
@@ -186,14 +190,14 @@ public class riwayat_transaksi extends javax.swing.JFrame {
     
     public void cetak() {
         try{
-            String loginId = UserID.getIdTeknisi();
-            String loginTeknisi = "Tidak Diketahui";
+            String loginId = UserID.getIdKasir();
+            String loginKasir = "Tidak Diketahui";
             
-            try (PreparedStatement teknama = conn.prepareStatement("SELECT nama FROM tb_login WHERE id_teknisi = ?")) {
-                teknama.setString(1, loginId);
-                try (ResultSet rsNama = teknama.executeQuery()) {
+            try (PreparedStatement kasnama = conn.prepareStatement("SELECT nama FROM tb_kasir WHERE id_kasir = ?")) {
+                kasnama.setString(1, loginId);
+                try (ResultSet rsNama = kasnama.executeQuery()) {
                     if (rsNama.next()) {
-                        loginTeknisi = rsNama.getString("nama");
+                        loginKasir = rsNama.getString("nama");
                     }
                 }
             }
@@ -201,7 +205,7 @@ public class riwayat_transaksi extends javax.swing.JFrame {
             String path="./src/report/nota1.jasper";
             HashMap parameter = new HashMap();
             parameter.put("id_nota",txt_cari.getText());
-            parameter.put("TEKNISI", loginTeknisi);
+            parameter.put("KASIR", loginKasir);
             
             JasperPrint print = JasperFillManager.fillReport(path,parameter,conn);
             JasperViewer.viewReport(print,false);
@@ -231,12 +235,12 @@ public class riwayat_transaksi extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         label_pelanggan = new javax.swing.JLabel();
-        label_teknisi = new javax.swing.JLabel();
+        label_kasir = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        label_idTek = new javax.swing.JLabel();
+        label_idKas = new javax.swing.JLabel();
         label_idPel = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -256,21 +260,19 @@ public class riwayat_transaksi extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(102, 102, 255));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel9.setText("ID NOTA");
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("RIWAYAT TRANSAKSI");
-        jLabel10.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        jLabel10.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 0, 2, 0, new java.awt.Color(0, 0, 0)));
 
-        jPanel2.setBackground(new java.awt.Color(102, 102, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2), "DETAIL TRANSAKSI", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), "DETAIL TRANSAKSI", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
 
         tb_nota_detail.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         tb_nota_detail.setModel(new javax.swing.table.DefaultTableModel(
@@ -287,68 +289,53 @@ public class riwayat_transaksi extends javax.swing.JFrame {
         jScrollPane2.setViewportView(tb_nota_detail);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Teknisi");
+        jLabel1.setText("Kasir");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Pelanggan");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText(":");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText(":");
 
-        label_pelanggan.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        label_pelanggan.setForeground(new java.awt.Color(255, 255, 255));
+        label_pelanggan.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         label_pelanggan.setText("-------------");
 
-        label_teknisi.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        label_teknisi.setForeground(new java.awt.Color(255, 255, 255));
-        label_teknisi.setText("---------");
+        label_kasir.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        label_kasir.setText("---------");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("ID");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("ID");
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText(":");
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText(":");
 
-        label_idTek.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        label_idTek.setForeground(new java.awt.Color(255, 255, 255));
-        label_idTek.setText("---------");
+        label_idKas.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        label_idKas.setText("---------");
 
-        label_idPel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        label_idPel.setForeground(new java.awt.Color(255, 255, 255));
+        label_idPel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         label_idPel.setText("-------------");
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setText(":");
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("Total");
 
-        label_total.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        label_total.setForeground(new java.awt.Color(255, 255, 255));
+        label_total.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         label_total.setText("-------------");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -368,11 +355,11 @@ public class riwayat_transaksi extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(label_teknisi, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(label_kasir, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(label_idTek, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(label_idKas, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -407,7 +394,7 @@ public class riwayat_transaksi extends javax.swing.JFrame {
                         .addComponent(jLabel6)
                         .addComponent(jLabel7)
                         .addComponent(jLabel8)
-                        .addComponent(label_idTek)))
+                        .addComponent(label_idKas)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -415,15 +402,15 @@ public class riwayat_transaksi extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel4)
                     .addComponent(label_pelanggan)
-                    .addComponent(label_teknisi))
+                    .addComponent(label_kasir))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
                     .addComponent(jLabel11)
                     .addComponent(label_total))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         tb_nota.setModel(new javax.swing.table.DefaultTableModel(
@@ -459,12 +446,10 @@ public class riwayat_transaksi extends javax.swing.JFrame {
             }
         });
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel13.setText("Cari ID :");
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel14.setText("Cari berdasarkan tanggal :");
 
         bkembali.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -476,13 +461,11 @@ public class riwayat_transaksi extends javax.swing.JFrame {
             }
         });
 
-        txt_cari.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txt_cari.setForeground(new java.awt.Color(255, 255, 255));
+        txt_cari.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txt_cari.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         txt_cari.setText("--------------");
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel15.setText(":");
 
@@ -544,7 +527,7 @@ public class riwayat_transaksi extends javax.swing.JFrame {
                     .addComponent(cari_tanggal_akhir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -575,12 +558,12 @@ public class riwayat_transaksi extends javax.swing.JFrame {
         int bar = tb_nota.getSelectedRow();
         if (bar >= 0) {
             txt_cari.setText(tb_nota.getValueAt(bar, 0).toString());
-            String idTeknisi = tb_nota.getValueAt(bar, 2).toString();
+            String idKasir = tb_nota.getValueAt(bar, 2).toString();
             String idPelanggan = tb_nota.getValueAt(bar, 3).toString();
-            label_idTek.setText(idTeknisi);
+            label_idKas.setText(idKasir);
             label_idPel.setText(idPelanggan);
             datatable_transaksi();
-            NamaDariId(idTeknisi, idPelanggan);
+            NamaDariId(idKasir, idPelanggan);
             txtcari.requestFocus();
             //cetak();
         }
@@ -658,10 +641,10 @@ public class riwayat_transaksi extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel label_idKas;
     private javax.swing.JLabel label_idPel;
-    private javax.swing.JLabel label_idTek;
+    private javax.swing.JLabel label_kasir;
     private javax.swing.JLabel label_pelanggan;
-    private javax.swing.JLabel label_teknisi;
     private javax.swing.JLabel label_total;
     private javax.swing.JTable tb_nota;
     private javax.swing.JTable tb_nota_detail;

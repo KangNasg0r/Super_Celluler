@@ -18,7 +18,7 @@ import koneksi.koneksi;
  *
  * @author Ahmad Nur Latif P
  */
-public class master_teknisi extends javax.swing.JFrame {
+public class master_kasir extends javax.swing.JFrame {
 
     private Connection conn = new koneksi().connect();
     private DefaultTableModel tabmode;
@@ -26,7 +26,7 @@ public class master_teknisi extends javax.swing.JFrame {
     /**
      * Creates new form report_karyawan
      */
-    public master_teknisi() {
+    public master_kasir() {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         kosong();
@@ -37,15 +37,15 @@ public class master_teknisi extends javax.swing.JFrame {
     }
     
      public javax.swing.JPanel getMainPanel() {
-        return Panel_Teknisi;
+        return Panel_Kasir;
     }
 
     protected void aktif() {
-        id_teknisi.requestFocus();
+        id_kasir.requestFocus();
     }
 
     protected void kosong() {
-        id_teknisi.setText("");
+        id_kasir.setText("");
         sandi.setText("");
         knf_sandi.setText("");
         nama.setText("");
@@ -54,17 +54,17 @@ public class master_teknisi extends javax.swing.JFrame {
     }
 
     protected void datatable() {
-        Object[] Baris = {"ID Teknisi", "Password", "Nama", "Jenis Kelamin", "No Handphone", "Alamat"};
+        Object[] Baris = {"ID Kasir", "Password", "Nama", "Jenis Kelamin", "No Handphone", "Alamat"};
         tabmode = new DefaultTableModel(null, Baris);
-        String cariitem = cari_teknisi.getText();
+        String cariitem = cari_kasir.getText();
 
         try {
-            String sql = "SELECT * FROM tb_login WHERE id_teknisi LIKE '%" + cariitem + "%' "
+            String sql = "SELECT * FROM tb_kasir WHERE id_kasir LIKE '%" + cariitem + "%' "
                     + "OR nama LIKE '%" + cariitem + "%' "
                     + "OR jenkel LIKE '%" + cariitem + "%' "
                     + "OR hp LIKE '%" + cariitem + "%' "
                     + "OR alamat LIKE '%" + cariitem + "%' "
-                    + "ORDER BY id_teknisi ASC";
+                    + "ORDER BY id_kasir ASC";
             Statement stat = conn.createStatement();
             ResultSet hasil = stat.executeQuery(sql);
             while (hasil.next()) {
@@ -76,7 +76,7 @@ public class master_teknisi extends javax.swing.JFrame {
                     hasil.getString(5),
                     hasil.getString(6),});
             }
-            tblteknisi.setModel(tabmode);
+            tblkasir.setModel(tabmode);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "data gagal dipanggil" + e);
         }
@@ -91,13 +91,13 @@ public class master_teknisi extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Panel_Teknisi = new javax.swing.JPanel();
+        Panel_Kasir = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         knf_sandi = new javax.swing.JPasswordField();
         jLabel6 = new javax.swing.JLabel();
-        id_teknisi = new javax.swing.JTextField();
+        id_kasir = new javax.swing.JTextField();
         sandi = new javax.swing.JPasswordField();
         nama = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -106,30 +106,29 @@ public class master_teknisi extends javax.swing.JFrame {
         jenkel = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         hp = new javax.swing.JTextField();
-        bsimpan_tek = new javax.swing.JButton();
-        bubah_tek = new javax.swing.JButton();
-        bhapus_tek = new javax.swing.JButton();
+        bsimpan_kas = new javax.swing.JButton();
+        bubah_kas = new javax.swing.JButton();
+        bhapus_kas = new javax.swing.JButton();
         bbatal = new javax.swing.JButton();
-        bkeluar = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         alamat = new javax.swing.JTextArea();
         jpanel_kiri = new javax.swing.JPanel();
         jpanel_kanan = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        cari_teknisi = new javax.swing.JTextField();
+        cari_kasir = new javax.swing.JTextField();
         bcari = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblteknisi = new javax.swing.JTable();
-        bprint_tek = new javax.swing.JButton();
+        tblkasir = new javax.swing.JTable();
+        bprint_kas = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        Panel_Teknisi.setBackground(new java.awt.Color(255, 255, 255));
+        Panel_Kasir.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("DATA TEKNISI");
+        jLabel1.setText("DATA KASIR");
         jLabel1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 0, 2, 0, new java.awt.Color(0, 0, 0)));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -149,9 +148,9 @@ public class master_teknisi extends javax.swing.JFrame {
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel6.setText("Nama  :");
 
-        id_teknisi.addActionListener(new java.awt.event.ActionListener() {
+        id_kasir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                id_teknisiActionPerformed(evt);
+                id_kasirActionPerformed(evt);
             }
         });
 
@@ -163,7 +162,7 @@ public class master_teknisi extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel2.setText("ID Teknisi :");
+        jLabel2.setText("ID Kasir :");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -185,30 +184,30 @@ public class master_teknisi extends javax.swing.JFrame {
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel8.setText("Nomor Handphone :");
 
-        bsimpan_tek.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        bsimpan_tek.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/save.png"))); // NOI18N
-        bsimpan_tek.setText("SIMPAN");
-        bsimpan_tek.addActionListener(new java.awt.event.ActionListener() {
+        bsimpan_kas.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        bsimpan_kas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/save.png"))); // NOI18N
+        bsimpan_kas.setText("SIMPAN");
+        bsimpan_kas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bsimpan_tekActionPerformed(evt);
+                bsimpan_kasActionPerformed(evt);
             }
         });
 
-        bubah_tek.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        bubah_tek.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/edit.png"))); // NOI18N
-        bubah_tek.setText("UBAH");
-        bubah_tek.addActionListener(new java.awt.event.ActionListener() {
+        bubah_kas.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        bubah_kas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/edit.png"))); // NOI18N
+        bubah_kas.setText("UBAH");
+        bubah_kas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bubah_tekActionPerformed(evt);
+                bubah_kasActionPerformed(evt);
             }
         });
 
-        bhapus_tek.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        bhapus_tek.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/delete.png"))); // NOI18N
-        bhapus_tek.setText("HAPUS");
-        bhapus_tek.addActionListener(new java.awt.event.ActionListener() {
+        bhapus_kas.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        bhapus_kas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/delete.png"))); // NOI18N
+        bhapus_kas.setText("HAPUS");
+        bhapus_kas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bhapus_tekActionPerformed(evt);
+                bhapus_kasActionPerformed(evt);
             }
         });
 
@@ -218,15 +217,6 @@ public class master_teknisi extends javax.swing.JFrame {
         bbatal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bbatalActionPerformed(evt);
-            }
-        });
-
-        bkeluar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        bkeluar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/exit.png"))); // NOI18N
-        bkeluar.setText("KEMBALI");
-        bkeluar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bkeluarActionPerformed(evt);
             }
         });
 
@@ -247,7 +237,7 @@ public class master_teknisi extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(id_teknisi, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                            .addComponent(id_kasir, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
                             .addComponent(sandi)
                             .addComponent(knf_sandi)
                             .addComponent(nama)
@@ -272,16 +262,14 @@ public class master_teknisi extends javax.swing.JFrame {
                                 .addComponent(jScrollPane2)
                                 .addContainerGap())))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(bsimpan_tek)
+                        .addComponent(bsimpan_kas)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bubah_tek, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(bubah_kas, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bhapus_tek, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(bhapus_kas, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(bbatal, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bkeluar)
-                        .addContainerGap())))
+                        .addContainerGap(117, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -292,7 +280,7 @@ public class master_teknisi extends javax.swing.JFrame {
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(id_teknisi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(id_kasir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jenkel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -317,11 +305,10 @@ public class master_teknisi extends javax.swing.JFrame {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bubah_tek)
-                    .addComponent(bhapus_tek)
-                    .addComponent(bsimpan_tek)
-                    .addComponent(bbatal)
-                    .addComponent(bkeluar))
+                    .addComponent(bubah_kas)
+                    .addComponent(bhapus_kas)
+                    .addComponent(bsimpan_kas)
+                    .addComponent(bbatal))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -354,17 +341,17 @@ public class master_teknisi extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
 
-        cari_teknisi.addActionListener(new java.awt.event.ActionListener() {
+        cari_kasir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cari_teknisiActionPerformed(evt);
+                cari_kasirActionPerformed(evt);
             }
         });
-        cari_teknisi.addKeyListener(new java.awt.event.KeyAdapter() {
+        cari_kasir.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                cari_teknisiKeyPressed(evt);
+                cari_kasirKeyPressed(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                cari_teknisiKeyTyped(evt);
+                cari_kasirKeyTyped(evt);
             }
         });
 
@@ -378,9 +365,9 @@ public class master_teknisi extends javax.swing.JFrame {
             }
         });
 
-        tblteknisi.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        tblteknisi.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        tblteknisi.setModel(new javax.swing.table.DefaultTableModel(
+        tblkasir.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        tblkasir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tblkasir.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -391,21 +378,21 @@ public class master_teknisi extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblteknisi.setGridColor(new java.awt.Color(255, 255, 255));
-        tblteknisi.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblkasir.setGridColor(new java.awt.Color(255, 255, 255));
+        tblkasir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblteknisiMouseClicked(evt);
+                tblkasirMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tblteknisi);
+        jScrollPane1.setViewportView(tblkasir);
 
-        bprint_tek.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        bprint_tek.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/printer.png"))); // NOI18N
-        bprint_tek.setText("CETAK");
-        bprint_tek.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        bprint_tek.addActionListener(new java.awt.event.ActionListener() {
+        bprint_kas.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        bprint_kas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/printer.png"))); // NOI18N
+        bprint_kas.setText("CETAK");
+        bprint_kas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bprint_kas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bprint_tekActionPerformed(evt);
+                bprint_kasActionPerformed(evt);
             }
         });
 
@@ -417,11 +404,11 @@ public class master_teknisi extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(cari_teknisi, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cari_kasir, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(bcari)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bprint_tek))
+                        .addComponent(bprint_kas))
                     .addComponent(jScrollPane1))
                 .addContainerGap())
         );
@@ -430,20 +417,20 @@ public class master_teknisi extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cari_teknisi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cari_kasir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bcari)
-                    .addComponent(bprint_tek))
+                    .addComponent(bprint_kas))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout Panel_TeknisiLayout = new javax.swing.GroupLayout(Panel_Teknisi);
-        Panel_Teknisi.setLayout(Panel_TeknisiLayout);
-        Panel_TeknisiLayout.setHorizontalGroup(
-            Panel_TeknisiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout Panel_KasirLayout = new javax.swing.GroupLayout(Panel_Kasir);
+        Panel_Kasir.setLayout(Panel_KasirLayout);
+        Panel_KasirLayout.setHorizontalGroup(
+            Panel_KasirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(Panel_TeknisiLayout.createSequentialGroup()
+            .addGroup(Panel_KasirLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(jpanel_kiri, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -451,18 +438,18 @@ public class master_teknisi extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jpanel_kanan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(12, 12, 12))
-            .addGroup(Panel_TeknisiLayout.createSequentialGroup()
+            .addGroup(Panel_KasirLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        Panel_TeknisiLayout.setVerticalGroup(
-            Panel_TeknisiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Panel_TeknisiLayout.createSequentialGroup()
+        Panel_KasirLayout.setVerticalGroup(
+            Panel_KasirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Panel_KasirLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(Panel_TeknisiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(Panel_KasirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jpanel_kiri, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jpanel_kanan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -475,45 +462,45 @@ public class master_teknisi extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Panel_Teknisi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(Panel_Kasir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(Panel_Teknisi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Panel_Kasir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tblteknisiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblteknisiMouseClicked
-        int bar = tblteknisi.getSelectedRow();
-        String a = tblteknisi.getValueAt(bar, 0).toString();
-        String b = tblteknisi.getValueAt(bar, 1).toString();
-        String c = tblteknisi.getValueAt(bar, 2).toString();
-        String d = tblteknisi.getValueAt(bar, 3).toString();
-        String e = tblteknisi.getValueAt(bar, 4).toString();
-        String f = tblteknisi.getValueAt(bar, 5).toString();
+    private void tblkasirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblkasirMouseClicked
+        int bar = tblkasir.getSelectedRow();
+        String a = tblkasir.getValueAt(bar, 0).toString();
+        String b = tblkasir.getValueAt(bar, 1).toString();
+        String c = tblkasir.getValueAt(bar, 2).toString();
+        String d = tblkasir.getValueAt(bar, 3).toString();
+        String e = tblkasir.getValueAt(bar, 4).toString();
+        String f = tblkasir.getValueAt(bar, 5).toString();
 
-        id_teknisi.setText(a);
+        id_kasir.setText(a);
         sandi.setText(b);
         knf_sandi.setText(b);
         nama.setText(c);
         jenkel.setSelectedItem(d);
         hp.setText(e);
         alamat.setText(f);
-    }//GEN-LAST:event_tblteknisiMouseClicked
+    }//GEN-LAST:event_tblkasirMouseClicked
 
-    private void cari_teknisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cari_teknisiActionPerformed
+    private void cari_kasirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cari_kasirActionPerformed
 
-    }//GEN-LAST:event_cari_teknisiActionPerformed
+    }//GEN-LAST:event_cari_kasirActionPerformed
 
-    private void cari_teknisiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cari_teknisiKeyPressed
+    private void cari_kasirKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cari_kasirKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             datatable();
         }
-    }//GEN-LAST:event_cari_teknisiKeyPressed
+    }//GEN-LAST:event_cari_kasirKeyPressed
 
     private void bcariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bcariActionPerformed
         datatable();
@@ -523,9 +510,9 @@ public class master_teknisi extends javax.swing.JFrame {
 
     }//GEN-LAST:event_knf_sandiActionPerformed
 
-    private void id_teknisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_id_teknisiActionPerformed
+    private void id_kasirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_id_kasirActionPerformed
 
-    }//GEN-LAST:event_id_teknisiActionPerformed
+    }//GEN-LAST:event_id_kasirActionPerformed
 
     private void sandiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sandiActionPerformed
 
@@ -535,36 +522,36 @@ public class master_teknisi extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jenkelComponentShown
 
-    private boolean id_tekTerdaftar(String id_teknisi) {
-        String sql = "SELECT id_teknisi FROM tb_login WHERE id_teknisi = ?";
+    private boolean id_kasTerdaftar(String id_kasir) {
+        String sql = "SELECT id_kasir FROM tb_kasir WHERE id_kasir = ?";
         try (PreparedStatement stat = conn.prepareStatement(sql)) {
-            stat.setString(1, id_teknisi);
+            stat.setString(1, id_kasir);
             ResultSet hasil = stat.executeQuery();
             return hasil.next();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Gagal memeriksa ID Teknisi: " + e.getMessage(), "Kesalahan", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Gagal memeriksa ID Kasir: " + e.getMessage(), "Kesalahan", JOptionPane.ERROR_MESSAGE);
             return false;
         }
     }
 
-    private void bsimpan_tekActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bsimpan_tekActionPerformed
-        String id_teknisiText = id_teknisi.getText().trim(); // Trim untuk menghapus spasi di awal dan akhir
+    private void bsimpan_kasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bsimpan_kasActionPerformed
+        String id_kasirText = id_kasir.getText().trim(); // Trim untuk menghapus spasi di awal dan akhir
         String sandiText = sandi.getText().trim();
         String knfSandiText = knf_sandi.getText().trim();
         String namaText = nama.getText().trim();
         String hpText = hp.getText().trim();
         String alamatText = alamat.getText().trim();
         String jenis = jenkel.getSelectedItem().toString();
-        if (id_teknisiText.isEmpty() || sandiText.isEmpty() || knfSandiText.isEmpty() || namaText.isEmpty() || hpText.isEmpty() || alamatText.isEmpty()) {
+        if (id_kasirText.isEmpty() || sandiText.isEmpty() || knfSandiText.isEmpty() || namaText.isEmpty() || hpText.isEmpty() || alamatText.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Semua kolom harus diisi.", "Kesalahan", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        if (id_teknisiText.length() > 15) {
-            JOptionPane.showMessageDialog(this, "ID Teknisi harus terdiri dari 15 digit.", "Kesalahan", JOptionPane.ERROR_MESSAGE);
+        if (id_kasirText.length() > 15) {
+            JOptionPane.showMessageDialog(this, "ID Kasir harus terdiri dari 15 digit.", "Kesalahan", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        if (id_tekTerdaftar(id_teknisiText)) {
-            JOptionPane.showMessageDialog(this, "ID Teknisi sudah terdaftar.", "Kesalahan", JOptionPane.ERROR_MESSAGE);
+        if (id_kasTerdaftar(id_kasirText)) {
+            JOptionPane.showMessageDialog(this, "ID Kasir sudah terdaftar.", "Kesalahan", JOptionPane.ERROR_MESSAGE);
             return;
         }
         if (jenis.equals("Pilih Jenis Kelamin")) {
@@ -575,10 +562,10 @@ public class master_teknisi extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Konfirmasi sandi tidak sama dengan sandi.", "Kesalahan", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        String sql = "insert into tb_login values(?,?,?,?,?,?)";
+        String sql = "insert into tb_kasir values(?,?,?,?,?,?)";
         try {
             PreparedStatement stat = conn.prepareStatement(sql);
-            stat.setString(1, id_teknisiText);
+            stat.setString(1, id_kasirText);
             stat.setString(2, sandiText);
             stat.setString(3, namaText);
             stat.setString(4, jenis);
@@ -593,21 +580,21 @@ public class master_teknisi extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Data gagal disimpan!" + e);
         }
         datatable();
-    }//GEN-LAST:event_bsimpan_tekActionPerformed
+    }//GEN-LAST:event_bsimpan_kasActionPerformed
 
-    private void bhapus_tekActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bhapus_tekActionPerformed
-        String idTeknisi = id_teknisi.getText().trim();
-        if (idTeknisi.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "ID Teknisi belum diisi.", "Peringatan", JOptionPane.WARNING_MESSAGE);
+    private void bhapus_kasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bhapus_kasActionPerformed
+        String idKasir = id_kasir.getText().trim();
+        if (idKasir.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "ID Kasir belum diisi.", "Peringatan", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        if (!id_tekTerdaftar(idTeknisi)) {
-            JOptionPane.showMessageDialog(this, "ID Teknisi tidak ditemukan.", "Peringatan", JOptionPane.WARNING_MESSAGE);
+        if (!id_kasTerdaftar(idKasir)) {
+            JOptionPane.showMessageDialog(this, "ID Kasir tidak ditemukan.", "Peringatan", JOptionPane.WARNING_MESSAGE);
             return;
         }
         int ok = JOptionPane.showConfirmDialog(null, "Apakah benar ingin dihapus?", "Peringatan!", JOptionPane.YES_NO_OPTION);
         if (ok == 0) {
-            String sql = "delete from tb_login where id_teknisi='" + idTeknisi + "'";
+            String sql = "delete from tb_kasir where id_kasir='" + idKasir + "'";
             try {
                 PreparedStatement stat = conn.prepareStatement(sql);
                 stat.executeUpdate();
@@ -619,22 +606,22 @@ public class master_teknisi extends javax.swing.JFrame {
             }
             datatable();
         }
-    }//GEN-LAST:event_bhapus_tekActionPerformed
+    }//GEN-LAST:event_bhapus_kasActionPerformed
 
-    private void bubah_tekActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bubah_tekActionPerformed
-        String id_teknisiText = id_teknisi.getText().trim(); // Trim untuk menghapus spasi di awal dan akhir
+    private void bubah_kasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bubah_kasActionPerformed
+        String id_kasirText = id_kasir.getText().trim(); // Trim untuk menghapus spasi di awal dan akhir
         String sandiText = sandi.getText().trim();
         String knfSandiText = knf_sandi.getText().trim();
         String namaText = nama.getText().trim();
         String hpText = hp.getText().trim();
         String alamatText = alamat.getText().trim();
         String jenis = jenkel.getSelectedItem().toString();
-        if (id_teknisiText.isEmpty() || sandiText.isEmpty() || knfSandiText.isEmpty() || namaText.isEmpty() || hpText.isEmpty() || alamatText.isEmpty()) {
+        if (id_kasirText.isEmpty() || sandiText.isEmpty() || knfSandiText.isEmpty() || namaText.isEmpty() || hpText.isEmpty() || alamatText.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Semua kolom harus diisi.", "Kesalahan", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        if (id_teknisiText.length() > 15) {
-            JOptionPane.showMessageDialog(this, "ID Teknisi harus terdiri dari 15 digit.", "Kesalahan", JOptionPane.ERROR_MESSAGE);
+        if (id_kasirText.length() > 15) {
+            JOptionPane.showMessageDialog(this, "ID Kasir harus terdiri dari 15 digit.", "Kesalahan", JOptionPane.ERROR_MESSAGE);
             return;
         }
         if (jenis.equals("Pilih Jenis Kelamin")) {
@@ -646,7 +633,7 @@ public class master_teknisi extends javax.swing.JFrame {
             return;
         }
 
-        String sql = "UPDATE tb_login SET sandi=?, nama=?, jenkel=?, hp=?, alamat=? WHERE id_teknisi=?"; // Perhatikan penggunaan UPDATE
+        String sql = "UPDATE tb_kasir SET sandi=?, nama=?, jenkel=?, hp=?, alamat=? WHERE id_kasir=?";
         try {
             PreparedStatement stat = conn.prepareStatement(sql);
             stat.setString(1, sandiText);
@@ -654,39 +641,35 @@ public class master_teknisi extends javax.swing.JFrame {
             stat.setString(3, jenis);
             stat.setString(4, hpText);
             stat.setString(5, alamatText);
-            stat.setString(6, id_teknisiText); // WHERE clause
+            stat.setString(6, id_kasirText);
             int rowsUpdated = stat.executeUpdate();
             if (rowsUpdated > 0) {
                 JOptionPane.showMessageDialog(null, "Data berhasil diubah!");
                 kosong();
                 aktif();
             } else {
-                JOptionPane.showMessageDialog(null, "Data gagal diubah. ID Teknisi tidak ditemukan.", "Kesalahan", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Data gagal diubah. ID Kasir tidak ditemukan.", "Kesalahan", JOptionPane.ERROR_MESSAGE);
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Data gagal diubah!" + e, "Kesalahan", JOptionPane.ERROR_MESSAGE);
         }
         datatable();
-    }//GEN-LAST:event_bubah_tekActionPerformed
+    }//GEN-LAST:event_bubah_kasActionPerformed
 
     private void bbatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bbatalActionPerformed
         kosong();
         datatable();
     }//GEN-LAST:event_bbatalActionPerformed
 
-    private void bkeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bkeluarActionPerformed
-         this.dispose();
-    }//GEN-LAST:event_bkeluarActionPerformed
-
-    private void bprint_tekActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bprint_tekActionPerformed
+    private void bprint_kasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bprint_kasActionPerformed
         report_kasir rt = new report_kasir();
         rt.setVisible(true);
-        rt.setLocationRelativeTo(null);    // TODO add your handling code here:
-    }//GEN-LAST:event_bprint_tekActionPerformed
+        rt.setLocationRelativeTo(null);
+    }//GEN-LAST:event_bprint_kasActionPerformed
 
-    private void cari_teknisiKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cari_teknisiKeyTyped
+    private void cari_kasirKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cari_kasirKeyTyped
         datatable();
-    }//GEN-LAST:event_cari_teknisiKeyTyped
+    }//GEN-LAST:event_cari_kasirKeyTyped
 
     /**
      * @param args the command line arguments
@@ -705,14 +688,18 @@ public class master_teknisi extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(master_teknisi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(master_kasir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(master_teknisi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(master_kasir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(master_teknisi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(master_kasir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(master_teknisi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(master_kasir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -721,24 +708,23 @@ public class master_teknisi extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new master_teknisi().setVisible(true);
+                new master_kasir().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel Panel_Teknisi;
+    private javax.swing.JPanel Panel_Kasir;
     private javax.swing.JTextArea alamat;
     private javax.swing.JButton bbatal;
     private javax.swing.JButton bcari;
-    private javax.swing.JButton bhapus_tek;
-    private javax.swing.JButton bkeluar;
-    private javax.swing.JButton bprint_tek;
-    private javax.swing.JButton bsimpan_tek;
-    private javax.swing.JButton bubah_tek;
-    private javax.swing.JTextField cari_teknisi;
+    private javax.swing.JButton bhapus_kas;
+    private javax.swing.JButton bprint_kas;
+    private javax.swing.JButton bsimpan_kas;
+    private javax.swing.JButton bubah_kas;
+    private javax.swing.JTextField cari_kasir;
     private javax.swing.JTextField hp;
-    private javax.swing.JTextField id_teknisi;
+    private javax.swing.JTextField id_kasir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -757,6 +743,6 @@ public class master_teknisi extends javax.swing.JFrame {
     private javax.swing.JPasswordField knf_sandi;
     private javax.swing.JTextField nama;
     private javax.swing.JPasswordField sandi;
-    private javax.swing.JTable tblteknisi;
+    private javax.swing.JTable tblkasir;
     // End of variables declaration//GEN-END:variables
 }

@@ -13,7 +13,6 @@
 			<style mode="Opaque" backcolor="#F0EFEF"/>
 		</conditionalStyle>
 	</style>
-	<parameter name="TEKNISI" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT * FROM tb_service]]>
 	</queryString>
@@ -36,7 +35,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="40" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Data Service Gadget House]]></text>
+				<text><![CDATA[Data Service Super Celluler]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="2" y="105" width="423" height="51" uuid="a2d638d8-480f-4700-926f-679fadfc2dae"/>
@@ -147,7 +146,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Teknisi Gadget House]]></text>
+				<text><![CDATA[Super Celluler]]></text>
 			</staticText>
 			<line>
 				<reportElement x="400" y="111" width="154" height="1" uuid="f55bf595-0486-42ce-83d1-445191f030a6"/>
@@ -159,13 +158,6 @@
 				</textElement>
 				<text><![CDATA[Dikeluarkan Oleh,]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="400" y="83" width="154" height="16" uuid="f57ea97f-8925-4523-8b7b-2796171e600d"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="10" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{TEKNISI}]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement x="401" y="8" width="40" height="20" uuid="f6ea233b-57a3-4cfb-ab97-fa7075c43f84"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">

@@ -40,6 +40,10 @@ private Connection conn = new koneksi().connect();
         initTable();
     }
     
+        public javax.swing.JPanel getMainPanel() {
+        return jPanel1;
+    }
+    
     protected void initTable() {
         Object[] Baris = {"ID Nota", "Tanggal", "ID Pelanggan", "Nama Pelanggan", "ID Item", "Nama Item", "Harga", "Kuantitas", "Subtotal"};
         tabmode = new DefaultTableModel(null, Baris);
@@ -113,20 +117,20 @@ private Connection conn = new koneksi().connect();
 
     public void DiagramBatang(Date tglMulai, Date tglSelesai) {
         try {
-            String loginId = UserID.getIdTeknisi();
-            String loginTeknisi = "Tidak Diketahui";
+            String loginId = UserID.getIdKasir();
+            String loginKasir = "Tidak Diketahui";
 
-            try (PreparedStatement teknama = conn.prepareStatement("SELECT nama FROM tb_login WHERE id_teknisi = ?")) {
-                teknama.setString(1, loginId);
-                try (ResultSet rsNama = teknama.executeQuery()) {
+            try (PreparedStatement kasnama = conn.prepareStatement("SELECT nama FROM tb_kasir WHERE id_kasir = ?")) {
+                kasnama.setString(1, loginId);
+                try (ResultSet rsNama = kasnama.executeQuery()) {
                     if (rsNama.next()) {
-                        loginTeknisi = rsNama.getString("nama");
+                        loginKasir = rsNama.getString("nama");
                     }
                 }
             }
             String path = "./src/report/penjualan_ChartBar.jasper";
             HashMap<String, Object> parameters = new HashMap<>();
-            parameters.put("TEKNISI", loginTeknisi);
+            parameters.put("KASIR", loginKasir);
             parameters.put("TANGGAL_MULAI", new java.sql.Date(tglMulai.getTime()));
             parameters.put("TANGGAL_SELESAI", new java.sql.Date(tglSelesai.getTime()));
 
@@ -173,20 +177,17 @@ private Connection conn = new koneksi().connect();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(102, 102, 255));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Diagram Batang Pendapatan Penjualan");
-        jLabel1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        jLabel1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 0, 2, 0, new java.awt.Color(0, 0, 0)));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Tanggal Awal :");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("Tanggal Akhir :");
 
         bcari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/search.png"))); // NOI18N
@@ -197,8 +198,8 @@ private Connection conn = new koneksi().connect();
             }
         });
 
-        jPanel2.setBackground(new java.awt.Color(102, 102, 255));
-        jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
 
         tbl_penjualan_detail.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -213,12 +214,10 @@ private Connection conn = new koneksi().connect();
         ));
         jScrollPane1.setViewportView(tbl_penjualan_detail);
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Total Pendapatan");
 
-        label_total_pendapatan.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        label_total_pendapatan.setForeground(new java.awt.Color(255, 255, 255));
+        label_total_pendapatan.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         label_total_pendapatan.setText("---------------------------------------");
 
         bcetak_chart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/printer.png"))); // NOI18N
@@ -229,21 +228,17 @@ private Connection conn = new koneksi().connect();
             }
         });
 
-        label_total_pendapatan_bersih.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        label_total_pendapatan_bersih.setForeground(new java.awt.Color(255, 255, 255));
+        label_total_pendapatan_bersih.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         label_total_pendapatan_bersih.setText("---------------------------------------");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setText("Keuntungan Bersih");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText(":");
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText(":");
 
@@ -254,20 +249,20 @@ private Connection conn = new koneksi().connect();
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(6, 6, 6)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(label_total_pendapatan_bersih, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
-                            .addComponent(label_total_pendapatan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(label_total_pendapatan_bersih, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(label_total_pendapatan))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(bcetak_chart)))
                 .addContainerGap())
@@ -276,7 +271,7 @@ private Connection conn = new koneksi().connect();
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -288,7 +283,7 @@ private Connection conn = new koneksi().connect();
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(label_total_pendapatan_bersih)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         bkembali.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/back.png"))); // NOI18N
@@ -318,7 +313,7 @@ private Connection conn = new koneksi().connect();
                         .addComponent(tanggal_selesai, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(bcari)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 226, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 203, Short.MAX_VALUE)
                         .addComponent(bkembali)))
                 .addContainerGap())
         );

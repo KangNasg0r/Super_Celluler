@@ -5,19 +5,19 @@ public class UserID {
     private static String id;
     private static String nama;
 
-    static void setIdTeknisi(String idTek) {
-        UserID.id = idTek;
+    static void setIdKasir(String idKas) {
+        UserID.id = idKas;
     }
 
-    public static String getIdTeknisi() {
+    public static String getIdKasir() {
         return id;
     }
 
-    public static void setNamaTeknisi(String namaTeknisi) {
-        UserID.nama = namaTeknisi;
+    public static void setNamaKasir(String namaKasir) {
+        UserID.nama = namaKasir;
     }
 
-    public static String getNamaTeknisi() {
+    public static String getNamaKasir() {
         return nama;
     }
 }

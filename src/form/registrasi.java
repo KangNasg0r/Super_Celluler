@@ -37,7 +37,7 @@ public class registrasi extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        id_teknisi = new javax.swing.JTextField();
+        id_kasir = new javax.swing.JTextField();
         sandi = new javax.swing.JPasswordField();
         bregis = new javax.swing.JButton();
         bback = new javax.swing.JButton();
@@ -66,9 +66,9 @@ public class registrasi extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Daftar");
 
-        id_teknisi.addActionListener(new java.awt.event.ActionListener() {
+        id_kasir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                id_teknisiActionPerformed(evt);
+                id_kasirActionPerformed(evt);
             }
         });
 
@@ -106,7 +106,7 @@ public class registrasi extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel2.setText("ID Teknisi :");
+        jLabel2.setText("ID Kasir :");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -190,7 +190,7 @@ public class registrasi extends javax.swing.JFrame {
                             .addComponent(knf_sandi)
                             .addComponent(nama)
                             .addComponent(jenkel, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(id_teknisi)
+                            .addComponent(id_kasir)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -225,7 +225,7 @@ public class registrasi extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(id_teknisi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(id_kasir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -273,28 +273,28 @@ public class registrasi extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void id_teknisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_id_teknisiActionPerformed
+    private void id_kasirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_id_kasirActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_id_teknisiActionPerformed
+    }//GEN-LAST:event_id_kasirActionPerformed
 
     private void sandiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sandiActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_sandiActionPerformed
 
-    private boolean id_tekTerdaftar(String id_teknisi) {
-        String sql = "SELECT id_teknisi FROM tb_login WHERE id_teknisi = ?";
+    private boolean id_kasTerdaftar(String id_kasir) {
+        String sql = "SELECT id_kasir FROM tb_kasir WHERE id_kasir = ?";
         try (PreparedStatement stat = conn.prepareStatement(sql)) {
-            stat.setString(1, id_teknisi);
+            stat.setString(1, id_kasir);
             ResultSet hasil = stat.executeQuery();
             return hasil.next();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Gagal memeriksa ID Teknisi: " + e.getMessage(), "Kesalahan", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Gagal memeriksa ID Kasir: " + e.getMessage(), "Kesalahan", JOptionPane.ERROR_MESSAGE);
             return false;
         }
     }
     
     private void bregisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bregisActionPerformed
-        String id_teknisiText = id_teknisi.getText().trim();
+        String id_kasirText = id_kasir.getText().trim();
         String password = new String(sandi.getPassword());
         String confirmPassword = new String(knf_sandi.getPassword());
         String namaText = nama.getText().trim();
@@ -302,16 +302,16 @@ public class registrasi extends javax.swing.JFrame {
         String hpText = hp.getText().trim();
         String alamatText = alamat.getText().trim();
 
-        if (id_teknisiText.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || namaText.isEmpty() || jenis == null || hpText.isEmpty() || alamatText.isEmpty()) {
+        if (id_kasirText.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || namaText.isEmpty() || jenis == null || hpText.isEmpty() || alamatText.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Harap isi semua kolom.");
             return;
         }
-        if (id_teknisiText.length() > 15) {
-            JOptionPane.showMessageDialog(this, "ID Teknisi harus terdiri dari 15 digit.", "Kesalahan", JOptionPane.ERROR_MESSAGE);
+        if (id_kasirText.length() > 15) {
+            JOptionPane.showMessageDialog(this, "ID Kasir harus terdiri dari 15 digit.", "Kesalahan", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        if (id_tekTerdaftar(id_teknisiText)) {
-            JOptionPane.showMessageDialog(this, "ID Teknisi sudah terdaftar.", "Kesalahan", JOptionPane.ERROR_MESSAGE);
+        if (id_kasTerdaftar(id_kasirText)) {
+            JOptionPane.showMessageDialog(this, "ID Kasir sudah terdaftar.", "Kesalahan", JOptionPane.ERROR_MESSAGE);
             return;
         }
         if (jenis.equals("Pilih Jenis Kelamin")) {
@@ -323,9 +323,9 @@ public class registrasi extends javax.swing.JFrame {
             return;
         }
 
-        String sql = "INSERT INTO tb_login (id_teknisi, sandi, nama, jenkel, hp,alamat) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO tb_kasir (id_kasir, sandi, nama, jenkel, hp,alamat) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, id_teknisiText);
+            pstmt.setString(1, id_kasirText);
             pstmt.setString(2, password);
             pstmt.setString(3, namaText);
             pstmt.setString(4, jenis);
@@ -408,7 +408,7 @@ public class registrasi extends javax.swing.JFrame {
     private javax.swing.JButton bback;
     private javax.swing.JButton bregis;
     private javax.swing.JTextField hp;
-    private javax.swing.JTextField id_teknisi;
+    private javax.swing.JTextField id_kasir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

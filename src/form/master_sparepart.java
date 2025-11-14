@@ -31,6 +31,10 @@ public class master_sparepart extends javax.swing.JFrame {
         aktif();
         datatable();
     }
+    
+    public javax.swing.JPanel getMainPanel() {
+        return Panel_Sparepart;
+    }
 
     protected void aktif() {
         kd_barang.requestFocus();
@@ -117,22 +121,21 @@ public class master_sparepart extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(102, 102, 255));
 
-        Panel_Sparepart.setBackground(new java.awt.Color(102, 102, 255));
+        Panel_Sparepart.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setBackground(new java.awt.Color(102, 102, 255));
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("DATA SPAREPART");
-        jLabel1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        jLabel1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 0, 2, 0, new java.awt.Color(0, 0, 0)));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Nama Barang :");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Kode Barang :");
 
         nama_barang.addActionListener(new java.awt.event.ActionListener() {
@@ -141,7 +144,7 @@ public class master_sparepart extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Harga Beli :");
 
         harga_beli.addActionListener(new java.awt.event.ActionListener() {
@@ -150,19 +153,19 @@ public class master_sparepart extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Harga Jual :");
 
         jenis_barang.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jenis_barang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Jenis Barang", "LCD", "Baterai", "Kamera Depan", "Kamera Belakang", "Port Charger", "Speaker", "Mikrofon", "Sim Tray", "Tombol Fisik" }));
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Jenis Barang :");
 
         merk_barang.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         merk_barang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Merek Barang", "Samsung", "Lenovo", "Apple", "Xiaomi", "Oppo", "Realme", "Infinix", "Asus", "Acer" }));
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setText("Merek Barang :");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -219,7 +222,7 @@ public class master_sparepart extends javax.swing.JFrame {
                 .addGap(12, 12, 12))
         );
 
-        jPanel3.setBackground(new java.awt.Color(102, 102, 255));
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
 
         bsimpan.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -297,8 +300,8 @@ public class master_sparepart extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.setBackground(new java.awt.Color(102, 102, 255));
-        jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
 
         txtcari.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -318,6 +321,7 @@ public class master_sparepart extends javax.swing.JFrame {
             }
         });
 
+        table_sparepart.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         table_sparepart.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -371,11 +375,11 @@ public class master_sparepart extends javax.swing.JFrame {
                     .addComponent(bcari)
                     .addComponent(bprint_spare))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        jPanel4.setBackground(new java.awt.Color(102, 102, 255));
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -388,7 +392,7 @@ public class master_sparepart extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel5.setBackground(new java.awt.Color(102, 102, 255));
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);

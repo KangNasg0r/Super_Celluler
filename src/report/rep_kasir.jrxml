@@ -95,11 +95,10 @@
 			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
 	</subDataset>
-	<parameter name="TEKNISI" class="java.lang.String"/>
-	<queryString language="SQL">
-		<![CDATA[SELECT * FROM tb_login]]>
+	<queryString>
+		<![CDATA[SELECT * FROM tb_kasir]]>
 	</queryString>
-	<field name="id_teknisi" class="java.lang.String">
+	<field name="id_kasir" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="sandi" class="java.lang.String">
@@ -114,6 +113,9 @@
 	<field name="hp" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="alamat" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -126,7 +128,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="34" isBold="false"/>
 					</textElement>
-					<text><![CDATA[Data Teknisi Gadget House]]></text>
+					<text><![CDATA[Data Teknisi Super Celluler]]></text>
 				</staticText>
 			</frame>
 			<staticText>
@@ -152,7 +154,7 @@
 				<textElement verticalAlignment="Middle">
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[ID Teknisi]]></text>
+				<text><![CDATA[ID Kasir]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="95" y="10" width="83" height="25" forecolor="#000000" uuid="0f07da6c-9fba-43cb-97c4-fecad2b6bdbf"/>
@@ -205,7 +207,7 @@
 					<textElement textAlignment="Justified" verticalAlignment="Middle">
 						<font size="14"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{id_teknisi}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{id_kasir}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
 					<reportElement style="Detail" positionType="Float" x="95" y="0" width="71" height="18" uuid="bfa79aeb-297c-4e31-b412-e17c730e69ec"/>
@@ -265,13 +267,6 @@
 	</pageFooter>
 	<summary>
 		<band height="159">
-			<textField>
-				<reportElement x="401" y="107" width="154" height="16" uuid="49866f96-8eff-42c3-b4f8-6f03a445f777"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="10" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{TEKNISI}]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement x="401" y="55" width="154" height="20" uuid="767c0dd3-f217-4872-b5ab-0b5737fc88f3"/>
 				<textElement>
@@ -284,7 +279,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Teknisi Gadget House]]></text>
+				<text><![CDATA[Super Celluler]]></text>
 			</staticText>
 			<line>
 				<reportElement x="401" y="134" width="154" height="1" uuid="85410623-052d-43a8-a965-ce134b1ac0d1"/>

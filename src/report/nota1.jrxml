@@ -4,12 +4,14 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="id_nota" class="java.lang.String"/>
-	<parameter name="TEKNISI" class="java.lang.String"/>
+	<parameter name="KASIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT
     tb_nota.`id_nota` AS tb_nota_id_nota,
     DATE_FORMAT(tb_nota.`tanggal`, '%d %M %Y') AS tb_nota_tanggal_formatted,
-    tb_nota.`id_teknisi` AS tb_nota_id_teknisi,
+    tb_nota.`id_kasir` AS tb_nota_id_kasir,
     tb_nota.`id_pelanggan` AS tb_nota_id_pelanggan,
     tb_nota_detail.`id_item` AS tb_nota_detail_id_item,
     tb_nota_detail.`nama_item` AS tb_nota_detail_nama_item_from_detail, 
@@ -28,12 +30,12 @@
     tb_aksesoris.`harga_beliAk` AS tb_aksesoris_harga_beliAk,
     tb_aksesoris.`harga_jualAk` AS tb_aksesoris_harga_jualAk,
 
-    tb_login.`id_teknisi` AS tb_login_id_teknisi,
-    tb_login.`sandi` AS tb_login_sandi,
-    tb_login.`nama` AS tb_login_nama,
-    tb_login.`jenkel` AS tb_login_jenkel,
-    tb_login.`hp` AS tb_login_hp,
-    tb_login.`alamat` AS tb_login_alamat,
+    tb_kasir.`id_kasir` AS tb_kasir_id_kasir,
+    tb_kasir.`sandi` AS tb_kasir_sandi,
+    tb_kasir.`nama` AS tb_kasir_nama,
+    tb_kasir.`jenkel` AS tb_kasir_jenkel,
+    tb_kasir.`hp` AS tb_kasir_hp,
+    tb_kasir.`alamat` AS tb_kasir_alamat,
 
     tb_pelanggan.`id_pelanggan` AS tb_pelanggan_id_pelanggan,
     tb_pelanggan.`nama_pelanggan` AS tb_pelanggan_nama_pelanggan,
@@ -58,14 +60,14 @@ INNER JOIN `tb_nota_detail` tb_nota_detail ON tb_nota.`id_nota` = tb_nota_detail
 LEFT JOIN `tb_aksesoris` tb_aksesoris ON tb_nota_detail.`id_item` = tb_aksesoris.`id_aksesoris`
 LEFT JOIN `tb_service` tb_service ON tb_nota_detail.`id_item` = tb_service.`id_service`
 LEFT JOIN `tb_sparepart` tb_sparepart ON tb_nota_detail.`id_item` = tb_sparepart.`kd_barang`
-INNER JOIN `tb_login` tb_login ON tb_nota.`id_teknisi` = tb_login.`id_teknisi`
+INNER JOIN `tb_kasir` tb_kasir ON tb_nota.`id_kasir` = tb_kasir.`id_kasir`
 INNER JOIN `tb_pelanggan` tb_pelanggan ON tb_nota.`id_pelanggan` = tb_pelanggan.`id_pelanggan`
 WHERE
     tb_nota.id_nota = $P{id_nota};]]>
 	</queryString>
 	<field name="tb_nota_id_nota" class="java.lang.String"/>
 	<field name="tb_nota_tanggal_formatted" class="java.lang.String"/>
-	<field name="tb_nota_id_teknisi" class="java.lang.String"/>
+	<field name="tb_nota_id_kasir" class="java.lang.String"/>
 	<field name="tb_nota_id_pelanggan" class="java.lang.String"/>
 	<field name="tb_nota_detail_id_item" class="java.lang.String"/>
 	<field name="tb_nota_detail_nama_item_from_detail" class="java.lang.String"/>
@@ -79,12 +81,12 @@ WHERE
 	<field name="tb_aksesoris_nama_aksesoris" class="java.lang.String"/>
 	<field name="tb_aksesoris_harga_beliAk" class="java.lang.Integer"/>
 	<field name="tb_aksesoris_harga_jualAk" class="java.lang.Integer"/>
-	<field name="tb_login_id_teknisi" class="java.lang.String"/>
-	<field name="tb_login_sandi" class="java.lang.String"/>
-	<field name="tb_login_nama" class="java.lang.String"/>
-	<field name="tb_login_jenkel" class="java.lang.String"/>
-	<field name="tb_login_hp" class="java.lang.String"/>
-	<field name="tb_login_alamat" class="java.lang.String"/>
+	<field name="tb_kasir_id_kasir" class="java.lang.String"/>
+	<field name="tb_kasir_sandi" class="java.lang.String"/>
+	<field name="tb_kasir_nama" class="java.lang.String"/>
+	<field name="tb_kasir_jenkel" class="java.lang.String"/>
+	<field name="tb_kasir_hp" class="java.lang.String"/>
+	<field name="tb_kasir_alamat" class="java.lang.String"/>
 	<field name="tb_pelanggan_id_pelanggan" class="java.lang.String"/>
 	<field name="tb_pelanggan_nama_pelanggan" class="java.lang.String"/>
 	<field name="tb_pelanggan_hp_pelanggan" class="java.lang.String"/>
@@ -123,7 +125,7 @@ WHERE
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Consolas" size="40" isBold="true"/>
 				</textElement>
-				<text><![CDATA[NOTA GADGET HOUSE]]></text>
+				<text><![CDATA[NOTA PEMBAYARAN]]></text>
 			</staticText>
 			<image>
 				<reportElement x="467" y="15" width="100" height="100" uuid="426df809-0031-4c6e-bc87-19d5ecd10a43"/>
@@ -179,15 +181,8 @@ WHERE
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Teknisi]]></text>
+				<text><![CDATA[Kasir]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="394" y="30" width="173" height="20" uuid="6fd5d4a0-e1a5-447c-83b7-7566dc20c079"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="12" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{tb_login_nama}]]></textFieldExpression>
-			</textField>
 			<line>
 				<reportElement x="0" y="54" width="575" height="1" uuid="c7783d93-c6d5-4faa-bdfd-0ae55d495fe2"/>
 				<graphicElement>
@@ -229,6 +224,13 @@ WHERE
 				</textElement>
 				<text><![CDATA[:]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="394" y="30" width="173" height="20" uuid="b8ccaf2f-45e9-4022-bc71-497fd3bacb86"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tb_kasir_nama}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -373,14 +375,14 @@ WHERE
 				<textElement>
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Dikeluarkan Oleh,]]></text>
+				<text><![CDATA[Hormat Kami,]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="421" y="133" width="154" height="20" uuid="6a82f5f8-faa4-4b16-97eb-2db137108185"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Teknisi Gadget House]]></text>
+				<text><![CDATA[Super Celuler]]></text>
 			</staticText>
 			<line>
 				<reportElement x="421" y="132" width="154" height="1" uuid="c9ab643c-7c9c-477b-a467-3b507fac691b"/>
@@ -391,13 +393,6 @@ WHERE
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="421" y="116" width="154" height="16" uuid="18ad7e38-3ab6-4cc0-b5eb-9984d66dc4f2"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{TEKNISI}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>

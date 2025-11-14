@@ -34,6 +34,10 @@ public class report_pelanggan extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         datatable_pelanggan();
     }
+    
+    public javax.swing.JPanel getMainPanel() {
+        return jPanel1;
+    }
 
     protected void datatable_pelanggan() {
         Object[] Baris = {"ID Pelanggan", "Nama Pelanggan", "Nomor Hp", "Jenis Kelamin", "Alamat", "Tanggal Daftar"};
@@ -213,21 +217,21 @@ public class report_pelanggan extends javax.swing.JFrame {
 
     private void bprint_pelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bprint_pelActionPerformed
         try {
-            String loginId = UserID.getIdTeknisi();
-            String loginTeknisi = "Tidak Diketahui";
+            String loginId = UserID.getIdKasir();
+            String loginKasir = "Tidak Diketahui";
 
-            try (PreparedStatement teknama = conn.prepareStatement("SELECT nama FROM tb_login WHERE id_teknisi = ?")) {
+            try (PreparedStatement teknama = conn.prepareStatement("SELECT nama FROM tb_kasir WHERE id_kasir = ?")) {
                 teknama.setString(1, loginId);
                 try (ResultSet rsNama = teknama.executeQuery()) {
                     if (rsNama.next()) {
-                        loginTeknisi = rsNama.getString("nama");
+                        loginKasir = rsNama.getString("nama");
                     }
                 }
             }
 
             String reportPath = "./src/report/rep_pelanggan.jasper";
             HashMap parameter = new HashMap();
-            parameter.put("TEKNISI", loginTeknisi);
+            parameter.put("Kasir", loginKasir);
 
             JasperPrint print = JasperFillManager.fillReport(reportPath,parameter,conn);
             JasperViewer.viewReport(print,false);

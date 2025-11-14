@@ -35,6 +35,10 @@ public class master_pelanggan extends javax.swing.JFrame {
         almt_pelanggan.setLineWrap(true);
         almt_pelanggan.setWrapStyleWord(true);
     }
+    
+    public javax.swing.JPanel getMainPanel() {
+        return Panel_Pelanggan;
+    }
 
     protected void aktif() {
         id_pelanggan.requestFocus();
@@ -122,7 +126,6 @@ public class master_pelanggan extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         tanggal_pelanggan = new org.jdesktop.swingx.JXDatePicker();
         jPanel1 = new javax.swing.JPanel();
-        bkeluar = new javax.swing.JButton();
         bbatal = new javax.swing.JButton();
         bhapus_tek = new javax.swing.JButton();
         bubah_tek = new javax.swing.JButton();
@@ -141,13 +144,12 @@ public class master_pelanggan extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        Panel_Pelanggan.setBackground(new java.awt.Color(102, 102, 255));
+        Panel_Pelanggan.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("DATA PELANGGAN");
-        jLabel1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        jLabel1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 0, 2, 0, new java.awt.Color(0, 0, 0)));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
@@ -170,41 +172,31 @@ public class master_pelanggan extends javax.swing.JFrame {
         almt_pelanggan.setRows(5);
         jScrollPane2.setViewportView(almt_pelanggan);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel2.setText("ID Pelanggan :");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel6.setText("Nama  :");
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel8.setText("Nomor Handphone :");
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel7.setText("Jenis Kelamin :");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel3.setText("Alamat :");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel4.setText("Tanggal Daftar :");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-
-        bkeluar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        bkeluar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/exit.png"))); // NOI18N
-        bkeluar.setText("KEMBALI");
-        bkeluar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        bkeluar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bkeluarActionPerformed(evt);
-            }
-        });
 
         bbatal.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         bbatal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/cancel.png"))); // NOI18N
@@ -253,11 +245,10 @@ public class master_pelanggan extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(bsimpan_tek, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bsimpan_tek, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
                     .addComponent(bubah_tek, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(bhapus_tek, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bbatal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bkeluar))
+                    .addComponent(bbatal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -271,9 +262,7 @@ public class master_pelanggan extends javax.swing.JFrame {
                 .addComponent(bhapus_tek)
                 .addGap(18, 18, 18)
                 .addComponent(bbatal)
-                .addGap(18, 18, 18)
-                .addComponent(bkeluar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -337,7 +326,7 @@ public class master_pelanggan extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jpanel_kiri.setBackground(new java.awt.Color(102, 102, 255));
+        jpanel_kiri.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout jpanel_kiriLayout = new javax.swing.GroupLayout(jpanel_kiri);
         jpanel_kiri.setLayout(jpanel_kiriLayout);
@@ -350,7 +339,7 @@ public class master_pelanggan extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jpanel_kanan.setBackground(new java.awt.Color(102, 102, 255));
+        jpanel_kanan.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout jpanel_kananLayout = new javax.swing.GroupLayout(jpanel_kanan);
         jpanel_kanan.setLayout(jpanel_kananLayout);
@@ -363,8 +352,8 @@ public class master_pelanggan extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel3.setBackground(new java.awt.Color(102, 102, 255));
-        jPanel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
 
         cari_pelanggan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -380,12 +369,10 @@ public class master_pelanggan extends javax.swing.JFrame {
             }
         });
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel9.setText("Cari :");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setText("Cari berdasarkan tanggal :");
 
         bcari.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -409,6 +396,7 @@ public class master_pelanggan extends javax.swing.JFrame {
         });
 
         tblpelanggan.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        tblpelanggan.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tblpelanggan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -465,7 +453,7 @@ public class master_pelanggan extends javax.swing.JFrame {
                     .addComponent(bcari)
                     .addComponent(bprint_pel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -697,13 +685,6 @@ public class master_pelanggan extends javax.swing.JFrame {
         datatable_pelanggan();
     }//GEN-LAST:event_bbatalActionPerformed
 
-    private void bkeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bkeluarActionPerformed
-        menu_utama ma = new menu_utama();
-        ma.setVisible(true);
-        ma.setLocationRelativeTo(null);
-        this.dispose();
-    }//GEN-LAST:event_bkeluarActionPerformed
-
     private void cari_pelangganKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cari_pelangganKeyTyped
         datatable_pelanggan();
     }//GEN-LAST:event_cari_pelangganKeyTyped
@@ -749,7 +730,6 @@ public class master_pelanggan extends javax.swing.JFrame {
     private javax.swing.JButton bbatal;
     private javax.swing.JButton bcari;
     private javax.swing.JButton bhapus_tek;
-    private javax.swing.JButton bkeluar;
     private javax.swing.JButton bprint_pel;
     private javax.swing.JButton bsimpan_tek;
     private javax.swing.JButton bubah_tek;
