@@ -95,6 +95,7 @@
 			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
 	</subDataset>
+	<parameter name="KASIR" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT * FROM tb_kasir]]>
 	</queryString>
@@ -124,11 +125,11 @@
 			<frame>
 				<reportElement mode="Opaque" x="0" y="0" width="433" height="81" backcolor="#FFFFFF" uuid="867586d2-3b60-4bf2-bc7a-49939fd3c2bd"/>
 				<staticText>
-					<reportElement style="Title" x="47" y="0" width="348" height="81" forecolor="#000000" uuid="4f001643-d4eb-4c74-a08e-a05c49f6aba0"/>
+					<reportElement style="Title" x="0" y="0" width="431" height="81" forecolor="#000000" uuid="4f001643-d4eb-4c74-a08e-a05c49f6aba0"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="34" isBold="false"/>
+						<font size="40" isBold="false"/>
 					</textElement>
-					<text><![CDATA[Data Teknisi Super Celluler]]></text>
+					<text><![CDATA[Data Kasir Super Celluler]]></text>
 				</staticText>
 			</frame>
 			<staticText>
@@ -136,7 +137,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Jl. Raya Tengah No.80, RT.6/RW.1, Gedong, Kec. Ps. Rebo, Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta 13760, Indonesia]]></text>
+				<text><![CDATA[ITC DEPOK Lantai 3 Blok A No. 129 Jl. Margonda Raya - Depok Telp./WA. 082114601461]]></text>
 			</staticText>
 			<image>
 				<reportElement x="447" y="17" width="100" height="100" uuid="184d5a8e-20ce-46c1-be8b-121527808e42"/>
@@ -266,33 +267,33 @@
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="159">
+		<band height="141">
 			<staticText>
-				<reportElement x="401" y="55" width="154" height="20" uuid="767c0dd3-f217-4872-b5ab-0b5737fc88f3"/>
+				<reportElement x="384" y="38" width="171" height="20" uuid="767c0dd3-f217-4872-b5ab-0b5737fc88f3"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Dikeluarkan Oleh,]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="401" y="135" width="154" height="20" uuid="6e063118-9a77-465a-aa61-8f619fb24ab3"/>
+				<reportElement x="384" y="118" width="171" height="20" uuid="6e063118-9a77-465a-aa61-8f619fb24ab3"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Super Celluler]]></text>
+				<text><![CDATA[Kasir Super Celluler]]></text>
 			</staticText>
 			<line>
-				<reportElement x="401" y="134" width="154" height="1" uuid="85410623-052d-43a8-a965-ce134b1ac0d1"/>
+				<reportElement x="384" y="117" width="171" height="1" uuid="85410623-052d-43a8-a965-ce134b1ac0d1"/>
 			</line>
 			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement style="Column header" x="447" y="30" width="100" height="20" forecolor="#000000" uuid="91b2235c-7960-4f20-9808-5d1210c71a25"/>
+				<reportElement style="Column header" x="424" y="13" width="131" height="20" forecolor="#000000" uuid="91b2235c-7960-4f20-9808-5d1210c71a25"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="401" y="30" width="40" height="20" uuid="a96b2b85-c366-43d1-bf5f-06b146705e92"/>
+				<reportElement x="384" y="13" width="40" height="20" uuid="a96b2b85-c366-43d1-bf5f-06b146705e92"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
@@ -304,6 +305,13 @@
 					<pen lineWidth="2.0" lineStyle="Double"/>
 				</graphicElement>
 			</line>
+			<textField>
+				<reportElement x="384" y="97" width="171" height="20" uuid="e40b8772-f20a-4615-9f41-500496513f88"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{KASIR}]]></textFieldExpression>
+			</textField>
 		</band>
 	</summary>
 </jasperReport>

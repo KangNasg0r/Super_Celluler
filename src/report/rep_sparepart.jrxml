@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4ad4883c-aad5-40dc-9423-751646d79e03">
-	<property name="ireport.zoom" value="1.1000000000000048"/>
-	<property name="ireport.x" value="65"/>
+	<property name="ireport.zoom" value="1.0000000000000042"/>
+	<property name="ireport.x" value="33"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
@@ -13,6 +13,7 @@
 			<style mode="Opaque" backcolor="#F0EFEF"/>
 		</conditionalStyle>
 	</style>
+	<parameter name="KASIR" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[select * from tb_sparepart]]>
 	</queryString>
@@ -40,14 +41,14 @@
 	<title>
 		<band height="92" splitType="Stretch">
 			<staticText>
-				<reportElement x="2" y="43" width="658" height="46" uuid="f38e01ac-fac4-4044-b6ad-0516a0d0a56a"/>
+				<reportElement x="2" y="43" width="679" height="46" uuid="f38e01ac-fac4-4044-b6ad-0516a0d0a56a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Jl. Raya Tengah No.80, RT.6/RW.1, Gedong, Kec. Ps. Rebo, Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta 13760, Indonesia]]></text>
+				<text><![CDATA[ITC DEPOK Lantai 3 Blok A No. 129 Jl. Margonda Raya - Depok Telp./WA. 082114601461]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Title" x="2" y="0" width="658" height="43" forecolor="#000000" uuid="624811d2-7e2a-41dd-9858-671eac5a7d46"/>
+				<reportElement style="Title" x="2" y="0" width="679" height="43" forecolor="#000000" uuid="624811d2-7e2a-41dd-9858-671eac5a7d46"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="34" isBold="false"/>
 				</textElement>
@@ -194,7 +195,7 @@
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="148">
+		<band height="133">
 			<line>
 				<reportElement x="0" y="2" width="802" height="1" uuid="d8bc3bb6-ec14-4757-b72d-4894759e5e22"/>
 				<graphicElement>
@@ -202,36 +203,43 @@
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement x="646" y="27" width="40" height="20" uuid="2665524a-7fec-40b0-9ebf-ac4f7be2f0a2"/>
+				<reportElement x="628" y="13" width="40" height="20" uuid="2665524a-7fec-40b0-9ebf-ac4f7be2f0a2"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Jakarta,]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="646" y="122" width="154" height="20" uuid="de41955f-441b-45d4-992e-ea3c3f95b44e"/>
+				<reportElement x="628" y="108" width="171" height="20" uuid="de41955f-441b-45d4-992e-ea3c3f95b44e"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Super Celluler]]></text>
+				<text><![CDATA[Kasir Super Celluler]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="646" y="51" width="154" height="20" uuid="f4547d56-a08b-4193-95e7-3f0accbd2597"/>
+				<reportElement x="628" y="37" width="171" height="20" uuid="f4547d56-a08b-4193-95e7-3f0accbd2597"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Dikeluarkan Oleh,]]></text>
 			</staticText>
 			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement style="Column header" x="691" y="27" width="100" height="20" forecolor="#000000" uuid="7f6b0d06-34e3-4458-84ee-3f2f859aa250"/>
+				<reportElement style="Column header" x="668" y="13" width="131" height="20" forecolor="#000000" uuid="7f6b0d06-34e3-4458-84ee-3f2f859aa250"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="646" y="121" width="154" height="1" uuid="abf833a0-6c4c-4645-a5a2-ea92221bf83c"/>
+				<reportElement x="628" y="107" width="171" height="1" uuid="abf833a0-6c4c-4645-a5a2-ea92221bf83c"/>
 			</line>
+			<textField>
+				<reportElement x="628" y="87" width="171" height="20" uuid="0ff906f1-cce8-4d1f-84e5-dd3b335cacf2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{KASIR}]]></textFieldExpression>
+			</textField>
 		</band>
 	</summary>
 </jasperReport>

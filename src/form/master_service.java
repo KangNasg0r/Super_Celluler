@@ -10,7 +10,11 @@ import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.KeyEvent;
+import java.util.HashMap;
 import koneksi.koneksi;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -30,6 +34,29 @@ public class master_service extends javax.swing.JFrame {
         kosong();
         aktif();
         datatable();
+        autonumber();
+    }
+    
+    protected void autonumber() {
+        try {
+            String sql = "SELECT id_service from tb_service order by id_service asc";
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            id_service.setText("S001");
+            while (rs.next()) {
+                String idService = rs.getString("id_service").substring(2);
+                int AN = Integer.parseInt(idService) + 1;
+                String Nol = "";
+                if (AN < 10) {
+                    Nol = "00";
+                } else if (AN < 100) {
+                    Nol = "0";
+                }
+                id_service.setText("S" + Nol + AN);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Nomor Otomatis Gagal" + e);
+        }
     }
     
     public javax.swing.JPanel getMainPanel() {
@@ -37,7 +64,8 @@ public class master_service extends javax.swing.JFrame {
     }
 
     protected void aktif() {
-        id_service.requestFocus();
+        jenis_service.requestFocus();
+        id_service.setEditable(false);
     }
 
     protected void kosong() {
@@ -107,20 +135,22 @@ public class master_service extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("JENIS SERVICE");
+        jLabel1.setText("JENIS SERVIS");
         jLabel1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 0, 2, 0, new java.awt.Color(0, 0, 0)));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setText("ID Service :");
+        jLabel2.setText("ID Servis:");
+
+        id_service.setBackground(java.awt.SystemColor.controlHighlight);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel3.setText("Jenis Service :");
+        jLabel3.setText("Jenis Servis :");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel4.setText("Biaya Service (Rp) :");
+        jLabel4.setText("Biaya Servis (Rp) :");
 
         bsimpan.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         bsimpan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/save.png"))); // NOI18N
@@ -403,6 +433,7 @@ public class master_service extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Data berhasil disimpan!");
             kosong();
             aktif();
+            autonumber();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Data gagal disimpan!" + e);
         }
@@ -432,6 +463,7 @@ public class master_service extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Data berhasil diubah!");
                 kosong();
                 aktif();
+                autonumber();
             } else {
                 JOptionPane.showMessageDialog(null, "Data gagal diubah. ID Service tidak ditemukan.", "Kesalahan", JOptionPane.ERROR_MESSAGE);
             }
@@ -460,6 +492,7 @@ public class master_service extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Data berhasil dihapus");
                 kosong();
                 aktif();
+                autonumber();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Data gagal dihapus" + e);
             }
@@ -470,6 +503,7 @@ public class master_service extends javax.swing.JFrame {
     private void bbatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bbatalActionPerformed
         kosong();
         datatable();
+        autonumber();
     }//GEN-LAST:event_bbatalActionPerformed
 
     private void table_serviceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_serviceMouseClicked
@@ -494,9 +528,40 @@ public class master_service extends javax.swing.JFrame {
     }//GEN-LAST:event_cari_serviceActionPerformed
 
     private void bprint_serActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bprint_serActionPerformed
-        report_service rse = new report_service();
-        rse.setVisible(true);
-        rse.setLocationRelativeTo(null);    // TODO add your handling code here:
+        try {
+            String loginId = UserID.getIdKasir();
+            String loginKasir = "Tidak Diketahui";
+
+            try (PreparedStatement teknama = conn.prepareStatement("SELECT nama FROM tb_kasir WHERE id_kasir = ?")) {
+                teknama.setString(1, loginId);
+                try (ResultSet rsNama = teknama.executeQuery()) {
+                    if (rsNama.next()) {
+                        loginKasir = rsNama.getString("nama");
+                    }
+                }
+            }
+
+            String reportPath = "./src/report/rep_service.jasper";
+            HashMap parameter = new HashMap();
+            parameter.put("KASIR", loginKasir);
+
+            JasperPrint print = JasperFillManager.fillReport(reportPath,parameter,conn);
+            
+            form.menu_utama menuUtama = form.menu_utama.getInstance();
+        if (menuUtama != null) {
+            javax.swing.JPanel reportPanel = new javax.swing.JPanel(new java.awt.BorderLayout());
+            net.sf.jasperreports.swing.JRViewer viewer = new net.sf.jasperreports.swing.JRViewer(print);
+            reportPanel.add(viewer, java.awt.BorderLayout.CENTER);
+            // Load ke Pane1 di menu_utama
+            menuUtama.loadPanel(reportPanel);
+        } else {
+            JasperViewer.viewReport(print, false);
+        }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Gagal mencetak report: " + e.getMessage());
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_bprint_serActionPerformed
 
     private void txtcariKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcariKeyTyped

@@ -15,40 +15,42 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
 import java.util.HashMap;
+import java.io.InputStream;
 
 /**
  *
  * @author Ahmad Nur Latif P
  */
-public class report_aksesoris extends javax.swing.JFrame {
+public class report_teknisi extends javax.swing.JFrame {
 
     private Connection conn = new koneksi().connect();
     private DefaultTableModel tabmode;
 
     /**
-     * Creates new form report_aksesoris
+     * Creates new form report_pelanggan
      */
-    public report_aksesoris() {
+    public report_teknisi() {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        datatable();
+        datatable_teknisi();
     }
     
     public javax.swing.JPanel getMainPanel() {
         return jPanel1;
     }
 
-    protected void datatable() {
-        Object[] Baris = {"ID Aksesoris", "Nama Aksesoris", "Harga Beli(Rp)", "Harga Jual (Rp)"};
+    protected void datatable_teknisi() {
+        Object[] Baris = {"ID Teknisi", "Nama Teknisi", "Nomor Hp", "Jenis Kelamin", "Alamat"};
         tabmode = new DefaultTableModel(null, Baris);
-        String cariitem = cari_aksesoris.getText();
+        String cariitem = cari_teknisi.getText();
 
         try {
-            String sql = "SELECT * FROM tb_aksesoris WHERE id_aksesoris LIKE '%" + cariitem + "%' "
-                    + "OR nama_aksesoris LIKE '%" + cariitem + "%' "
-                    + "OR harga_beliAk LIKE '%" + cariitem + "%' "
-                    + "OR harga_jualAk LIKE '%" + cariitem + "%' "
-                    + "ORDER BY id_aksesoris ASC";
+            String sql = "SELECT * FROM tb_teknisi WHERE id_teknisi LIKE '%" + cariitem + "%' "
+                    + "OR nama_teknisi LIKE '%" + cariitem + "%' "
+                    + "OR hp_teknisi LIKE '%" + cariitem + "%' "
+                    + "OR jk_teknisi LIKE '%" + cariitem + "%' "
+                    + "OR almt_teknisi LIKE '%" + cariitem + "%'"
+                    + "ORDER BY id_teknisi ASC";
             Statement stat = conn.createStatement();
             ResultSet hasil = stat.executeQuery(sql);
             while (hasil.next()) {
@@ -56,11 +58,13 @@ public class report_aksesoris extends javax.swing.JFrame {
                     hasil.getString(1),
                     hasil.getString(2),
                     hasil.getString(3),
-                    hasil.getString(4),});
+                    hasil.getString(4),
+                    hasil.getString(5)
+                });
             }
-            tblaksesoris.setModel(tabmode);
+            tblteknisi.setModel(tabmode);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "data gagal dipanggil" + e);
+            JOptionPane.showMessageDialog(null, "Data gagal dipanggil" + e);
         }
     }
 
@@ -75,18 +79,18 @@ public class report_aksesoris extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblaksesoris = new javax.swing.JTable();
-        cari_aksesoris = new javax.swing.JTextField();
+        tblteknisi = new javax.swing.JTable();
+        cari_teknisi = new javax.swing.JTextField();
         bcari = new javax.swing.JButton();
-        bprint_ak = new javax.swing.JButton();
+        bprint_tek = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 204));
 
-        tblaksesoris.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        tblaksesoris.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        tblaksesoris.setModel(new javax.swing.table.DefaultTableModel(
+        tblteknisi.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        tblteknisi.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tblteknisi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -97,22 +101,22 @@ public class report_aksesoris extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblaksesoris.setGridColor(new java.awt.Color(255, 255, 255));
-        tblaksesoris.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblteknisi.setGridColor(new java.awt.Color(255, 255, 255));
+        tblteknisi.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblaksesorisMouseClicked(evt);
+                tblteknisiMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tblaksesoris);
+        jScrollPane1.setViewportView(tblteknisi);
 
-        cari_aksesoris.addActionListener(new java.awt.event.ActionListener() {
+        cari_teknisi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cari_aksesorisActionPerformed(evt);
+                cari_teknisiActionPerformed(evt);
             }
         });
-        cari_aksesoris.addKeyListener(new java.awt.event.KeyAdapter() {
+        cari_teknisi.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                cari_aksesorisKeyPressed(evt);
+                cari_teknisiKeyPressed(evt);
             }
         });
 
@@ -125,12 +129,12 @@ public class report_aksesoris extends javax.swing.JFrame {
             }
         });
 
-        bprint_ak.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/printer.png"))); // NOI18N
-        bprint_ak.setText("CETAK");
-        bprint_ak.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        bprint_ak.addActionListener(new java.awt.event.ActionListener() {
+        bprint_tek.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/printer.png"))); // NOI18N
+        bprint_tek.setText("CETAK");
+        bprint_tek.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bprint_tek.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bprint_akActionPerformed(evt);
+                bprint_tekActionPerformed(evt);
             }
         });
 
@@ -141,13 +145,13 @@ public class report_aksesoris extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 714, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 755, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(cari_aksesoris, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cari_teknisi, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(bcari)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bprint_ak)))
+                        .addComponent(bprint_tek)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -155,11 +159,11 @@ public class report_aksesoris extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cari_aksesoris, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cari_teknisi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bcari)
-                    .addComponent(bprint_ak))
+                    .addComponent(bprint_tek))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -167,7 +171,9 @@ public class report_aksesoris extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,50 +183,60 @@ public class report_aksesoris extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tblaksesorisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblaksesorisMouseClicked
+    private void tblteknisiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblteknisiMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_tblaksesorisMouseClicked
+    }//GEN-LAST:event_tblteknisiMouseClicked
 
-    private void cari_aksesorisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cari_aksesorisActionPerformed
+    private void cari_teknisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cari_teknisiActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cari_aksesorisActionPerformed
+    }//GEN-LAST:event_cari_teknisiActionPerformed
 
-    private void cari_aksesorisKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cari_aksesorisKeyPressed
+    private void cari_teknisiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cari_teknisiKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            datatable();
+            datatable_teknisi();
         }    // TODO add your handling code here:
-    }//GEN-LAST:event_cari_aksesorisKeyPressed
+    }//GEN-LAST:event_cari_teknisiKeyPressed
 
     private void bcariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bcariActionPerformed
-        datatable();    // TODO add your handling code here:
+        datatable_teknisi();    // TODO add your handling code here:
     }//GEN-LAST:event_bcariActionPerformed
 
-    private void bprint_akActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bprint_akActionPerformed
+    private void bprint_tekActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bprint_tekActionPerformed
         try {
             String loginId = UserID.getIdKasir();
             String loginKasir = "Tidak Diketahui";
 
-            try (PreparedStatement kasnama = conn.prepareStatement("SELECT nama FROM tb_kasir WHERE id_kasir = ?")) {
-                kasnama.setString(1, loginId);
-                try (ResultSet rsNama = kasnama.executeQuery()) {
+            try (PreparedStatement teknama = conn.prepareStatement("SELECT nama FROM tb_kasir WHERE id_kasir = ?")) {
+                teknama.setString(1, loginId);
+                try (ResultSet rsNama = teknama.executeQuery()) {
                     if (rsNama.next()) {
                         loginKasir = rsNama.getString("nama");
                     }
                 }
             }
 
-            String reportPath = "./src/report/rep_aksesoris.jasper";
+            String reportPath = "./src/report/rep_teknisi.jasper";
             HashMap parameter = new HashMap();
             parameter.put("KASIR", loginKasir);
 
             JasperPrint print = JasperFillManager.fillReport(reportPath,parameter,conn);
-            JasperViewer.viewReport(print,false);
+            
+            form.menu_utama menuUtama = form.menu_utama.getInstance();
+        if (menuUtama != null) {
+            javax.swing.JPanel reportPanel = new javax.swing.JPanel(new java.awt.BorderLayout());
+            net.sf.jasperreports.swing.JRViewer viewer = new net.sf.jasperreports.swing.JRViewer(print);
+            reportPanel.add(viewer, java.awt.BorderLayout.CENTER);
+            // Load ke Pane1 di menu_utama
+            menuUtama.loadPanel(reportPanel);
+        } else {
+            JasperViewer.viewReport(print, false);
+        }
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Gagal mencetak report: " + e.getMessage());
             e.printStackTrace();
         }
-    }//GEN-LAST:event_bprint_akActionPerformed
+    }//GEN-LAST:event_bprint_tekActionPerformed
 
     /**
      * @param args the command line arguments
@@ -239,30 +255,31 @@ public class report_aksesoris extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(report_aksesoris.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(report_teknisi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(report_aksesoris.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(report_teknisi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(report_aksesoris.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(report_teknisi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(report_aksesoris.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(report_teknisi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new report_aksesoris().setVisible(true);
+                new report_teknisi().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bcari;
-    private javax.swing.JButton bprint_ak;
-    private javax.swing.JTextField cari_aksesoris;
+    private javax.swing.JButton bprint_tek;
+    private javax.swing.JTextField cari_teknisi;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblaksesoris;
+    private javax.swing.JTable tblteknisi;
     // End of variables declaration//GEN-END:variables
 }

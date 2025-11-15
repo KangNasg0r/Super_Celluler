@@ -73,13 +73,13 @@ public class report_service extends javax.swing.JFrame {
         txtcari = new javax.swing.JTextField();
         bcari = new javax.swing.JButton();
         bprint_ser = new javax.swing.JButton();
-        bkmbl_ser = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(102, 102, 255));
+        jPanel1.setBackground(new java.awt.Color(0, 0, 204));
 
         table_service.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        table_service.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         table_service.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -128,15 +128,6 @@ public class report_service extends javax.swing.JFrame {
             }
         });
 
-        bkmbl_ser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/back.png"))); // NOI18N
-        bkmbl_ser.setText("KEMBALI");
-        bkmbl_ser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        bkmbl_ser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bkmbl_serActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -150,9 +141,7 @@ public class report_service extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(bcari)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bprint_ser)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bkmbl_ser)))
+                        .addComponent(bprint_ser)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -162,8 +151,7 @@ public class report_service extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtcari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bcari)
-                    .addComponent(bprint_ser)
-                    .addComponent(bkmbl_ser))
+                    .addComponent(bprint_ser))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
                 .addContainerGap())
@@ -219,7 +207,7 @@ public class report_service extends javax.swing.JFrame {
 
             String reportPath = "./src/report/rep_service.jasper";
             HashMap parameter = new HashMap();
-            parameter.put("Kasir", loginKasir);
+            parameter.put("KASIR", loginKasir);
 
             JasperPrint print = JasperFillManager.fillReport(reportPath,parameter,conn);
             JasperViewer.viewReport(print,false);
@@ -229,10 +217,6 @@ public class report_service extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_bprint_serActionPerformed
-
-    private void bkmbl_serActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bkmbl_serActionPerformed
-        dispose();
-    }//GEN-LAST:event_bkmbl_serActionPerformed
 
     /**
      * @param args the command line arguments
@@ -271,7 +255,6 @@ public class report_service extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bcari;
-    private javax.swing.JButton bkmbl_ser;
     private javax.swing.JButton bprint_ser;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

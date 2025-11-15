@@ -5,16 +5,18 @@
  */
 package form;
 
-import form_report.report_kasir;
+import form_report.report_pelanggan;
 import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.KeyEvent;
 import koneksi.koneksi;
+import java.util.HashMap;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
- * /**
- * /**
  *
  * @author Ahmad Nur Latif P
  */
@@ -24,47 +26,73 @@ public class master_teknisi extends javax.swing.JFrame {
     private DefaultTableModel tabmode;
 
     /**
-     * Creates new form report_karyawan
+     * Creates new form master_pelanggan
      */
     public master_teknisi() {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         kosong();
         aktif();
-        datatable();
-        alamat.setLineWrap(true);
-        alamat.setWrapStyleWord(true);
+        datatable_teknisi();
+        almt_teknisi.setLineWrap(true);
+        almt_teknisi.setWrapStyleWord(true);
+        autonumber();
     }
     
-     public javax.swing.JPanel getMainPanel() {
+    protected void autonumber() {
+        try {
+            String sql = "SELECT id_teknisi from tb_teknisi order by id_teknisi asc";
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            id_teknisi.setText("T01");
+            while (rs.next()) {
+                String idteknisi = rs.getString("id_teknisi").substring(2);
+                int AN = Integer.parseInt(idteknisi) + 1;
+                String Nol = "";
+                if (AN < 10) {
+                    Nol = "0";
+                } else if (AN < 100) {
+                    Nol = "";
+                }
+                id_teknisi.setText("T" + Nol + AN);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Nomor Otomatis Gagal" + e);
+        }
+    }
+    
+    public javax.swing.JPanel getMainPanel() {
         return Panel_Teknisi;
     }
 
     protected void aktif() {
-        id_teknisi.requestFocus();
+        nama_teknisi.requestFocus();
+        id_teknisi.setEditable(false);
     }
 
     protected void kosong() {
         id_teknisi.setText("");
-        sandi.setText("");
-        knf_sandi.setText("");
-        nama.setText("");
-        hp.setText("");
-        alamat.setText("");
+        nama_teknisi.setText("");
+        hp_teknisi.setText("");
+        almt_teknisi.setText("");
+        jk_teknisi.setSelectedIndex(0);
     }
 
-    protected void datatable() {
-        Object[] Baris = {"ID Teknisi", "Password", "Nama", "Jenis Kelamin", "No Handphone", "Alamat"};
+    protected void datatable_teknisi() {
+        Object[] Baris = {"ID Teknisi", "Nama Teknisi", "Nomor Hp", "Jenis Kelamin", "Alamat"};
         tabmode = new DefaultTableModel(null, Baris);
         String cariitem = cari_teknisi.getText();
-
         try {
-            String sql = "SELECT * FROM tb_login WHERE id_teknisi LIKE '%" + cariitem + "%' "
-                    + "OR nama LIKE '%" + cariitem + "%' "
-                    + "OR jenkel LIKE '%" + cariitem + "%' "
-                    + "OR hp LIKE '%" + cariitem + "%' "
-                    + "OR alamat LIKE '%" + cariitem + "%' "
-                    + "ORDER BY id_teknisi ASC";
+            String sql;
+            {
+             
+                sql = "SELECT * FROM tb_teknisi WHERE id_teknisi LIKE '%" + cariitem + "%' "
+                        + "OR nama_teknisi LIKE '%" + cariitem + "%' "
+                        + "OR hp_teknisi LIKE '%" + cariitem + "%' "
+                        + "OR jk_teknisi LIKE '%" + cariitem + "%' "
+                        + "OR almt_teknisi LIKE '%" + cariitem + "%' "
+                        + "ORDER BY id_teknisi ASC";
+            }
             Statement stat = conn.createStatement();
             ResultSet hasil = stat.executeQuery(sql);
             while (hasil.next()) {
@@ -73,12 +101,12 @@ public class master_teknisi extends javax.swing.JFrame {
                     hasil.getString(2),
                     hasil.getString(3),
                     hasil.getString(4),
-                    hasil.getString(5),
-                    hasil.getString(6),});
+                    hasil.getString(5)
+                });
             }
             tblteknisi.setModel(tabmode);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "data gagal dipanggil" + e);
+            JOptionPane.showMessageDialog(null, "Data gagal dipanggil" + e);
         }
     }
 
@@ -94,34 +122,31 @@ public class master_teknisi extends javax.swing.JFrame {
         Panel_Teknisi = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        knf_sandi = new javax.swing.JPasswordField();
-        jLabel6 = new javax.swing.JLabel();
         id_teknisi = new javax.swing.JTextField();
-        sandi = new javax.swing.JPasswordField();
-        nama = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jenkel = new javax.swing.JComboBox<>();
-        jLabel8 = new javax.swing.JLabel();
-        hp = new javax.swing.JTextField();
-        bsimpan_tek = new javax.swing.JButton();
-        bubah_tek = new javax.swing.JButton();
-        bhapus_tek = new javax.swing.JButton();
-        bbatal = new javax.swing.JButton();
-        bkeluar = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
+        nama_teknisi = new javax.swing.JTextField();
+        hp_teknisi = new javax.swing.JTextField();
+        jk_teknisi = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
-        alamat = new javax.swing.JTextArea();
+        almt_teknisi = new javax.swing.JTextArea();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        bbatal = new javax.swing.JButton();
+        bhapus_tek = new javax.swing.JButton();
+        bubah_tek = new javax.swing.JButton();
+        bsimpan_tek = new javax.swing.JButton();
         jpanel_kiri = new javax.swing.JPanel();
         jpanel_kanan = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
         cari_teknisi = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
         bcari = new javax.swing.JButton();
+        bprint_tek = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblteknisi = new javax.swing.JTable();
-        bprint_tek = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -135,108 +160,113 @@ public class master_teknisi extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel4.setText("Konfirmasi Kata Sandi :");
-
-        knf_sandi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                knf_sandiActionPerformed(evt);
-            }
-        });
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel6.setText("Nama  :");
-
+        id_teknisi.setBackground(java.awt.SystemColor.controlHighlight);
         id_teknisi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 id_teknisiActionPerformed(evt);
             }
         });
 
-        sandi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sandiActionPerformed(evt);
+        jk_teknisi.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jk_teknisi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Jenis Kelamin", "Laki-Laki", "Perempuan" }));
+        jk_teknisi.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                jk_teknisiComponentShown(evt);
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        almt_teknisi.setColumns(20);
+        almt_teknisi.setRows(5);
+        jScrollPane2.setViewportView(almt_teknisi);
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel2.setText("ID Teknisi :");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel3.setText("Kata Sandi :");
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel6.setText("Nama  :");
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel7.setText("Jenis Kelamin :");
-
-        jenkel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jenkel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Jenis Kelamin", "Laki-Laki", "Perempuan" }));
-        jenkel.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
-                jenkelComponentShown(evt);
-            }
-        });
-
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel8.setText("Nomor Handphone :");
 
-        bsimpan_tek.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        bsimpan_tek.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/save.png"))); // NOI18N
-        bsimpan_tek.setText("SIMPAN");
-        bsimpan_tek.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bsimpan_tekActionPerformed(evt);
-            }
-        });
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel7.setText("Jenis Kelamin :");
 
-        bubah_tek.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        bubah_tek.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/edit.png"))); // NOI18N
-        bubah_tek.setText("UBAH");
-        bubah_tek.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bubah_tekActionPerformed(evt);
-            }
-        });
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel3.setText("Alamat :");
 
-        bhapus_tek.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        bhapus_tek.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/delete.png"))); // NOI18N
-        bhapus_tek.setText("HAPUS");
-        bhapus_tek.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bhapus_tekActionPerformed(evt);
-            }
-        });
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         bbatal.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         bbatal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/cancel.png"))); // NOI18N
         bbatal.setText("BATAL");
+        bbatal.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         bbatal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bbatalActionPerformed(evt);
             }
         });
 
-        bkeluar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        bkeluar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/exit.png"))); // NOI18N
-        bkeluar.setText("KEMBALI");
-        bkeluar.addActionListener(new java.awt.event.ActionListener() {
+        bhapus_tek.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        bhapus_tek.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/delete.png"))); // NOI18N
+        bhapus_tek.setText("HAPUS");
+        bhapus_tek.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bhapus_tek.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bkeluarActionPerformed(evt);
+                bhapus_tekActionPerformed(evt);
             }
         });
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel9.setText("Alamat :");
+        bubah_tek.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        bubah_tek.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/edit.png"))); // NOI18N
+        bubah_tek.setText("UBAH");
+        bubah_tek.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bubah_tek.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bubah_tekActionPerformed(evt);
+            }
+        });
 
-        alamat.setColumns(20);
-        alamat.setRows(5);
-        jScrollPane2.setViewportView(alamat);
+        bsimpan_tek.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        bsimpan_tek.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/save.png"))); // NOI18N
+        bsimpan_tek.setText("SIMPAN");
+        bsimpan_tek.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bsimpan_tek.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bsimpan_tekActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(bsimpan_tek, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
+                    .addComponent(bubah_tek, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bhapus_tek, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bbatal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(bsimpan_tek)
+                .addGap(18, 18, 18)
+                .addComponent(bubah_tek)
+                .addGap(18, 18, 18)
+                .addComponent(bhapus_tek)
+                .addGap(18, 18, 18)
+                .addComponent(bbatal)
+                .addContainerGap(52, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -246,83 +276,51 @@ public class master_teknisi extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(id_teknisi, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
-                            .addComponent(sandi)
-                            .addComponent(knf_sandi)
-                            .addComponent(nama)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(hp)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jenkel, 0, 150, Short.MAX_VALUE))
-                                        .addGap(0, 0, Short.MAX_VALUE)))
-                                .addGap(52, 52, 52))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jScrollPane2)
-                                .addContainerGap())))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(bsimpan_tek)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bubah_tek, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bhapus_tek, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bbatal, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bkeluar)
-                        .addContainerGap())))
+                            .addComponent(id_teknisi, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(nama_teknisi, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(hp_teknisi, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jk_teknisi, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(id_teknisi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jenkel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(sandi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(hp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(knf_sandi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(id_teknisi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(nama_teknisi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(7, 7, 7)
+                        .addComponent(hp_teknisi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(nama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bubah_tek)
-                    .addComponent(bhapus_tek)
-                    .addComponent(bsimpan_tek)
-                    .addComponent(bbatal)
-                    .addComponent(bkeluar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jk_teknisi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
 
         jpanel_kiri.setBackground(new java.awt.Color(255, 255, 255));
@@ -331,7 +329,7 @@ public class master_teknisi extends javax.swing.JFrame {
         jpanel_kiri.setLayout(jpanel_kiriLayout);
         jpanel_kiriLayout.setHorizontalGroup(
             jpanel_kiriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 27, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jpanel_kiriLayout.setVerticalGroup(
             jpanel_kiriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -344,15 +342,15 @@ public class master_teknisi extends javax.swing.JFrame {
         jpanel_kanan.setLayout(jpanel_kananLayout);
         jpanel_kananLayout.setHorizontalGroup(
             jpanel_kananLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 27, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jpanel_kananLayout.setVerticalGroup(
             jpanel_kananLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
 
         cari_teknisi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -368,6 +366,9 @@ public class master_teknisi extends javax.swing.JFrame {
             }
         });
 
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel9.setText("Cari :");
+
         bcari.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         bcari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/search.png"))); // NOI18N
         bcari.setText("CARI");
@@ -375,6 +376,16 @@ public class master_teknisi extends javax.swing.JFrame {
         bcari.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bcariActionPerformed(evt);
+            }
+        });
+
+        bprint_tek.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        bprint_tek.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/printer.png"))); // NOI18N
+        bprint_tek.setText("CETAK");
+        bprint_tek.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bprint_tek.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bprint_tekActionPerformed(evt);
             }
         });
 
@@ -399,42 +410,37 @@ public class master_teknisi extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblteknisi);
 
-        bprint_tek.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        bprint_tek.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/printer.png"))); // NOI18N
-        bprint_tek.setText("CETAK");
-        bprint_tek.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        bprint_tek.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bprint_tekActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(cari_teknisi, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bcari)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(cari_teknisi, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(bcari))
+                            .addComponent(jLabel9))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bprint_tek))
-                    .addComponent(jScrollPane1))
+                        .addComponent(bprint_tek)))
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cari_teknisi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bcari)
                     .addComponent(bprint_tek))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -444,16 +450,15 @@ public class master_teknisi extends javax.swing.JFrame {
             Panel_TeknisiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(Panel_TeknisiLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(jpanel_kiri, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jpanel_kanan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(12, 12, 12))
-            .addGroup(Panel_TeknisiLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(Panel_TeknisiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(Panel_TeknisiLayout.createSequentialGroup()
+                        .addComponent(jpanel_kiri, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jpanel_kanan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         Panel_TeknisiLayout.setVerticalGroup(
@@ -467,7 +472,7 @@ public class master_teknisi extends javax.swing.JFrame {
                     .addComponent(jpanel_kiri, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jpanel_kanan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -479,9 +484,7 @@ public class master_teknisi extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(Panel_Teknisi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(Panel_Teknisi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -494,15 +497,12 @@ public class master_teknisi extends javax.swing.JFrame {
         String c = tblteknisi.getValueAt(bar, 2).toString();
         String d = tblteknisi.getValueAt(bar, 3).toString();
         String e = tblteknisi.getValueAt(bar, 4).toString();
-        String f = tblteknisi.getValueAt(bar, 5).toString();
 
         id_teknisi.setText(a);
-        sandi.setText(b);
-        knf_sandi.setText(b);
-        nama.setText(c);
-        jenkel.setSelectedItem(d);
-        hp.setText(e);
-        alamat.setText(f);
+        nama_teknisi.setText(b);
+        hp_teknisi.setText(c);
+        jk_teknisi.setSelectedItem(d);
+        almt_teknisi.setText(e);
     }//GEN-LAST:event_tblteknisiMouseClicked
 
     private void cari_teknisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cari_teknisiActionPerformed
@@ -511,51 +511,66 @@ public class master_teknisi extends javax.swing.JFrame {
 
     private void cari_teknisiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cari_teknisiKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            datatable();
+            datatable_teknisi();
         }
     }//GEN-LAST:event_cari_teknisiKeyPressed
 
     private void bcariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bcariActionPerformed
-        datatable();
+        datatable_teknisi();
     }//GEN-LAST:event_bcariActionPerformed
 
-    private void knf_sandiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_knf_sandiActionPerformed
+    private void bprint_tekActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bprint_tekActionPerformed
+        try {
+            String loginId = UserID.getIdKasir();
+            String loginKasir = "Tidak Diketahui";
 
-    }//GEN-LAST:event_knf_sandiActionPerformed
+            try (PreparedStatement teknama = conn.prepareStatement("SELECT nama FROM tb_kasir WHERE id_kasir = ?")) {
+                teknama.setString(1, loginId);
+                try (ResultSet rsNama = teknama.executeQuery()) {
+                    if (rsNama.next()) {
+                        loginKasir = rsNama.getString("nama");
+                    }
+                }
+            }
+
+            String reportPath = "./src/report/rep_teknisi.jasper";
+            HashMap parameter = new HashMap();
+            parameter.put("KASIR", loginKasir);
+
+            JasperPrint print = JasperFillManager.fillReport(reportPath,parameter,conn);
+            
+            form.menu_utama menuUtama = form.menu_utama.getInstance();
+        if (menuUtama != null) {
+            javax.swing.JPanel reportPanel = new javax.swing.JPanel(new java.awt.BorderLayout());
+            net.sf.jasperreports.swing.JRViewer viewer = new net.sf.jasperreports.swing.JRViewer(print);
+            reportPanel.add(viewer, java.awt.BorderLayout.CENTER);
+            // Load ke Pane1 di menu_utama
+            menuUtama.loadPanel(reportPanel);
+        } else {
+            JasperViewer.viewReport(print, false);
+        }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Gagal mencetak report: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_bprint_tekActionPerformed
 
     private void id_teknisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_id_teknisiActionPerformed
 
     }//GEN-LAST:event_id_teknisiActionPerformed
 
-    private void sandiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sandiActionPerformed
+    private void jk_teknisiComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jk_teknisiComponentShown
 
-    }//GEN-LAST:event_sandiActionPerformed
-
-    private void jenkelComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jenkelComponentShown
-
-    }//GEN-LAST:event_jenkelComponentShown
-
-    private boolean id_tekTerdaftar(String id_teknisi) {
-        String sql = "SELECT id_teknisi FROM tb_login WHERE id_teknisi = ?";
-        try (PreparedStatement stat = conn.prepareStatement(sql)) {
-            stat.setString(1, id_teknisi);
-            ResultSet hasil = stat.executeQuery();
-            return hasil.next();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Gagal memeriksa ID Teknisi: " + e.getMessage(), "Kesalahan", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-    }
+    }//GEN-LAST:event_jk_teknisiComponentShown
 
     private void bsimpan_tekActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bsimpan_tekActionPerformed
         String id_teknisiText = id_teknisi.getText().trim(); // Trim untuk menghapus spasi di awal dan akhir
-        String sandiText = sandi.getText().trim();
-        String knfSandiText = knf_sandi.getText().trim();
-        String namaText = nama.getText().trim();
-        String hpText = hp.getText().trim();
-        String alamatText = alamat.getText().trim();
-        String jenis = jenkel.getSelectedItem().toString();
-        if (id_teknisiText.isEmpty() || sandiText.isEmpty() || knfSandiText.isEmpty() || namaText.isEmpty() || hpText.isEmpty() || alamatText.isEmpty()) {
+        String namaText = nama_teknisi.getText().trim();
+        String hpText = hp_teknisi.getText().trim();
+        String alamatText = almt_teknisi.getText().trim();
+        String jenisKelamin = jk_teknisi.getSelectedItem().toString();
+        if (id_teknisiText.isEmpty() || namaText.isEmpty() || hpText.isEmpty() || alamatText.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Semua kolom harus diisi.", "Kesalahan", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -563,37 +578,71 @@ public class master_teknisi extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "ID Teknisi harus terdiri dari 15 digit.", "Kesalahan", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        if (id_tekTerdaftar(id_teknisiText)) {
-            JOptionPane.showMessageDialog(this, "ID Teknisi sudah terdaftar.", "Kesalahan", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (jenis.equals("Pilih Jenis Kelamin")) {
+        if (jenisKelamin.equals("Pilih Jenis Kelamin")) {
             JOptionPane.showMessageDialog(this, "Jenis Kelamin harus dipilih.", "Kesalahan", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        if (!sandiText.equals(knfSandiText)) {
-            JOptionPane.showMessageDialog(this, "Konfirmasi sandi tidak sama dengan sandi.", "Kesalahan", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        String sql = "insert into tb_login values(?,?,?,?,?,?)";
+        
+       
+        String sql = "insert into tb_teknisi values(?,?,?,?,?)";
         try {
             PreparedStatement stat = conn.prepareStatement(sql);
-            stat.setString(1, id_teknisiText);
-            stat.setString(2, sandiText);
-            stat.setString(3, namaText);
-            stat.setString(4, jenis);
-            stat.setString(5, hpText);
-            stat.setString(6, alamatText);
-
+            stat.setString(1, id_teknisi.getText());
+            stat.setString(2, nama_teknisi.getText());
+            stat.setString(3, hp_teknisi.getText());
+            stat.setString(4, jenisKelamin);
+            stat.setString(5, almt_teknisi.getText());
             stat.executeUpdate();
             JOptionPane.showMessageDialog(null, "Data berhasil disimpan!");
             kosong();
             aktif();
+            autonumber();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Data gagal disimpan!" + e);
         }
-        datatable();
+        datatable_teknisi();
     }//GEN-LAST:event_bsimpan_tekActionPerformed
+
+    private void bubah_tekActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bubah_tekActionPerformed
+        String id_teknisiText = id_teknisi.getText().trim(); // Trim untuk menghapus spasi di awal dan akhir
+        String namaText = nama_teknisi.getText().trim();
+        String hpText = hp_teknisi.getText().trim();
+        String alamatText = almt_teknisi.getText().trim();
+        String jenisKelamin = jk_teknisi.getSelectedItem().toString();
+        if (id_teknisiText.isEmpty() || namaText.isEmpty() || hpText.isEmpty() || alamatText.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Semua kolom harus diisi.", "Kesalahan", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (id_teknisiText.length() > 15) {
+            JOptionPane.showMessageDialog(this, "ID Teknisi harus terdiri dari 15 digit.", "Kesalahan", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (jenisKelamin.equals("Pilih Jenis Kelamin")) {
+            JOptionPane.showMessageDialog(this, "Jenis Kelamin harus dipilih.", "Kesalahan", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        String sql = "UPDATE tb_teknisi SET nama_teknisi =?, hp_teknisi=?, jk_teknisi=?, almt_teknisi=? WHERE id_teknisi=?";
+        try {
+            PreparedStatement stat = conn.prepareStatement(sql);
+            stat.setString(1, namaText);
+            stat.setString(2, hpText);
+            stat.setString(3, jenisKelamin);
+            stat.setString(4, alamatText);
+            stat.setString(5, id_teknisiText);
+            int rowsUpdated = stat.executeUpdate();
+            if (rowsUpdated > 0) {
+                JOptionPane.showMessageDialog(null, "Data berhasil diubah!");
+                kosong();
+                aktif();
+                autonumber();
+            } else {
+                JOptionPane.showMessageDialog(null, "Data gagal diubah. ID Teknisi tidak ditemukan.", "Kesalahan", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Data gagal diubah!" + e, "Kesalahan", JOptionPane.ERROR_MESSAGE);
+        }
+        datatable_teknisi();
+    }//GEN-LAST:event_bubah_tekActionPerformed
 
     private void bhapus_tekActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bhapus_tekActionPerformed
         String idTeknisi = id_teknisi.getText().trim();
@@ -601,91 +650,31 @@ public class master_teknisi extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "ID Teknisi belum diisi.", "Peringatan", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        if (!id_tekTerdaftar(idTeknisi)) {
-            JOptionPane.showMessageDialog(this, "ID Teknisi tidak ditemukan.", "Peringatan", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
         int ok = JOptionPane.showConfirmDialog(null, "Apakah benar ingin dihapus?", "Peringatan!", JOptionPane.YES_NO_OPTION);
         if (ok == 0) {
-            String sql = "delete from tb_login where id_teknisi='" + idTeknisi + "'";
+            String sql = "delete from tb_teknisi where id_teknisi='" + id_teknisi.getText() + "'";
             try {
                 PreparedStatement stat = conn.prepareStatement(sql);
                 stat.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Data berhasil dihapus");
                 kosong();
                 aktif();
+                autonumber();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Data gagal dihapus" + e);
             }
-            datatable();
+            datatable_teknisi();
         }
     }//GEN-LAST:event_bhapus_tekActionPerformed
 
-    private void bubah_tekActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bubah_tekActionPerformed
-        String id_teknisiText = id_teknisi.getText().trim(); // Trim untuk menghapus spasi di awal dan akhir
-        String sandiText = sandi.getText().trim();
-        String knfSandiText = knf_sandi.getText().trim();
-        String namaText = nama.getText().trim();
-        String hpText = hp.getText().trim();
-        String alamatText = alamat.getText().trim();
-        String jenis = jenkel.getSelectedItem().toString();
-        if (id_teknisiText.isEmpty() || sandiText.isEmpty() || knfSandiText.isEmpty() || namaText.isEmpty() || hpText.isEmpty() || alamatText.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Semua kolom harus diisi.", "Kesalahan", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (id_teknisiText.length() > 15) {
-            JOptionPane.showMessageDialog(this, "ID Teknisi harus terdiri dari 15 digit.", "Kesalahan", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (jenis.equals("Pilih Jenis Kelamin")) {
-            JOptionPane.showMessageDialog(this, "Jenis Kelamin harus dipilih.", "Kesalahan", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (!sandiText.equals(knfSandiText)) {
-            JOptionPane.showMessageDialog(this, "Konfirmasi sandi tidak sama dengan sandi.", "Kesalahan", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        String sql = "UPDATE tb_login SET sandi=?, nama=?, jenkel=?, hp=?, alamat=? WHERE id_teknisi=?"; // Perhatikan penggunaan UPDATE
-        try {
-            PreparedStatement stat = conn.prepareStatement(sql);
-            stat.setString(1, sandiText);
-            stat.setString(2, namaText);
-            stat.setString(3, jenis);
-            stat.setString(4, hpText);
-            stat.setString(5, alamatText);
-            stat.setString(6, id_teknisiText); // WHERE clause
-            int rowsUpdated = stat.executeUpdate();
-            if (rowsUpdated > 0) {
-                JOptionPane.showMessageDialog(null, "Data berhasil diubah!");
-                kosong();
-                aktif();
-            } else {
-                JOptionPane.showMessageDialog(null, "Data gagal diubah. ID Teknisi tidak ditemukan.", "Kesalahan", JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Data gagal diubah!" + e, "Kesalahan", JOptionPane.ERROR_MESSAGE);
-        }
-        datatable();
-    }//GEN-LAST:event_bubah_tekActionPerformed
-
     private void bbatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bbatalActionPerformed
         kosong();
-        datatable();
+        datatable_teknisi();
+        autonumber();
     }//GEN-LAST:event_bbatalActionPerformed
 
-    private void bkeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bkeluarActionPerformed
-         this.dispose();
-    }//GEN-LAST:event_bkeluarActionPerformed
-
-    private void bprint_tekActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bprint_tekActionPerformed
-        report_kasir rt = new report_kasir();
-        rt.setVisible(true);
-        rt.setLocationRelativeTo(null);    // TODO add your handling code here:
-    }//GEN-LAST:event_bprint_tekActionPerformed
-
     private void cari_teknisiKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cari_teknisiKeyTyped
-        datatable();
+        datatable_teknisi();
     }//GEN-LAST:event_cari_teknisiKeyTyped
 
     /**
@@ -715,8 +704,6 @@ public class master_teknisi extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -728,35 +715,32 @@ public class master_teknisi extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Panel_Teknisi;
-    private javax.swing.JTextArea alamat;
+    private javax.swing.JTextArea almt_teknisi;
     private javax.swing.JButton bbatal;
     private javax.swing.JButton bcari;
     private javax.swing.JButton bhapus_tek;
-    private javax.swing.JButton bkeluar;
     private javax.swing.JButton bprint_tek;
     private javax.swing.JButton bsimpan_tek;
     private javax.swing.JButton bubah_tek;
     private javax.swing.JTextField cari_teknisi;
-    private javax.swing.JTextField hp;
+    private javax.swing.JTextField hp_teknisi;
     private javax.swing.JTextField id_teknisi;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JComboBox<String> jenkel;
+    private javax.swing.JComboBox<String> jk_teknisi;
     private javax.swing.JPanel jpanel_kanan;
     private javax.swing.JPanel jpanel_kiri;
-    private javax.swing.JPasswordField knf_sandi;
-    private javax.swing.JTextField nama;
-    private javax.swing.JPasswordField sandi;
+    private javax.swing.JTextField nama_teknisi;
     private javax.swing.JTable tblteknisi;
     // End of variables declaration//GEN-END:variables
 }

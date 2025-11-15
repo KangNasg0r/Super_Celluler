@@ -8,7 +8,11 @@ import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.KeyEvent;
+import java.util.HashMap;
 import koneksi.koneksi;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 /**
  *
  * @author Ahmad Nur Latif P
@@ -25,6 +29,29 @@ private Connection conn = new koneksi().connect();
         kosong();
         aktif();
         datatable();
+        autonumber();
+    }
+    
+    protected void autonumber() {
+        try {
+            String sql = "SELECT id_aksesoris from tb_aksesoris order by id_aksesoris asc";
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            id_aksesoris.setText("A001");
+            while (rs.next()) {
+                String idaksesoris = rs.getString("id_aksesoris").substring(2);
+                int AN = Integer.parseInt(idaksesoris) + 1;
+                String Nol = "";
+                if (AN < 10) {
+                    Nol = "00";
+                } else if (AN < 100) {
+                    Nol = "0";
+                }
+                id_aksesoris.setText("A" + Nol + AN);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Nomor Otomatis Gagal" + e);
+        }
     }
     
     public javax.swing.JPanel getMainPanel() {
@@ -32,7 +59,8 @@ private Connection conn = new koneksi().connect();
     }
     
     protected void aktif() {
-        id_aksesoris.requestFocus();
+        nama_aksesoris.requestFocus();
+        id_aksesoris.setEditable(false);
     }
 
     protected void kosong() {
@@ -88,7 +116,6 @@ private Connection conn = new koneksi().connect();
         bubah = new javax.swing.JButton();
         bhapus = new javax.swing.JButton();
         bbatal = new javax.swing.JButton();
-        bkeluar = new javax.swing.JButton();
         nama_aksesoris = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         harga_jualAk = new javax.swing.JTextField();
@@ -115,6 +142,8 @@ private Connection conn = new koneksi().connect();
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("ID Aksesoris");
+
+        id_aksesoris.setBackground(java.awt.SystemColor.controlHighlight);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Nama :");
@@ -158,15 +187,6 @@ private Connection conn = new koneksi().connect();
             }
         });
 
-        bkeluar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        bkeluar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/back.png"))); // NOI18N
-        bkeluar.setText("KEMBALI");
-        bkeluar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bkeluarActionPerformed(evt);
-            }
-        });
-
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Harga Jual (Rp) :");
 
@@ -200,9 +220,7 @@ private Connection conn = new koneksi().connect();
                 .addComponent(bhapus)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bbatal)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bkeluar)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(155, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -230,8 +248,7 @@ private Connection conn = new koneksi().connect();
                     .addComponent(bsimpan)
                     .addComponent(bubah)
                     .addComponent(bhapus)
-                    .addComponent(bbatal)
-                    .addComponent(bkeluar))
+                    .addComponent(bbatal))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -425,6 +442,7 @@ private Connection conn = new koneksi().connect();
             JOptionPane.showMessageDialog(null, "Data berhasil disimpan!");
             kosong();
             aktif();
+            autonumber();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Data gagal disimpan!" + e);
         }
@@ -456,6 +474,7 @@ private Connection conn = new koneksi().connect();
                 JOptionPane.showMessageDialog(null, "Data berhasil diubah!");
                 kosong();
                 aktif();
+                autonumber();
             } else {
                 JOptionPane.showMessageDialog(null, "Data gagal diubah. ID Service tidak ditemukan.", "Kesalahan", JOptionPane.ERROR_MESSAGE);
             }
@@ -484,6 +503,7 @@ private Connection conn = new koneksi().connect();
                 JOptionPane.showMessageDialog(null, "Data berhasil dihapus");
                 kosong();
                 aktif();
+                autonumber();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Data gagal dihapus" + e);
             }
@@ -494,11 +514,8 @@ private Connection conn = new koneksi().connect();
     private void bbatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bbatalActionPerformed
         kosong();
         datatable();
+        autonumber();
     }//GEN-LAST:event_bbatalActionPerformed
-
-    private void bkeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bkeluarActionPerformed
-         this.dispose();
-    }//GEN-LAST:event_bkeluarActionPerformed
 
     private void table_aksesorisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_aksesorisMouseClicked
         int bar = table_aksesoris.getSelectedRow();
@@ -528,9 +545,39 @@ private Connection conn = new koneksi().connect();
     }//GEN-LAST:event_txtcariKeyTyped
 
     private void bprint_pelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bprint_pelActionPerformed
-        form_report.report_pelanggan rp = new form_report.report_pelanggan();
-        rp.setVisible(true);
-        rp.setLocationRelativeTo(null);    // TODO add your handling code here:
+        try {
+            String loginId = UserID.getIdKasir();
+            String loginKasir = "Tidak Diketahui";
+
+            try (PreparedStatement kasnama = conn.prepareStatement("SELECT nama FROM tb_kasir WHERE id_kasir = ?")) {
+                kasnama.setString(1, loginId);
+                try (ResultSet rsNama = kasnama.executeQuery()) {
+                    if (rsNama.next()) {
+                        loginKasir = rsNama.getString("nama");
+                    }
+                }
+            }
+
+            String reportPath = "./src/report/rep_aksesoris.jasper";
+            HashMap parameter = new HashMap();
+            parameter.put("KASIR", loginKasir);
+
+            JasperPrint print = JasperFillManager.fillReport(reportPath,parameter,conn);
+            
+            form.menu_utama menuUtama = form.menu_utama.getInstance();
+             if (menuUtama != null) {
+            javax.swing.JPanel reportPanel = new javax.swing.JPanel(new java.awt.BorderLayout());
+            net.sf.jasperreports.swing.JRViewer viewer = new net.sf.jasperreports.swing.JRViewer(print);
+            reportPanel.add(viewer, java.awt.BorderLayout.CENTER);
+            // Load ke Pane1 di menu_utama
+            menuUtama.loadPanel(reportPanel);
+                } else {
+            JasperViewer.viewReport(print, false);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Gagal mencetak report: " + e.getMessage());
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_bprint_pelActionPerformed
 
     /**
@@ -571,7 +618,6 @@ private Connection conn = new koneksi().connect();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bbatal;
     private javax.swing.JButton bhapus;
-    private javax.swing.JButton bkeluar;
     private javax.swing.JButton bprint_pel;
     private javax.swing.JButton bsimpan;
     private javax.swing.JButton bubah;

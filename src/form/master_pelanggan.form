@@ -182,6 +182,11 @@
           </Layout>
           <SubComponents>
             <Component class="javax.swing.JTextField" name="id_pelanggan">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="e3" green="e3" id="Control Highlight" palette="2" red="e3" type="palette"/>
+                </Property>
+              </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="id_pelangganActionPerformed"/>
               </Events>
@@ -294,9 +299,9 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="bsimpan_tek" alignment="1" pref="101" max="32767" attributes="0"/>
-                              <Component id="bubah_tek" alignment="0" max="32767" attributes="0"/>
-                              <Component id="bhapus_tek" alignment="0" max="32767" attributes="0"/>
+                              <Component id="bsimpan_pel" alignment="1" pref="101" max="32767" attributes="0"/>
+                              <Component id="bubah_pel" alignment="0" max="32767" attributes="0"/>
+                              <Component id="bhapus_pel" alignment="0" max="32767" attributes="0"/>
                               <Component id="bbatal" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
@@ -307,11 +312,11 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="bsimpan_tek" min="-2" max="-2" attributes="0"/>
+                          <Component id="bsimpan_pel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="bubah_tek" min="-2" max="-2" attributes="0"/>
+                          <Component id="bubah_pel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="bhapus_tek" min="-2" max="-2" attributes="0"/>
+                          <Component id="bhapus_pel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                           <Component id="bbatal" min="-2" max="-2" attributes="0"/>
                           <EmptySpace pref="52" max="32767" attributes="0"/>
@@ -337,7 +342,7 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bbatalActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="bhapus_tek">
+                <Component class="javax.swing.JButton" name="bhapus_pel">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="11" style="1"/>
@@ -351,10 +356,10 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bhapus_tekActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bhapus_pelActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="bubah_tek">
+                <Component class="javax.swing.JButton" name="bubah_pel">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="11" style="1"/>
@@ -368,10 +373,10 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bubah_tekActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bubah_pelActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="bsimpan_tek">
+                <Component class="javax.swing.JButton" name="bsimpan_pel">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="11" style="1"/>
@@ -385,7 +390,7 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bsimpan_tekActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bsimpan_pelActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>

@@ -138,10 +138,10 @@
                           <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                               <Component id="jLabel8" alignment="0" max="32767" attributes="0"/>
                               <Component id="jenis_barang" alignment="0" pref="208" max="32767" attributes="0"/>
-                              <Component id="merk_barang" alignment="0" max="32767" attributes="0"/>
                               <Component id="jLabel6" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <Component id="harga_jual" min="-2" pref="208" max="-2" attributes="0"/>
+                          <Component id="merk_barang" min="-2" pref="208" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -176,9 +176,9 @@
                           <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="harga_beli" max="32767" attributes="0"/>
-                          <Component id="merk_barang" pref="0" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="harga_beli" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="merk_barang" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                   </Group>
@@ -234,17 +234,8 @@
                   <Font name="Tahoma" size="12" style="0"/>
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="10">
+                  <StringArray count="1">
                     <StringItem index="0" value="Pilih Jenis Barang"/>
-                    <StringItem index="1" value="LCD"/>
-                    <StringItem index="2" value="Baterai"/>
-                    <StringItem index="3" value="Kamera Depan"/>
-                    <StringItem index="4" value="Kamera Belakang"/>
-                    <StringItem index="5" value="Port Charger"/>
-                    <StringItem index="6" value="Speaker"/>
-                    <StringItem index="7" value="Mikrofon"/>
-                    <StringItem index="8" value="Sim Tray"/>
-                    <StringItem index="9" value="Tombol Fisik"/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -257,32 +248,8 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="14" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Jenis Barang :"/>
+                <Property name="text" type="java.lang.String" value="Jenis Service Barang :"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JComboBox" name="merk_barang">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Tahoma" size="12" style="0"/>
-                </Property>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="10">
-                    <StringItem index="0" value="Pilih Merek Barang"/>
-                    <StringItem index="1" value="Samsung"/>
-                    <StringItem index="2" value="Lenovo"/>
-                    <StringItem index="3" value="Apple"/>
-                    <StringItem index="4" value="Xiaomi"/>
-                    <StringItem index="5" value="Oppo"/>
-                    <StringItem index="6" value="Realme"/>
-                    <StringItem index="7" value="Infinix"/>
-                    <StringItem index="8" value="Asus"/>
-                    <StringItem index="9" value="Acer"/>
-                  </StringArray>
-                </Property>
-              </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel8">
               <Properties>
@@ -293,8 +260,15 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="kd_barang">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="e3" green="e3" id="Control Highlight" palette="2" red="e3" type="palette"/>
+                </Property>
+              </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="harga_jual">
+            </Component>
+            <Component class="javax.swing.JTextField" name="merk_barang">
             </Component>
           </SubComponents>
         </Container>
@@ -318,11 +292,10 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="bsimpan" max="32767" attributes="0"/>
+                          <Component id="bsimpan" pref="111" max="32767" attributes="0"/>
                           <Component id="bubah" max="32767" attributes="0"/>
                           <Component id="bhapus" alignment="0" max="32767" attributes="0"/>
                           <Component id="bbatal" alignment="0" max="32767" attributes="0"/>
-                          <Component id="bkeluar" alignment="0" min="-2" pref="111" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -339,9 +312,7 @@
                       <Component id="bhapus" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="bbatal" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="bkeluar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="45" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -401,20 +372,6 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bbatalActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="bkeluar">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Tahoma" size="11" style="1"/>
-                </Property>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/gambar/back.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="KEMBALI"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bkeluarActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

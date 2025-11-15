@@ -10,7 +10,11 @@ import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.KeyEvent;
+import java.util.HashMap;
 import koneksi.koneksi;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -29,15 +33,59 @@ public class master_sparepart extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         kosong();
         aktif();
+        loadJenisBarangFromService();
         datatable();
+        autonumber();
     }
+    
+    protected void autonumber() {
+        try {
+            String sql = "SELECT kd_barang from tb_sparepart order by kd_barang asc";
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            kd_barang.setText("SP001");
+            while (rs.next()) {
+                String kdsparepart = rs.getString("kd_barang").substring(2);
+                int AN = Integer.parseInt(kdsparepart) + 1;
+                String Nol = "";
+                if (AN < 10) {
+                    Nol = "00";
+                } else if (AN < 100) {
+                    Nol = "0";
+                }
+                kd_barang.setText("SP" + Nol + AN);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Nomor Otomatis Gagal" + e);
+        }
+    }
+    
+    protected void loadJenisBarangFromService() {
+    try {
+        String sql = "SELECT jenis_service FROM tb_service ORDER BY jenis_service ASC";
+        Statement stat = conn.createStatement();
+        ResultSet hasil = stat.executeQuery(sql);
+        // Tambahkan setiap jenis_service ke combobox
+        while (hasil.next()) {
+            jenis_barang.addItem(hasil.getString("jenis_service"));
+        }
+        hasil.close();
+        stat.close();
+        
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Gagal memuat jenis barang: " + e.getMessage());
+        e.printStackTrace();
+    }
+}
+
     
     public javax.swing.JPanel getMainPanel() {
         return Panel_Sparepart;
     }
 
     protected void aktif() {
-        kd_barang.requestFocus();
+        nama_barang.requestFocus();
+        kd_barang.setEditable(false);
     }
 
     protected void kosong() {
@@ -46,11 +94,11 @@ public class master_sparepart extends javax.swing.JFrame {
         harga_beli.setText("");
         harga_jual.setText("");
         jenis_barang.setSelectedIndex(0);
-        merk_barang.setSelectedIndex(0);
+        merk_barang.setText("");
     }
 
     protected void datatable() {
-        Object[] Baris = {"Kode Barang", "Nama Barang", "Harga Beli (Rp)", "Harga Jual (Rp)", "Jenis Barang", "Merk Barang"};
+        Object[] Baris = {"Kode Barang", "Nama Barang", "Harga Beli (Rp)", "Harga Jual (Rp)", "Jenis Service Barang", "Merk Barang"};
         tabmode = new DefaultTableModel(null, Baris);
         String cariitem = txtcari.getText();
 
@@ -99,16 +147,15 @@ public class master_sparepart extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jenis_barang = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
-        merk_barang = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         kd_barang = new javax.swing.JTextField();
         harga_jual = new javax.swing.JTextField();
+        merk_barang = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         bsimpan = new javax.swing.JButton();
         bubah = new javax.swing.JButton();
         bhapus = new javax.swing.JButton();
         bbatal = new javax.swing.JButton();
-        bkeluar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         txtcari = new javax.swing.JTextField();
         bcari = new javax.swing.JButton();
@@ -157,16 +204,15 @@ public class master_sparepart extends javax.swing.JFrame {
         jLabel5.setText("Harga Jual :");
 
         jenis_barang.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jenis_barang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Jenis Barang", "LCD", "Baterai", "Kamera Depan", "Kamera Belakang", "Port Charger", "Speaker", "Mikrofon", "Sim Tray", "Tombol Fisik" }));
+        jenis_barang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Jenis Barang" }));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel6.setText("Jenis Barang :");
-
-        merk_barang.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        merk_barang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Merek Barang", "Samsung", "Lenovo", "Apple", "Xiaomi", "Oppo", "Realme", "Infinix", "Asus", "Acer" }));
+        jLabel6.setText("Jenis Service Barang :");
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setText("Merek Barang :");
+
+        kd_barang.setBackground(java.awt.SystemColor.controlHighlight);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -187,9 +233,9 @@ public class master_sparepart extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jenis_barang, javax.swing.GroupLayout.Alignment.LEADING, 0, 208, Short.MAX_VALUE)
-                        .addComponent(merk_barang, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(harga_jual, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(harga_jual, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(merk_barang, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -216,9 +262,9 @@ public class master_sparepart extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(harga_beli)
-                    .addComponent(merk_barang, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(harga_beli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(merk_barang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12))
         );
 
@@ -261,15 +307,6 @@ public class master_sparepart extends javax.swing.JFrame {
             }
         });
 
-        bkeluar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        bkeluar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/back.png"))); // NOI18N
-        bkeluar.setText("KEMBALI");
-        bkeluar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bkeluarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -277,11 +314,10 @@ public class master_sparepart extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(bsimpan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bsimpan, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
                     .addComponent(bubah, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(bhapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bbatal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bkeluar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(bbatal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -295,9 +331,7 @@ public class master_sparepart extends javax.swing.JFrame {
                 .addComponent(bhapus)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(bbatal)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(bkeluar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -480,6 +514,7 @@ public class master_sparepart extends javax.swing.JFrame {
     private void bbatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bbatalActionPerformed
         kosong();
         datatable();
+        autonumber();
     }//GEN-LAST:event_bbatalActionPerformed
 
     private void bsimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bsimpanActionPerformed
@@ -488,7 +523,7 @@ public class master_sparepart extends javax.swing.JFrame {
         String hargaBText = harga_beli.getText().trim();
         String hargaJText = harga_jual.getText().trim();
         String jenisBarang = jenis_barang.getSelectedItem().toString();
-        String merkBarang = merk_barang.getSelectedItem().toString();
+        String merkBarang = merk_barang.getText().trim();
         if (kdBarangText.isEmpty() || namaBarangText.isEmpty() || hargaBText.isEmpty() || hargaJText.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Semua kolom harus diisi.", "Kesalahan", JOptionPane.ERROR_MESSAGE);
             return;
@@ -505,10 +540,6 @@ public class master_sparepart extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Jenis barang harus dipilih.", "Kesalahan", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        if (merkBarang.equals("Pilih Merek Barang")) {
-            JOptionPane.showMessageDialog(this, "Merek barang harus dipilih.", "Kesalahan", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
         String sql = "insert into tb_sparepart values(?,?,?,?,?,?)";
         try {
             PreparedStatement stat = conn.prepareStatement(sql);
@@ -523,6 +554,7 @@ public class master_sparepart extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Data berhasil disimpan!");
             kosong();
             aktif();
+            autonumber();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Data gagal disimpan!" + e);
         }
@@ -543,7 +575,7 @@ public class master_sparepart extends javax.swing.JFrame {
         harga_beli.setText(c);
         harga_jual.setText(d);
         jenis_barang.setSelectedItem(e);
-        merk_barang.setSelectedItem(f);
+        merk_barang.setText(f);
     }//GEN-LAST:event_table_sparepartMouseClicked
 
     private void txtcariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcariKeyPressed
@@ -575,6 +607,7 @@ public class master_sparepart extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Data berhasil dihapus");
                 kosong();
                 aktif();
+                autonumber();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Data gagal dihapus" + e);
             }
@@ -588,7 +621,7 @@ public class master_sparepart extends javax.swing.JFrame {
         String hargaBText = harga_beli.getText().trim();
         String hargaJText = harga_jual.getText().trim();
         String jenisBarang = jenis_barang.getSelectedItem().toString();
-        String merkBarang = merk_barang.getSelectedItem().toString();
+        String merkBarang = merk_barang.getText().trim();
         if (kdBarangText.isEmpty() || namaBarangText.isEmpty() || hargaBText.isEmpty() || hargaJText.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Semua kolom harus diisi.", "Kesalahan", JOptionPane.ERROR_MESSAGE);
             return;
@@ -601,10 +634,6 @@ public class master_sparepart extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Jenis barang harus dipilih.", "Kesalahan", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        if (merkBarang.equals("Pilih Merek Barang")) {
-            JOptionPane.showMessageDialog(this, "Merek barang harus dipilih.", "Kesalahan", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
         String sql = "UPDATE tb_sparepart SET nama_barang=?, harga_beli=?, harga_jual=?, jenis_barang=?, merk_barang=? WHERE kd_barang=?"; // Perhatikan penggunaan UPDATE
         try {
             PreparedStatement stat = conn.prepareStatement(sql);
@@ -613,12 +642,13 @@ public class master_sparepart extends javax.swing.JFrame {
             stat.setString(3, hargaJText);
             stat.setString(4, jenisBarang);
             stat.setString(5, merkBarang);
-            stat.setString(6, kdBarangText); // WHERE clause
+            stat.setString(6, kdBarangText);
             int rowsUpdated = stat.executeUpdate();
             if (rowsUpdated > 0) {
                 JOptionPane.showMessageDialog(null, "Data berhasil diubah!");
                 kosong();
                 aktif();
+                autonumber();
             } else {
                 JOptionPane.showMessageDialog(null, "Data gagal diubah. Kode Barang tidak ditemukan.", "Kesalahan", JOptionPane.ERROR_MESSAGE);
             }
@@ -628,17 +658,38 @@ public class master_sparepart extends javax.swing.JFrame {
         datatable();
     }//GEN-LAST:event_bubahActionPerformed
 
-    private void bkeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bkeluarActionPerformed
-        menu_utama ma = new menu_utama();
-        ma.setVisible(true);
-        ma.setLocationRelativeTo(null);
-        this.dispose();
-    }//GEN-LAST:event_bkeluarActionPerformed
-
     private void bprint_spareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bprint_spareActionPerformed
-        report_sparepart rs = new report_sparepart();
-        rs.setVisible(true);
-        rs.setLocationRelativeTo(null);    // TODO add your handling code here:
+        try {
+            String loginId = UserID.getIdKasir();
+            String loginKasir = "Tidak Diketahui";
+            try (PreparedStatement teknama = conn.prepareStatement("SELECT nama FROM tb_kasir WHERE id_kasir = ?")) {
+                teknama.setString(1, loginId);
+                try (ResultSet rsNama = teknama.executeQuery()) {
+                    if (rsNama.next()) {
+                        loginKasir = rsNama.getString("nama");
+                    }
+                }
+            }
+
+            String reportPath = "./src/report/rep_sparepart.jasper";
+            HashMap parameter = new HashMap();
+            parameter.put("KASIR", loginKasir);
+            JasperPrint print = JasperFillManager.fillReport(reportPath,parameter,conn);
+            
+            form.menu_utama menuUtama = form.menu_utama.getInstance();
+        if (menuUtama != null) {
+            javax.swing.JPanel reportPanel = new javax.swing.JPanel(new java.awt.BorderLayout());
+            net.sf.jasperreports.swing.JRViewer viewer = new net.sf.jasperreports.swing.JRViewer(print);
+            reportPanel.add(viewer, java.awt.BorderLayout.CENTER);
+            menuUtama.loadPanel(reportPanel);
+        } else {
+            JasperViewer.viewReport(print, false);
+        }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Gagal mencetak report: " + e.getMessage());
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_bprint_spareActionPerformed
 
     private void txtcariKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcariKeyTyped
@@ -685,7 +736,6 @@ public class master_sparepart extends javax.swing.JFrame {
     private javax.swing.JButton bbatal;
     private javax.swing.JButton bcari;
     private javax.swing.JButton bhapus;
-    private javax.swing.JButton bkeluar;
     private javax.swing.JButton bprint_spare;
     private javax.swing.JButton bsimpan;
     private javax.swing.JButton bubah;
@@ -706,7 +756,7 @@ public class master_sparepart extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<String> jenis_barang;
     private javax.swing.JTextField kd_barang;
-    private javax.swing.JComboBox<String> merk_barang;
+    private javax.swing.JTextField merk_barang;
     private javax.swing.JTextField nama_barang;
     private javax.swing.JTable table_sparepart;
     private javax.swing.JTextField txtcari;

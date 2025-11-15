@@ -13,6 +13,8 @@ import koneksi.koneksi;
 import form.transaksi_pembayaran;
 import form.transaksi_pembayaran;
 import java.awt.event.KeyEvent;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 /**
  *
  * @author Ahmad Nur Latif P
@@ -21,44 +23,107 @@ public class poppup_sparepart extends javax.swing.JFrame {
 private Connection conn = new koneksi().connect();
     private DefaultTableModel tabmode;
     public transaksi_pembayaran sppt = null;
+    private String filterJenisService;
     /**
      * Creates new form poppup_sparepart
      */
-    public poppup_sparepart() {
+    public poppup_sparepart(transaksi_pembayaran tp, String jenisService) {
+        this.sppt = tp;
+        this.filterJenisService = jenisService;
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        if (filterJenisService != null && !filterJenisService.isEmpty()) {
+            this.setTitle("Pilih Sparepart - " + filterJenisService);
+            jLabel9.setText("Cari Sparepart untuk jenis: " + filterJenisService);
+        }
+        datatable();
+    }
+    
+     public poppup_sparepart() {
+        this.filterJenisService = null;
+        initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        this.setTitle("Pilih Sparepart - Semua Jenis");
         datatable();
     }
     
     protected void datatable() {
-        Object[] Baris = {"Kode Barang", "Nama Barang", "Harga Beli (Rp)", "Harga Jual (Rp)", "Jenis Barang", "Merk Barang"};
-        tabmode = new DefaultTableModel(null, Baris);
-        String cariitem = cari_sparepart.getText();
+    Object[] Baris = {"Kode Barang", "Nama Barang", "Harga Beli (Rp)", "Harga Jual (Rp)", "Jenis Service Barang", "Merk Barang"};
+    tabmode = new DefaultTableModel(null, Baris);
+    String cariitem = cari_sparepart.getText().trim();
 
-        try {
-            String sql = "SELECT * FROM tb_sparepart WHERE kd_barang LIKE '%" + cariitem + "%' "
-                    + "OR nama_barang LIKE '%" + cariitem + "%' "
-                    + "OR harga_beli LIKE '%" + cariitem + "%' "
-                    + "OR harga_jual LIKE '%" + cariitem + "%' "
-                    + "OR jenis_barang LIKE '%" + cariitem + "%' "
-                    + "OR merk_barang LIKE '%" + cariitem + "%' "
-                    + "ORDER BY kd_barang ASC";
-            Statement stat = conn.createStatement();
-            ResultSet hasil = stat.executeQuery(sql);
-            while (hasil.next()) {
-                tabmode.addRow(new Object[]{
-                    hasil.getString(1),
-                    hasil.getString(2),
-                    hasil.getString(3),
-                    hasil.getString(4),
-                    hasil.getString(5),
-                    hasil.getString(6),});
-            }
-            tblsparepart.setModel(tabmode);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "data gagal dipanggil" + e);
+    String sql;
+    boolean hasFilter = (filterJenisService != null && !filterJenisService.isEmpty());
+    
+    try {
+        // Build SQL berdasarkan filter
+        if (hasFilter) {
+            sql = "SELECT * FROM tb_sparepart WHERE jenis_barang = ? AND ("
+                + "kd_barang LIKE ? OR "
+                + "nama_barang LIKE ? OR "
+                + "harga_beli LIKE ? OR "
+                + "harga_jual LIKE ? OR "
+                + "merk_barang LIKE ?) "
+                + "ORDER BY kd_barang ASC";
+        } else {
+            sql = "SELECT * FROM tb_sparepart WHERE "
+                + "kd_barang LIKE ? OR "
+                + "nama_barang LIKE ? OR "
+                + "harga_beli LIKE ? OR "
+                + "harga_jual LIKE ? OR "
+                + "jenis_barang LIKE ? OR "
+                + "merk_barang LIKE ? "
+                + "ORDER BY kd_barang ASC";
         }
+        try (PreparedStatement stat = conn.prepareStatement(sql)) {
+            int paramIndex = 1;
+
+            if (hasFilter) {
+                stat.setString(paramIndex++, filterJenisService);
+            }
+            int searchParamCount = hasFilter ? 5 : 6;
+             for (int i = 0; i < searchParamCount; i++) {
+                stat.setString(paramIndex++, "%" + cariitem + "%");
+            }
+            try (ResultSet hasil = stat.executeQuery()) {
+                int rowCount = 0;
+                while (hasil.next()) {
+                    tabmode.addRow(new Object[]{
+                        hasil.getString(1),
+                        hasil.getString(2),
+                        hasil.getString(3),
+                        hasil.getString(4),
+                        hasil.getString(5),
+                        hasil.getString(6)
+                    });
+                    rowCount++;
+                }
+
+                tblsparepart.setModel(tabmode);
+                String labelText = hasFilter 
+                    ? " (Jenis Service: " + filterJenisService + ") - " + rowCount + " item ditemukan"
+                    : "Cari - " + rowCount + " item ditemukan";
+                jLabel9.setText(labelText);
+                
+                // jika data kosong dengan filter
+                if (hasFilter && rowCount == 0) {
+                    JOptionPane.showMessageDialog(this, 
+                        "Tidak ada sparepart dengan jenis service: ( " + filterJenisService + " )\n" +
+                        "Silakan tambahkan data di Master Sparepart.", 
+                        "Sparepart Tidak Ditemukan", 
+                        JOptionPane.WARNING_MESSAGE);
+                }
+            }
+        }    
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, 
+            "Data gagal dipanggil: " + e.getMessage(), 
+            "Error Database", 
+            JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
     }
+}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -79,12 +144,13 @@ private Connection conn = new koneksi().connect();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(102, 102, 255));
+        jPanel1.setBackground(new java.awt.Color(0, 0, 204));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
         tblsparepart.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        tblsparepart.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tblsparepart.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -128,8 +194,9 @@ private Connection conn = new koneksi().connect();
             }
         });
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel9.setText("Cari :");
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel9.setText("Keterangan");
+        jLabel9.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -138,28 +205,30 @@ private Connection conn = new koneksi().connect();
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
-                        .addGap(534, 534, 534))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 966, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(cari_sparepart, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(bcari)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 713, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel9)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap(13, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cari_sparepart, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bcari, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(1, 1, 1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cari_sparepart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bcari))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -176,8 +245,8 @@ private Connection conn = new koneksi().connect();
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -196,13 +265,20 @@ private Connection conn = new koneksi().connect();
 
     private void tblsparepartMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblsparepartMouseClicked
         int tbpl = tblsparepart.getSelectedRow();
+        if (tbpl >= 0 && sppt != null) {
         sppt.kd_bar = tblsparepart.getValueAt(tbpl, 0).toString();
         sppt.nama_bar = tblsparepart.getValueAt(tbpl, 1).toString();
         sppt.harga_bel_bar = tblsparepart.getValueAt(tbpl, 2).toString();
         sppt.harga_ju_bar = tblsparepart.getValueAt(tbpl, 3).toString();
-        sppt.merk_bar = tblsparepart.getValueAt(tbpl, 4).toString();
+        sppt.merk_bar = tblsparepart.getValueAt(tbpl, 5).toString();
         sppt.itemTerpilihSppt();
         this.dispose();
+        } else if (sppt == null) {
+        JOptionPane.showMessageDialog(this, 
+            "Error: Parent window tidak terdaftar", 
+            "Error", 
+            JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_tblsparepartMouseClicked
 
     private void cari_sparepartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cari_sparepartActionPerformed

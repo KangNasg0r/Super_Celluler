@@ -10,7 +10,13 @@ import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.KeyEvent;
+import java.util.HashMap;
 import koneksi.koneksi;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
+import net.sf.jasperreports.swing.JRViewer;
+
 
 /**
  * /**
@@ -51,6 +57,9 @@ public class master_kasir extends javax.swing.JFrame {
         nama.setText("");
         hp.setText("");
         alamat.setText("");
+        
+        bhapus_kas.setEnabled(true);
+        bhapus_kas.setToolTipText("Hapus data kasir");
     }
 
     protected void datatable() {
@@ -490,6 +499,15 @@ public class master_kasir extends javax.swing.JFrame {
         jenkel.setSelectedItem(d);
         hp.setText(e);
         alamat.setText(f);
+        
+        String loginId = UserID.getIdKasir();
+         if (a.equals(loginId)) {
+        bhapus_kas.setEnabled(false);
+        bhapus_kas.setToolTipText("Tidak dapat menghapus akun yang sedang digunakan");
+         } else {
+        bhapus_kas.setEnabled(true);
+        bhapus_kas.setToolTipText("Hapus data kasir");
+        }
     }//GEN-LAST:event_tblkasirMouseClicked
 
     private void cari_kasirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cari_kasirActionPerformed
@@ -645,15 +663,33 @@ public class master_kasir extends javax.swing.JFrame {
             int rowsUpdated = stat.executeUpdate();
             if (rowsUpdated > 0) {
                 JOptionPane.showMessageDialog(null, "Data berhasil diubah!");
-                kosong();
-                aktif();
-            } else {
-                JOptionPane.showMessageDialog(null, "Data gagal diubah. ID Kasir tidak ditemukan.", "Kesalahan", JOptionPane.ERROR_MESSAGE);
+                // Cek apakah data yang diubah adalah kasir yang sedang login
+            String loginId = UserID.getIdKasir();
+            if (id_kasirText.equals(loginId)) {
+                // Update UserID
+                UserID.setNamaKasir(namaText);
+                UserID.setJenkelKasir(jenis);
+                UserID.setHPKasir(hpText);
+                
+                // Refresh label di menu_utama
+                menu_utama menuUtama = menu_utama.getInstance();
+                if (menuUtama != null) {
+                    menuUtama.refreshKasirInfo();
+                }
+                JOptionPane.showMessageDialog(null, 
+                    "Data profil Anda telah diperbarui.", 
+                    "Info", 
+                    JOptionPane.INFORMATION_MESSAGE);
             }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Data gagal diubah!" + e, "Kesalahan", JOptionPane.ERROR_MESSAGE);
+            kosong();
+            aktif();
+        } else {
+            JOptionPane.showMessageDialog(null, "Data gagal diubah. ID Kasir tidak ditemukan.", "Kesalahan", JOptionPane.ERROR_MESSAGE);
         }
-        datatable();
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Data gagal diubah!" + e, "Kesalahan", JOptionPane.ERROR_MESSAGE);
+    }
+    datatable();
     }//GEN-LAST:event_bubah_kasActionPerformed
 
     private void bbatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bbatalActionPerformed
@@ -662,9 +698,40 @@ public class master_kasir extends javax.swing.JFrame {
     }//GEN-LAST:event_bbatalActionPerformed
 
     private void bprint_kasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bprint_kasActionPerformed
-        report_kasir rt = new report_kasir();
-        rt.setVisible(true);
-        rt.setLocationRelativeTo(null);
+        try {
+        String loginId = UserID.getIdKasir();
+        String loginKasir = "Tidak Diketahui";
+
+        try (PreparedStatement kasnama = conn.prepareStatement("SELECT nama FROM tb_kasir WHERE id_kasir = ?")) {
+            kasnama.setString(1, loginId);
+            try (ResultSet rsNama = kasnama.executeQuery()) {
+                if (rsNama.next()) {
+                    loginKasir = rsNama.getString("nama");
+                }
+            }
+        }
+
+        String reportPath = "./src/report/rep_kasir.jasper";
+        HashMap<String, Object> parameter = new HashMap<>();
+        parameter.put("KASIR", loginKasir);
+
+        JasperPrint print = JasperFillManager.fillReport(reportPath, parameter, conn);
+        
+        form.menu_utama menuUtama = form.menu_utama.getInstance();
+        if (menuUtama != null) {
+            javax.swing.JPanel reportPanel = new javax.swing.JPanel(new java.awt.BorderLayout());
+            net.sf.jasperreports.swing.JRViewer viewer = new net.sf.jasperreports.swing.JRViewer(print);
+            reportPanel.add(viewer, java.awt.BorderLayout.CENTER);
+            // Load ke Pane1 di menu_utama
+            menuUtama.loadPanel(reportPanel);
+        } else {
+            JasperViewer.viewReport(print, false);
+        } 
+        
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Gagal mencetak report: " + e.getMessage());
+        e.printStackTrace();
+    }
     }//GEN-LAST:event_bprint_kasActionPerformed
 
     private void cari_kasirKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cari_kasirKeyTyped

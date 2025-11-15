@@ -13,6 +13,10 @@ import java.awt.event.KeyEvent;
 import koneksi.koneksi;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -34,6 +38,29 @@ public class master_pelanggan extends javax.swing.JFrame {
         datatable_pelanggan();
         almt_pelanggan.setLineWrap(true);
         almt_pelanggan.setWrapStyleWord(true);
+        autonumber();
+    }
+    
+    protected void autonumber() {
+        try {
+            String sql = "SELECT id_pelanggan from tb_pelanggan order by id_pelanggan asc";
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            id_pelanggan.setText("P001");
+            while (rs.next()) {
+                String idpelanggan = rs.getString("id_pelanggan").substring(2);
+                int AN = Integer.parseInt(idpelanggan) + 1;
+                String Nol = "";
+                if (AN < 10) {
+                    Nol = "00";
+                } else if (AN < 100) {
+                    Nol = "0";
+                }
+                id_pelanggan.setText("P" + Nol + AN);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Nomor Otomatis Gagal" + e);
+        }
     }
     
     public javax.swing.JPanel getMainPanel() {
@@ -41,7 +68,8 @@ public class master_pelanggan extends javax.swing.JFrame {
     }
 
     protected void aktif() {
-        id_pelanggan.requestFocus();
+        nama_pelanggan.requestFocus();
+        id_pelanggan.setEditable(false);
     }
 
     protected void kosong() {
@@ -127,9 +155,9 @@ public class master_pelanggan extends javax.swing.JFrame {
         tanggal_pelanggan = new org.jdesktop.swingx.JXDatePicker();
         jPanel1 = new javax.swing.JPanel();
         bbatal = new javax.swing.JButton();
-        bhapus_tek = new javax.swing.JButton();
-        bubah_tek = new javax.swing.JButton();
-        bsimpan_tek = new javax.swing.JButton();
+        bhapus_pel = new javax.swing.JButton();
+        bubah_pel = new javax.swing.JButton();
+        bsimpan_pel = new javax.swing.JButton();
         jpanel_kiri = new javax.swing.JPanel();
         jpanel_kanan = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -154,6 +182,7 @@ public class master_pelanggan extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
+        id_pelanggan.setBackground(java.awt.SystemColor.controlHighlight);
         id_pelanggan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 id_pelangganActionPerformed(evt);
@@ -208,33 +237,33 @@ public class master_pelanggan extends javax.swing.JFrame {
             }
         });
 
-        bhapus_tek.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        bhapus_tek.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/delete.png"))); // NOI18N
-        bhapus_tek.setText("HAPUS");
-        bhapus_tek.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        bhapus_tek.addActionListener(new java.awt.event.ActionListener() {
+        bhapus_pel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        bhapus_pel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/delete.png"))); // NOI18N
+        bhapus_pel.setText("HAPUS");
+        bhapus_pel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bhapus_pel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bhapus_tekActionPerformed(evt);
+                bhapus_pelActionPerformed(evt);
             }
         });
 
-        bubah_tek.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        bubah_tek.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/edit.png"))); // NOI18N
-        bubah_tek.setText("UBAH");
-        bubah_tek.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        bubah_tek.addActionListener(new java.awt.event.ActionListener() {
+        bubah_pel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        bubah_pel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/edit.png"))); // NOI18N
+        bubah_pel.setText("UBAH");
+        bubah_pel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bubah_pel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bubah_tekActionPerformed(evt);
+                bubah_pelActionPerformed(evt);
             }
         });
 
-        bsimpan_tek.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        bsimpan_tek.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/save.png"))); // NOI18N
-        bsimpan_tek.setText("SIMPAN");
-        bsimpan_tek.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        bsimpan_tek.addActionListener(new java.awt.event.ActionListener() {
+        bsimpan_pel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        bsimpan_pel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/save.png"))); // NOI18N
+        bsimpan_pel.setText("SIMPAN");
+        bsimpan_pel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bsimpan_pel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bsimpan_tekActionPerformed(evt);
+                bsimpan_pelActionPerformed(evt);
             }
         });
 
@@ -245,9 +274,9 @@ public class master_pelanggan extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(bsimpan_tek, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
-                    .addComponent(bubah_tek, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bhapus_tek, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bsimpan_pel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
+                    .addComponent(bubah_pel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bhapus_pel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(bbatal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -255,11 +284,11 @@ public class master_pelanggan extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(bsimpan_tek)
+                .addComponent(bsimpan_pel)
                 .addGap(18, 18, 18)
-                .addComponent(bubah_tek)
+                .addComponent(bubah_pel)
                 .addGap(18, 18, 18)
-                .addComponent(bhapus_tek)
+                .addComponent(bhapus_pel)
                 .addGap(18, 18, 18)
                 .addComponent(bbatal)
                 .addContainerGap(52, Short.MAX_VALUE))
@@ -535,9 +564,40 @@ public class master_pelanggan extends javax.swing.JFrame {
     }//GEN-LAST:event_bcariActionPerformed
 
     private void bprint_pelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bprint_pelActionPerformed
-        report_pelanggan rp = new report_pelanggan();
-        rp.setVisible(true);
-        rp.setLocationRelativeTo(null);    // TODO add your handling code here:
+        try {
+            String loginId = UserID.getIdKasir();
+            String loginKasir = "Tidak Diketahui";
+
+            try (PreparedStatement teknama = conn.prepareStatement("SELECT nama FROM tb_kasir WHERE id_kasir = ?")) {
+                teknama.setString(1, loginId);
+                try (ResultSet rsNama = teknama.executeQuery()) {
+                    if (rsNama.next()) {
+                        loginKasir = rsNama.getString("nama");
+                    }
+                }
+            }
+
+            String reportPath = "./src/report/rep_pelanggan.jasper";
+            HashMap parameter = new HashMap();
+            parameter.put("KASIR", loginKasir);
+
+            JasperPrint print = JasperFillManager.fillReport(reportPath,parameter,conn);
+            
+            form.menu_utama menuUtama = form.menu_utama.getInstance();
+        if (menuUtama != null) {
+            javax.swing.JPanel reportPanel = new javax.swing.JPanel(new java.awt.BorderLayout());
+            net.sf.jasperreports.swing.JRViewer viewer = new net.sf.jasperreports.swing.JRViewer(print);
+            reportPanel.add(viewer, java.awt.BorderLayout.CENTER);
+            // Load ke Pane1 di menu_utama
+            menuUtama.loadPanel(reportPanel);
+        } else {
+            JasperViewer.viewReport(print, false);
+        }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Gagal mencetak report: " + e.getMessage());
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_bprint_pelActionPerformed
 
     private void id_pelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_id_pelangganActionPerformed
@@ -559,7 +619,7 @@ public class master_pelanggan extends javax.swing.JFrame {
             return false;
         }
     }
-    private void bsimpan_tekActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bsimpan_tekActionPerformed
+    private void bsimpan_pelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bsimpan_pelActionPerformed
         String id_pelangganText = id_pelanggan.getText().trim(); // Trim untuk menghapus spasi di awal dan akhir
         String namaText = nama_pelanggan.getText().trim();
         String hpText = hp_pelanggan.getText().trim();
@@ -601,13 +661,14 @@ public class master_pelanggan extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Data berhasil disimpan!");
             kosong();
             aktif();
+            autonumber();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Data gagal disimpan!" + e);
         }
         datatable_pelanggan();
-    }//GEN-LAST:event_bsimpan_tekActionPerformed
+    }//GEN-LAST:event_bsimpan_pelActionPerformed
 
-    private void bubah_tekActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bubah_tekActionPerformed
+    private void bubah_pelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bubah_pelActionPerformed
         String id_pelangganText = id_pelanggan.getText().trim(); // Trim untuk menghapus spasi di awal dan akhir
         String namaText = nama_pelanggan.getText().trim();
         String hpText = hp_pelanggan.getText().trim();
@@ -645,6 +706,7 @@ public class master_pelanggan extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Data berhasil diubah!");
                 kosong();
                 aktif();
+                autonumber();
             } else {
                 JOptionPane.showMessageDialog(null, "Data gagal diubah. ID Pelanggan tidak ditemukan.", "Kesalahan", JOptionPane.ERROR_MESSAGE);
             }
@@ -652,9 +714,9 @@ public class master_pelanggan extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Data gagal diubah!" + e, "Kesalahan", JOptionPane.ERROR_MESSAGE);
         }
         datatable_pelanggan();
-    }//GEN-LAST:event_bubah_tekActionPerformed
+    }//GEN-LAST:event_bubah_pelActionPerformed
 
-    private void bhapus_tekActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bhapus_tekActionPerformed
+    private void bhapus_pelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bhapus_pelActionPerformed
         String idPelanggan = id_pelanggan.getText().trim();
         if (idPelanggan.isEmpty()) {
             JOptionPane.showMessageDialog(this, "ID Pelanggan belum diisi.", "Peringatan", JOptionPane.WARNING_MESSAGE);
@@ -673,16 +735,18 @@ public class master_pelanggan extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Data berhasil dihapus");
                 kosong();
                 aktif();
+                autonumber();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Data gagal dihapus" + e);
             }
             datatable_pelanggan();
         }
-    }//GEN-LAST:event_bhapus_tekActionPerformed
+    }//GEN-LAST:event_bhapus_pelActionPerformed
 
     private void bbatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bbatalActionPerformed
         kosong();
         datatable_pelanggan();
+        autonumber();
     }//GEN-LAST:event_bbatalActionPerformed
 
     private void cari_pelangganKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cari_pelangganKeyTyped
@@ -729,10 +793,10 @@ public class master_pelanggan extends javax.swing.JFrame {
     private javax.swing.JTextArea almt_pelanggan;
     private javax.swing.JButton bbatal;
     private javax.swing.JButton bcari;
-    private javax.swing.JButton bhapus_tek;
+    private javax.swing.JButton bhapus_pel;
     private javax.swing.JButton bprint_pel;
-    private javax.swing.JButton bsimpan_tek;
-    private javax.swing.JButton bubah_tek;
+    private javax.swing.JButton bsimpan_pel;
+    private javax.swing.JButton bubah_pel;
     private javax.swing.JTextField cari_pelanggan;
     private org.jdesktop.swingx.JXDatePicker dateChooser;
     private javax.swing.JTextField hp_pelanggan;

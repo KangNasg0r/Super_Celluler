@@ -16,6 +16,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
 import java.util.HashMap;
+import form.menu_utama;
 
 /**
  * /**
@@ -84,13 +85,13 @@ public class report_kasir extends javax.swing.JFrame {
         cari_kasir = new javax.swing.JTextField();
         bcari = new javax.swing.JButton();
         bprint_kas = new javax.swing.JButton();
-        bkmbl_kas = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        report_kasir.setBackground(new java.awt.Color(102, 102, 255));
+        report_kasir.setBackground(new java.awt.Color(0, 0, 204));
 
         tblkasir.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        tblkasir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tblkasir.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -139,15 +140,6 @@ public class report_kasir extends javax.swing.JFrame {
             }
         });
 
-        bkmbl_kas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/back.png"))); // NOI18N
-        bkmbl_kas.setText("KEMBALI");
-        bkmbl_kas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        bkmbl_kas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bkmbl_kasActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout report_kasirLayout = new javax.swing.GroupLayout(report_kasir);
         report_kasir.setLayout(report_kasirLayout);
         report_kasirLayout.setHorizontalGroup(
@@ -161,9 +153,7 @@ public class report_kasir extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(bcari)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bprint_kas)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bkmbl_kas)))
+                        .addComponent(bprint_kas)))
                 .addContainerGap())
         );
         report_kasirLayout.setVerticalGroup(
@@ -173,8 +163,7 @@ public class report_kasir extends javax.swing.JFrame {
                 .addGroup(report_kasirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cari_kasir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bcari)
-                    .addComponent(bprint_kas)
-                    .addComponent(bkmbl_kas))
+                    .addComponent(bprint_kas))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
                 .addContainerGap())
@@ -212,35 +201,40 @@ public class report_kasir extends javax.swing.JFrame {
         datatable();    // TODO add your handling code here:
     }//GEN-LAST:event_bcariActionPerformed
 
-    private void bkmbl_kasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bkmbl_kasActionPerformed
-        dispose();
-    }//GEN-LAST:event_bkmbl_kasActionPerformed
-
     private void bprint_kasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bprint_kasActionPerformed
         try {
-            String loginId = UserID.getIdKasir();
-            String loginKasir = "Tidak Diketahui";
+        String loginId = UserID.getIdKasir();
+        String loginKasir = "Tidak Diketahui";
 
-            try (PreparedStatement kasnama = conn.prepareStatement("SELECT nama FROM tb_kasir WHERE id_kasir = ?")) {
-                kasnama.setString(1, loginId);
-                try (ResultSet rsNama = kasnama.executeQuery()) {
-                    if (rsNama.next()) {
-                        loginKasir = rsNama.getString("nama");
-                    }
+        try (PreparedStatement kasnama = conn.prepareStatement("SELECT nama FROM tb_kasir WHERE id_kasir = ?")) {
+            kasnama.setString(1, loginId);
+            try (ResultSet rsNama = kasnama.executeQuery()) {
+                if (rsNama.next()) {
+                    loginKasir = rsNama.getString("nama");
                 }
             }
-
-            String reportPath = "./src/report/rep_kasir.jasper";
-            HashMap parameter = new HashMap();
-            parameter.put("KASIR", loginKasir);
-
-            JasperPrint print = JasperFillManager.fillReport(reportPath,parameter,conn);
-            JasperViewer.viewReport(print,false);
-            this.dispose();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Gagal mencetak report: " + e.getMessage());
-            e.printStackTrace();
         }
+
+        String reportPath = "./src/report/rep_kasir.jasper";
+        HashMap<String, Object> parameter = new HashMap<>();
+        parameter.put("KASIR", loginKasir);
+
+        JasperPrint print = JasperFillManager.fillReport(reportPath, parameter, conn);
+        
+        form.menu_utama menuUtama = form.menu_utama.getInstance();
+        if (menuUtama != null) {
+            javax.swing.JPanel reportPanel = new javax.swing.JPanel(new java.awt.BorderLayout());
+            net.sf.jasperreports.swing.JRViewer viewer = new net.sf.jasperreports.swing.JRViewer(print);
+            reportPanel.add(viewer, java.awt.BorderLayout.CENTER);
+            // Load ke Pane1 di menu_utama
+            menuUtama.loadPanel(reportPanel);
+        } else {
+            JasperViewer.viewReport(print, false);
+        }     
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Gagal mencetak report: " + e.getMessage());
+        e.printStackTrace();
+    }
     }//GEN-LAST:event_bprint_kasActionPerformed
 
     /**
@@ -283,7 +277,6 @@ public class report_kasir extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bcari;
-    private javax.swing.JButton bkmbl_kas;
     private javax.swing.JButton bprint_kas;
     private javax.swing.JTextField cari_kasir;
     private javax.swing.JScrollPane jScrollPane1;

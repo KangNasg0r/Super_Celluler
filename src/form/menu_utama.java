@@ -11,27 +11,91 @@ import java.text.SimpleDateFormat;
 import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import javax.swing.JFrame;
+import net.sf.jasperreports.swing.JRViewer;
+
 
 /**
  *
  * @author Ahmad Nur Latif P
  */
 public class menu_utama extends javax.swing.JFrame {
+    private static menu_utama instance;
 
     /**
      * Creates new form menu_utama
      */
     public menu_utama() {
         initComponents();
-        String kasir = UserID.getNamaKasir();
-        label_selamatdatang.setText("Hallo, "+kasir);
+        instance = this;
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setupResizeListener();
+        
+        String idKasir = UserID.getIdKasir();
+        label_id.setText(idKasir);
+        String namaKasir = UserID.getNamaKasir();
+        label_nama.setText(namaKasir);
+        String jenkelKasir = UserID.getJenkelKasir();
+        label_jenkel.setText(jenkelKasir);
+        String hpKasir = UserID.getHPKasir();
+        label_hp.setText(hpKasir);
+        
         tampilkanTanggal_hariini();
         tampilalamatService();
         tampilkanWaktuSekarang();
         waktuBerjalan();
     }
     
-
+     public static menu_utama getInstance() {
+        return instance;
+    }
+     
+     public void refreshKasirInfo() {
+        String idKasir = UserID.getIdKasir();
+        label_id.setText(idKasir);
+        
+        String namaKasir = UserID.getNamaKasir();
+        label_nama.setText(namaKasir);
+        
+        String jenkelKasir = UserID.getJenkelKasir();
+        label_jenkel.setText(jenkelKasir);
+        
+        String hpKasir = UserID.getHPKasir();
+        label_hp.setText(hpKasir);
+    }
+    
+    private void setupResizeListener() {
+        this.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                refreshLayeredPane();
+            }
+        });
+    }
+    
+    private void refreshLayeredPane() {
+        if (jLayeredPane1.getComponentCount() > 0) {
+            java.awt.Component comp = jLayeredPane1.getComponent(0);
+            comp.setBounds(0, 0, jLayeredPane1.getWidth(), jLayeredPane1.getHeight());
+            jLayeredPane1.revalidate();
+            jLayeredPane1.repaint();
+        }
+    }
+    
+    // Method untuk load panel ke layeredPane
+    public void loadPanel(javax.swing.JPanel panel) {
+    jLayeredPane1.removeAll();
+    javax.swing.JScrollPane scrollPane = new javax.swing.JScrollPane(panel);
+    scrollPane.setVerticalScrollBarPolicy(javax.swing.JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+    scrollPane.setHorizontalScrollBarPolicy(javax.swing.JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+    jLayeredPane1.add(scrollPane, java.awt.BorderLayout.CENTER);
+    
+    jLayeredPane1.revalidate();
+    jLayeredPane1.repaint();
+}
+    
     private void tampilkanTanggal_hariini() {
         Date tanggalSaatIni = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("EEEE,dd-MM-yyyy");
@@ -58,11 +122,9 @@ public class menu_utama extends javax.swing.JFrame {
     }
 
     private void tampilalamatService() {
-        String teksAlamatPanjang = "ITC DEPOK, LANTAI 3 NOMOR 129, Telp 0821-1460-1461";
+        String teksAlamatPanjang = "ITC DEPOK Lantai 3 Blok A No. 129 Jl. Margonda Raya - Depok Telp./WA. 082114601461";
         alamat_label.setText("<html><p style=' text-align: center;'>" + teksAlamatPanjang + "</p></html>");
     }
-
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -74,130 +136,332 @@ public class menu_utama extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        label_selamatdatang = new javax.swing.JLabel();
-        tanggal_label = new javax.swing.JLabel();
-        jam_label = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
+        panel_kiri = new javax.swing.JPanel();
         alamat_label = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        keluar_aplikasi = new javax.swing.JButton();
+        keluar_akun = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        label_jenkel = new javax.swing.JLabel();
+        labeling1 = new javax.swing.JLabel();
+        labeling3 = new javax.swing.JLabel();
+        labeling4 = new javax.swing.JLabel();
+        labeling5 = new javax.swing.JLabel();
+        labeling6 = new javax.swing.JLabel();
+        labeling7 = new javax.swing.JLabel();
+        label_nama = new javax.swing.JLabel();
+        label_id = new javax.swing.JLabel();
+        labeling2 = new javax.swing.JLabel();
+        labeling8 = new javax.swing.JLabel();
+        label_hp = new javax.swing.JLabel();
+        jam_label = new javax.swing.JLabel();
+        tanggal_label = new javax.swing.JLabel();
+        jSeparator13 = new javax.swing.JSeparator();
+        jLayeredPane1 = new javax.swing.JLayeredPane();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
         rep_teknisi = new javax.swing.JMenuBar();
         master = new javax.swing.JMenu();
         menu_teknisi = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
         menu_pelanggan = new javax.swing.JMenuItem();
+        jSeparator3 = new javax.swing.JPopupMenu.Separator();
         menu_sparepart = new javax.swing.JMenuItem();
+        jSeparator4 = new javax.swing.JPopupMenu.Separator();
         menu_aksesoris = new javax.swing.JMenuItem();
+        jSeparator5 = new javax.swing.JPopupMenu.Separator();
         menu_service = new javax.swing.JMenuItem();
         transaksi = new javax.swing.JMenu();
         menu_pembayaran = new javax.swing.JMenuItem();
         report = new javax.swing.JMenu();
         menu_rkasir = new javax.swing.JMenuItem();
+        jSeparator6 = new javax.swing.JPopupMenu.Separator();
+        menu_rteknisi = new javax.swing.JMenuItem();
+        jSeparator7 = new javax.swing.JPopupMenu.Separator();
         menu_rpelanggan = new javax.swing.JMenuItem();
+        jSeparator8 = new javax.swing.JPopupMenu.Separator();
         menu_rsparepart = new javax.swing.JMenuItem();
+        jSeparator9 = new javax.swing.JPopupMenu.Separator();
         menu_raksesoris = new javax.swing.JMenuItem();
+        jSeparator10 = new javax.swing.JPopupMenu.Separator();
         menu_rservice = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jSeparator11 = new javax.swing.JPopupMenu.Separator();
+        menu_rpenjualan = new javax.swing.JMenuItem();
+        jSeparator12 = new javax.swing.JPopupMenu.Separator();
         riwayat_transaksi = new javax.swing.JMenuItem();
-        keluar = new javax.swing.JMenu();
-        menu_keluarakun = new javax.swing.JMenuItem();
-        menu_keluarapk = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("version 1.0 made by kelompok 1");
-        jLabel2.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 0, 0, 0, new java.awt.Color(255, 255, 255)));
+        panel_kiri.setBackground(new java.awt.Color(0, 0, 204));
+        panel_kiri.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 3, new java.awt.Color(0, 0, 0)));
 
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/menu_super.png"))); // NOI18N
-
-        label_selamatdatang.setFont(new java.awt.Font("Tahoma", 1, 28)); // NOI18N
-        label_selamatdatang.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label_selamatdatang.setText("HALLO");
-        label_selamatdatang.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
-        label_selamatdatang.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-
-        tanggal_label.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        tanggal_label.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        tanggal_label.setText("Tanggal Hari Ini");
-
-        jam_label.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jam_label.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jam_label.setText("Jam Hari Ini");
+        alamat_label.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        alamat_label.setForeground(new java.awt.Color(255, 255, 255));
+        alamat_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        alamat_label.setText("TEKS ALAMAT SUPER CELULER");
+        alamat_label.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
+        jPanel3.setForeground(new java.awt.Color(255, 255, 255));
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/super_170_196.png"))); // NOI18N
+        jLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 204), 3));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 160, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
         );
 
-        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        keluar_aplikasi.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        keluar_aplikasi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/exit.png"))); // NOI18N
+        keluar_aplikasi.setText("KELUAR APLIKASI");
+        keluar_aplikasi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                keluar_aplikasiActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 160, Short.MAX_VALUE)
+        keluar_akun.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        keluar_akun.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/login.png"))); // NOI18N
+        keluar_akun.setText("KELUAR AKUN");
+        keluar_akun.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                keluar_akunActionPerformed(evt);
+            }
+        });
+
+        jPanel4.setBackground(new java.awt.Color(0, 0, 204));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true), "KASIR", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14), new java.awt.Color(255, 255, 255))); // NOI18N
+
+        label_jenkel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        label_jenkel.setForeground(new java.awt.Color(255, 255, 255));
+        label_jenkel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        label_jenkel.setText("Jenkel Kasir");
+        label_jenkel.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+
+        labeling1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        labeling1.setForeground(new java.awt.Color(255, 255, 255));
+        labeling1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        labeling1.setText("Jen Kel");
+        labeling1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+
+        labeling3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        labeling3.setForeground(new java.awt.Color(255, 255, 255));
+        labeling3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labeling3.setText(":");
+        labeling3.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+
+        labeling4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        labeling4.setForeground(new java.awt.Color(255, 255, 255));
+        labeling4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        labeling4.setText("Nama");
+        labeling4.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+
+        labeling5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        labeling5.setForeground(new java.awt.Color(255, 255, 255));
+        labeling5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labeling5.setText(":");
+        labeling5.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+
+        labeling6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        labeling6.setForeground(new java.awt.Color(255, 255, 255));
+        labeling6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        labeling6.setText("ID");
+        labeling6.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+
+        labeling7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        labeling7.setForeground(new java.awt.Color(255, 255, 255));
+        labeling7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labeling7.setText(":");
+        labeling7.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+
+        label_nama.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        label_nama.setForeground(new java.awt.Color(255, 255, 255));
+        label_nama.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        label_nama.setText("Nama Kasir");
+        label_nama.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+
+        label_id.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        label_id.setForeground(new java.awt.Color(255, 255, 255));
+        label_id.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        label_id.setText("Id Kasir");
+        label_id.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+
+        labeling2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        labeling2.setForeground(new java.awt.Color(255, 255, 255));
+        labeling2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        labeling2.setText("No.Telp");
+        labeling2.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+
+        labeling8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        labeling8.setForeground(new java.awt.Color(255, 255, 255));
+        labeling8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labeling8.setText(":");
+        labeling8.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+
+        label_hp.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        label_hp.setForeground(new java.awt.Color(255, 255, 255));
+        label_hp.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        label_hp.setText("Hp Kasir");
+        label_hp.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+
+        jam_label.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jam_label.setForeground(new java.awt.Color(255, 255, 255));
+        jam_label.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jam_label.setText("Jam Hari Ini");
+
+        tanggal_label.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        tanggal_label.setForeground(new java.awt.Color(255, 255, 255));
+        tanggal_label.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        tanggal_label.setText("Tanggal Hari Ini");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(labeling4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(labeling1, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(labeling3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(labeling5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(labeling6, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(labeling7))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(labeling2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(labeling8, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(label_hp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(label_id, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(label_nama, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(label_jenkel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(tanggal_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jam_label, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+            .addComponent(jSeparator13)
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labeling6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labeling7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label_id, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labeling4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labeling5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label_nama, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labeling1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label_jenkel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labeling3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labeling2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label_hp, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labeling8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator13, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tanggal_label, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(jam_label, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        alamat_label.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        alamat_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        alamat_label.setText("TEKS ALAMAT SUPER CELULER");
-        alamat_label.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 0, 0, 0, new java.awt.Color(0, 0, 0)));
+        javax.swing.GroupLayout panel_kiriLayout = new javax.swing.GroupLayout(panel_kiri);
+        panel_kiri.setLayout(panel_kiriLayout);
+        panel_kiriLayout.setHorizontalGroup(
+            panel_kiriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_kiriLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panel_kiriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(keluar_akun, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(keluar_aplikasi, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(alamat_label, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        panel_kiriLayout.setVerticalGroup(
+            panel_kiriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_kiriLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(keluar_akun)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(keluar_aplikasi)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(alamat_label, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jLayeredPane1.setBackground(new java.awt.Color(102, 102, 255));
+        jLayeredPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+        jLayeredPane1.setLayout(new java.awt.BorderLayout());
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/menu_super.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 642, Short.MAX_VALUE)
+        );
+
+        jLayeredPane1.add(jPanel2, java.awt.BorderLayout.CENTER);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(label_selamatdatang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(tanggal_label, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panel_kiri, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jam_label, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 553, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(alamat_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLayeredPane1))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tanggal_label, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jam_label, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(label_selamatdatang, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(alamat_label, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jLayeredPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(panel_kiri, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         rep_teknisi.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -208,11 +472,11 @@ public class menu_utama extends javax.swing.JFrame {
         master.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/teknisi.png"))); // NOI18N
         master.setText("Master |");
         master.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        master.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        master.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         master.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        menu_teknisi.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        menu_teknisi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/teknisi.png"))); // NOI18N
+        menu_teknisi.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        menu_teknisi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/kasir.png"))); // NOI18N
         menu_teknisi.setText("Kasir");
         menu_teknisi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         menu_teknisi.addActionListener(new java.awt.event.ActionListener() {
@@ -221,8 +485,20 @@ public class menu_utama extends javax.swing.JFrame {
             }
         });
         master.add(menu_teknisi);
+        master.add(jSeparator1);
 
-        menu_pelanggan.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jMenuItem2.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/teknisi.png"))); // NOI18N
+        jMenuItem2.setText("Teknisi");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        master.add(jMenuItem2);
+        master.add(jSeparator2);
+
+        menu_pelanggan.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         menu_pelanggan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/pelanggan.png"))); // NOI18N
         menu_pelanggan.setText("Pelanggan");
         menu_pelanggan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -232,8 +508,9 @@ public class menu_utama extends javax.swing.JFrame {
             }
         });
         master.add(menu_pelanggan);
+        master.add(jSeparator3);
 
-        menu_sparepart.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        menu_sparepart.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         menu_sparepart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/sparepart.png"))); // NOI18N
         menu_sparepart.setText("Sparepart");
         menu_sparepart.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -243,8 +520,9 @@ public class menu_utama extends javax.swing.JFrame {
             }
         });
         master.add(menu_sparepart);
+        master.add(jSeparator4);
 
-        menu_aksesoris.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        menu_aksesoris.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         menu_aksesoris.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/aksesoris.png"))); // NOI18N
         menu_aksesoris.setText("Aksesoris");
         menu_aksesoris.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -254,10 +532,11 @@ public class menu_utama extends javax.swing.JFrame {
             }
         });
         master.add(menu_aksesoris);
+        master.add(jSeparator5);
 
-        menu_service.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        menu_service.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         menu_service.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/service.png"))); // NOI18N
-        menu_service.setText("Service");
+        menu_service.setText("Servis");
         menu_service.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         menu_service.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -271,11 +550,11 @@ public class menu_utama extends javax.swing.JFrame {
         transaksi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/transaction.png"))); // NOI18N
         transaksi.setText("Transaksi |");
         transaksi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        transaksi.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        transaksi.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
-        menu_pembayaran.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        menu_pembayaran.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         menu_pembayaran.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/transaction.png"))); // NOI18N
-        menu_pembayaran.setText("Nota Service");
+        menu_pembayaran.setText("Nota Servis");
         menu_pembayaran.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         menu_pembayaran.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -287,11 +566,11 @@ public class menu_utama extends javax.swing.JFrame {
         rep_teknisi.add(transaksi);
 
         report.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/printer.png"))); // NOI18N
-        report.setText("Report |");
+        report.setText("Laporan |");
         report.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        report.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        report.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
-        menu_rkasir.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        menu_rkasir.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         menu_rkasir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/printer.png"))); // NOI18N
         menu_rkasir.setText("Data Kasir");
         menu_rkasir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -301,8 +580,20 @@ public class menu_utama extends javax.swing.JFrame {
             }
         });
         report.add(menu_rkasir);
+        report.add(jSeparator6);
 
-        menu_rpelanggan.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        menu_rteknisi.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        menu_rteknisi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/printer.png"))); // NOI18N
+        menu_rteknisi.setText("Data Teknisi");
+        menu_rteknisi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_rteknisiActionPerformed(evt);
+            }
+        });
+        report.add(menu_rteknisi);
+        report.add(jSeparator7);
+
+        menu_rpelanggan.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         menu_rpelanggan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/printer.png"))); // NOI18N
         menu_rpelanggan.setText("Data Pelanggan");
         menu_rpelanggan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -312,8 +603,9 @@ public class menu_utama extends javax.swing.JFrame {
             }
         });
         report.add(menu_rpelanggan);
+        report.add(jSeparator8);
 
-        menu_rsparepart.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        menu_rsparepart.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         menu_rsparepart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/printer.png"))); // NOI18N
         menu_rsparepart.setText("Data Sparepart");
         menu_rsparepart.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -323,8 +615,9 @@ public class menu_utama extends javax.swing.JFrame {
             }
         });
         report.add(menu_rsparepart);
+        report.add(jSeparator9);
 
-        menu_raksesoris.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        menu_raksesoris.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         menu_raksesoris.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/printer.png"))); // NOI18N
         menu_raksesoris.setText("Data Aksesoris");
         menu_raksesoris.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -334,10 +627,11 @@ public class menu_utama extends javax.swing.JFrame {
             }
         });
         report.add(menu_raksesoris);
+        report.add(jSeparator10);
 
-        menu_rservice.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        menu_rservice.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         menu_rservice.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/printer.png"))); // NOI18N
-        menu_rservice.setText("Data Service");
+        menu_rservice.setText("Data Servis");
         menu_rservice.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         menu_rservice.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -345,18 +639,20 @@ public class menu_utama extends javax.swing.JFrame {
             }
         });
         report.add(menu_rservice);
+        report.add(jSeparator11);
 
-        jMenuItem1.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/printer.png"))); // NOI18N
-        jMenuItem1.setText("Data Penjualan");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        menu_rpenjualan.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        menu_rpenjualan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/printer.png"))); // NOI18N
+        menu_rpenjualan.setText("Data Penjualan");
+        menu_rpenjualan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                menu_rpenjualanActionPerformed(evt);
             }
         });
-        report.add(jMenuItem1);
+        report.add(menu_rpenjualan);
+        report.add(jSeparator12);
 
-        riwayat_transaksi.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        riwayat_transaksi.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         riwayat_transaksi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/printer.png"))); // NOI18N
         riwayat_transaksi.setText("Data Riwayat Transaksi");
         riwayat_transaksi.addActionListener(new java.awt.event.ActionListener() {
@@ -368,156 +664,95 @@ public class menu_utama extends javax.swing.JFrame {
 
         rep_teknisi.add(report);
 
-        keluar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/exit.png"))); // NOI18N
-        keluar.setText("Keluar |");
-        keluar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        keluar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        keluar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                keluarActionPerformed(evt);
-            }
-        });
-
-        menu_keluarakun.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        menu_keluarakun.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/login.png"))); // NOI18N
-        menu_keluarakun.setText("Keluar Akun");
-        menu_keluarakun.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        menu_keluarakun.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menu_keluarakunActionPerformed(evt);
-            }
-        });
-        keluar.add(menu_keluarakun);
-
-        menu_keluarapk.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        menu_keluarapk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/exit.png"))); // NOI18N
-        menu_keluarapk.setText("Keluar Aplikasi");
-        menu_keluarapk.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        menu_keluarapk.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menu_keluarapkActionPerformed(evt);
-            }
-        });
-        keluar.add(menu_keluarapk);
-
-        rep_teknisi.add(keluar);
-
         setJMenuBar(rep_teknisi);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
   
-    private void keluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_keluarActionPerformed
-
-    }//GEN-LAST:event_keluarActionPerformed
-
-    private void menu_keluarakunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_keluarakunActionPerformed
-        this.dispose();
-        login keluarakun = new login();
-        keluarakun.setVisible(true);
-        keluarakun.setLocationRelativeTo(null);    // TODO add your handling code here:
-    }//GEN-LAST:event_menu_keluarakunActionPerformed
-
     private void menu_rkasirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_rkasirActionPerformed
-        form_report.report_kasir rk = new form_report.report_kasir();
-        rk.setVisible(true);
-        rk.setLocationRelativeTo(null); 
+        loadPanel(new form_report.report_kasir().getMainPanel());
     }//GEN-LAST:event_menu_rkasirActionPerformed
 
     private void menu_teknisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_teknisiActionPerformed
-        master_teknisi mt = new master_teknisi();
-        mt.setVisible(true);
-        mt.setLocationRelativeTo(null);
-        this.dispose();// TODO add your handling code here:
+        loadPanel(new master_kasir().getMainPanel());
     }//GEN-LAST:event_menu_teknisiActionPerformed
 
-    private void menu_keluarapkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_keluarapkActionPerformed
+    private void menu_raksesorisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_raksesorisActionPerformed
+        loadPanel(new form_report.report_aksesoris().getMainPanel());
+    }//GEN-LAST:event_menu_raksesorisActionPerformed
+
+    private void menu_pelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_pelangganActionPerformed
+        loadPanel(new master_pelanggan().getMainPanel());
+    }//GEN-LAST:event_menu_pelangganActionPerformed
+
+    private void menu_sparepartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_sparepartActionPerformed
+        loadPanel(new master_sparepart().getMainPanel());
+    }//GEN-LAST:event_menu_sparepartActionPerformed
+
+    private void menu_aksesorisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_aksesorisActionPerformed
+        loadPanel(new master_aksesoris().getMainPanel());
+    }//GEN-LAST:event_menu_aksesorisActionPerformed
+
+    private void menu_serviceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_serviceActionPerformed
+        loadPanel(new master_service().getMainPanel());
+    }//GEN-LAST:event_menu_serviceActionPerformed
+
+    private void menu_rpelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_rpelangganActionPerformed
+        loadPanel(new form_report.report_pelanggan().getMainPanel());
+    }//GEN-LAST:event_menu_rpelangganActionPerformed
+
+    private void menu_rsparepartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_rsparepartActionPerformed
+        loadPanel(new form_report.report_sparepart().getMainPanel());
+    }//GEN-LAST:event_menu_rsparepartActionPerformed
+
+    private void menu_rserviceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_rserviceActionPerformed
+        loadPanel(new form_report.report_service().getMainPanel());
+    }//GEN-LAST:event_menu_rserviceActionPerformed
+
+    private void menu_pembayaranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_pembayaranActionPerformed
+        loadPanel(new transaksi_pembayaran().getMainPanel());
+    }//GEN-LAST:event_menu_pembayaranActionPerformed
+
+    private void riwayat_transaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_riwayat_transaksiActionPerformed
+        loadPanel(new form_report.riwayat_transaksi().getMainPanel());
+    }//GEN-LAST:event_riwayat_transaksiActionPerformed
+
+    private void menu_rpenjualanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_rpenjualanActionPerformed
+        loadPanel(new form_report.report_penjualan().getMainPanel());
+    }//GEN-LAST:event_menu_rpenjualanActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        loadPanel(new master_teknisi().getMainPanel());
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void keluar_akunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_keluar_akunActionPerformed
+        this.dispose();
+        login keluarakun = new login();
+        keluarakun.setVisible(true);
+        keluarakun.setLocationRelativeTo(null);
+    }//GEN-LAST:event_keluar_akunActionPerformed
+
+    private void keluar_aplikasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_keluar_aplikasiActionPerformed
         int konfirmasi_keluarapp = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin keluar?", "Konfirmasi Keluar", JOptionPane.YES_NO_OPTION);
         if (konfirmasi_keluarapp == JOptionPane.YES_OPTION) {
             System.exit(0);
         }
-    }//GEN-LAST:event_menu_keluarapkActionPerformed
+    }//GEN-LAST:event_keluar_aplikasiActionPerformed
 
-    private void menu_raksesorisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_raksesorisActionPerformed
-        form_report.report_aksesoris rak = new form_report.report_aksesoris();
-        rak.setVisible(true);
-        rak.setLocationRelativeTo(null);
-    }//GEN-LAST:event_menu_raksesorisActionPerformed
-
-    private void menu_pelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_pelangganActionPerformed
-        master_pelanggan mp = new master_pelanggan();
-        mp.setVisible(true);
-        mp.setLocationRelativeTo(null);
-        this.dispose();
-    }//GEN-LAST:event_menu_pelangganActionPerformed
-
-    private void menu_sparepartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_sparepartActionPerformed
-        master_sparepart ms = new master_sparepart();
-        ms.setVisible(true);
-        ms.setLocationRelativeTo(null);
-        this.dispose();// TODO add your handling code here:
-    }//GEN-LAST:event_menu_sparepartActionPerformed
-
-    private void menu_aksesorisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_aksesorisActionPerformed
-        master_aksesoris ma = new master_aksesoris();
-        ma.setVisible(true);
-        ma.setLocationRelativeTo(null);
-        this.dispose();
-    }//GEN-LAST:event_menu_aksesorisActionPerformed
-
-    private void menu_serviceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_serviceActionPerformed
-        master_service mser = new master_service();
-        mser.setVisible(true);
-        mser.setLocationRelativeTo(null);
-        this.dispose();
-    }//GEN-LAST:event_menu_serviceActionPerformed
-
-    private void menu_rpelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_rpelangganActionPerformed
-        form_report.report_pelanggan rp = new form_report.report_pelanggan();
-        rp.setVisible(true);
-        rp.setLocationRelativeTo(null);
-    }//GEN-LAST:event_menu_rpelangganActionPerformed
-
-    private void menu_rsparepartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_rsparepartActionPerformed
-        form_report.report_sparepart rs = new form_report.report_sparepart();
-        rs.setVisible(true);
-        rs.setLocationRelativeTo(null);
-    }//GEN-LAST:event_menu_rsparepartActionPerformed
-
-    private void menu_rserviceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_rserviceActionPerformed
-        form_report.report_service rser = new form_report.report_service();
-        rser.setVisible(true);
-        rser.setLocationRelativeTo(null);
-    }//GEN-LAST:event_menu_rserviceActionPerformed
-
-    private void menu_pembayaranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_pembayaranActionPerformed
-        transaksi_pembayaran tp = new transaksi_pembayaran();
-        tp.setVisible(true);
-        tp.setLocationRelativeTo(null);
-    }//GEN-LAST:event_menu_pembayaranActionPerformed
-
-    private void riwayat_transaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_riwayat_transaksiActionPerformed
-        form_report.riwayat_transaksi rt = new form_report.riwayat_transaksi();
-        rt.setVisible(true);
-        rt.setLocationRelativeTo(null);
-    }//GEN-LAST:event_riwayat_transaksiActionPerformed
-
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        form_report.report_penjualan rt = new form_report.report_penjualan();
-        rt.setVisible(true);
-        rt.setLocationRelativeTo(null);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    private void menu_rteknisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_rteknisiActionPerformed
+        loadPanel(new form_report.report_teknisi().getMainPanel());
+    }//GEN-LAST:event_menu_rteknisiActionPerformed
 
     /**
      * @param args the command line arguments
@@ -545,6 +780,9 @@ public class menu_utama extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(menu_utama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -557,29 +795,57 @@ public class menu_utama extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel alamat_label;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JLayeredPane jLayeredPane1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator10;
+    private javax.swing.JPopupMenu.Separator jSeparator11;
+    private javax.swing.JPopupMenu.Separator jSeparator12;
+    private javax.swing.JSeparator jSeparator13;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator3;
+    private javax.swing.JPopupMenu.Separator jSeparator4;
+    private javax.swing.JPopupMenu.Separator jSeparator5;
+    private javax.swing.JPopupMenu.Separator jSeparator6;
+    private javax.swing.JPopupMenu.Separator jSeparator7;
+    private javax.swing.JPopupMenu.Separator jSeparator8;
+    private javax.swing.JPopupMenu.Separator jSeparator9;
     private javax.swing.JLabel jam_label;
-    private javax.swing.JMenu keluar;
-    private javax.swing.JLabel label_selamatdatang;
+    private javax.swing.JButton keluar_akun;
+    private javax.swing.JButton keluar_aplikasi;
+    private javax.swing.JLabel label_hp;
+    private javax.swing.JLabel label_id;
+    private javax.swing.JLabel label_jenkel;
+    private javax.swing.JLabel label_nama;
+    private javax.swing.JLabel labeling1;
+    private javax.swing.JLabel labeling2;
+    private javax.swing.JLabel labeling3;
+    private javax.swing.JLabel labeling4;
+    private javax.swing.JLabel labeling5;
+    private javax.swing.JLabel labeling6;
+    private javax.swing.JLabel labeling7;
+    private javax.swing.JLabel labeling8;
     private javax.swing.JMenu master;
     private javax.swing.JMenuItem menu_aksesoris;
-    private javax.swing.JMenuItem menu_keluarakun;
-    private javax.swing.JMenuItem menu_keluarapk;
     private javax.swing.JMenuItem menu_pelanggan;
     private javax.swing.JMenuItem menu_pembayaran;
     private javax.swing.JMenuItem menu_raksesoris;
     private javax.swing.JMenuItem menu_rkasir;
     private javax.swing.JMenuItem menu_rpelanggan;
+    private javax.swing.JMenuItem menu_rpenjualan;
     private javax.swing.JMenuItem menu_rservice;
     private javax.swing.JMenuItem menu_rsparepart;
+    private javax.swing.JMenuItem menu_rteknisi;
     private javax.swing.JMenuItem menu_service;
     private javax.swing.JMenuItem menu_sparepart;
     private javax.swing.JMenuItem menu_teknisi;
+    private javax.swing.JPanel panel_kiri;
     private javax.swing.JMenuBar rep_teknisi;
     private javax.swing.JMenu report;
     private javax.swing.JMenuItem riwayat_transaksi;

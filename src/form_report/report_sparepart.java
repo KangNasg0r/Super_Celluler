@@ -82,13 +82,13 @@ public class report_sparepart extends javax.swing.JFrame {
         cari_sparepart = new javax.swing.JTextField();
         bcari3 = new javax.swing.JButton();
         bprint_sp = new javax.swing.JButton();
-        bkmbl_sp = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel4.setBackground(new java.awt.Color(102, 102, 255));
+        jPanel4.setBackground(new java.awt.Color(0, 0, 204));
 
         tblsparepart.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        tblsparepart.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tblsparepart.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -137,15 +137,6 @@ public class report_sparepart extends javax.swing.JFrame {
             }
         });
 
-        bkmbl_sp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/back.png"))); // NOI18N
-        bkmbl_sp.setText("KEMBALI");
-        bkmbl_sp.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        bkmbl_sp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bkmbl_spActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -159,9 +150,7 @@ public class report_sparepart extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(bcari3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bprint_sp)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bkmbl_sp)))
+                        .addComponent(bprint_sp)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -171,8 +160,7 @@ public class report_sparepart extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cari_sparepart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bcari3)
-                    .addComponent(bprint_sp)
-                    .addComponent(bkmbl_sp))
+                    .addComponent(bprint_sp))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
                 .addContainerGap())
@@ -226,7 +214,7 @@ public class report_sparepart extends javax.swing.JFrame {
 
             String reportPath = "./src/report/rep_sparepart.jasper";
             HashMap parameter = new HashMap();
-            parameter.put("Kasir", loginKasir);
+            parameter.put("KASIR", loginKasir);
 
             JasperPrint print = JasperFillManager.fillReport(reportPath,parameter,conn);
             JasperViewer.viewReport(print,false);
@@ -236,10 +224,6 @@ public class report_sparepart extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_bprint_spActionPerformed
-
-    private void bkmbl_spActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bkmbl_spActionPerformed
-        dispose();
-    }//GEN-LAST:event_bkmbl_spActionPerformed
 
     /**
      * @param args the command line arguments
@@ -278,7 +262,6 @@ public class report_sparepart extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bcari3;
-    private javax.swing.JButton bkmbl_sp;
     private javax.swing.JButton bprint_sp;
     private javax.swing.JTextField cari_sparepart;
     private javax.swing.JPanel jPanel4;

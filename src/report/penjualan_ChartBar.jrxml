@@ -5,7 +5,7 @@
 	<property name="ireport.y" value="0"/>
 	<parameter name="TANGGAL_MULAI" class="java.lang.String"/>
 	<parameter name="TANGGAL_SELESAI" class="java.lang.String"/>
-	<parameter name="TEKNISI" class="java.lang.String"/>
+	<parameter name="KASIR" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
     n.tanggal AS tanggal_penjualan,
@@ -47,7 +47,7 @@ ORDER BY
 	<title>
 		<band height="115" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="702" height="66" uuid="acf42aa0-b2c3-4abd-8382-134231016b10"/>
+				<reportElement x="12" y="0" width="679" height="66" uuid="acf42aa0-b2c3-4abd-8382-134231016b10"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Calibri" size="40" isBold="true"/>
 				</textElement>
@@ -60,13 +60,13 @@ ORDER BY
 				</graphicElement>
 			</line>
 			<image>
-				<reportElement x="702" y="0" width="100" height="100" uuid="b2a706dd-180a-4e4a-8307-b0546bb3e3d9"/>
+				<reportElement x="699" y="4" width="100" height="100" uuid="b2a706dd-180a-4e4a-8307-b0546bb3e3d9"/>
 				<imageExpression><![CDATA["../gambar/menu_super.png"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="0" y="66" width="702" height="40" uuid="530d35b6-9e40-4463-bdce-1b1d5178fad8"/>
+				<reportElement x="12" y="66" width="679" height="40" uuid="530d35b6-9e40-4463-bdce-1b1d5178fad8"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Calibri" size="17"/>
+					<font fontName="SansSerif" size="17" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Jl. Raya Tengah No.80, RT.6/RW.1, Daerah Khusus Ibukota Jakarta 13760, Indonesia]]></text>
 			</staticText>
@@ -180,13 +180,6 @@ ORDER BY
 				</textElement>
 				<text><![CDATA[:]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="592" y="0" width="210" height="20" uuid="7fc2ccdf-d21e-4acd-85ac-abc8b305fdb3"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="14" isBold="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{TEKNISI}]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement x="451" y="0" width="123" height="20" uuid="ac2d3b6f-c6d7-4a29-9488-edf5e1f85f4d"/>
 				<textElement>
@@ -199,7 +192,7 @@ ORDER BY
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="14" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Teknisi Gadget House]]></text>
+				<text><![CDATA[Kasir Super Celluler]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="451" y="28" width="123" height="20" uuid="37739cd4-2319-4386-8b81-556af708c01f"/>
@@ -270,6 +263,13 @@ ORDER BY
 					<pen lineWidth="3.0" lineStyle="Double"/>
 				</graphicElement>
 			</line>
+			<textField>
+				<reportElement x="592" y="0" width="210" height="20" uuid="108e8662-c686-4681-8326-b701f4bd073b"/>
+				<textElement>
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{KASIR}]]></textFieldExpression>
+			</textField>
 		</band>
 	</summary>
 </jasperReport>

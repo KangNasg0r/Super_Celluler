@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="57dbdcf7-863e-4f10-aa8b-387ad01d7851">
-	<property name="ireport.zoom" value="1.2100000000000042"/>
+	<property name="ireport.zoom" value="1.210000000000005"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
@@ -15,24 +15,21 @@
 	</style>
 	<parameter name="KASIR" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT * FROM tb_pelanggan]]>
+		<![CDATA[SELECT * FROM tb_teknisi]]>
 	</queryString>
-	<field name="id_pelanggan" class="java.lang.String">
+	<field name="id_teknisi" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="nama_pelanggan" class="java.lang.String">
+	<field name="nama_teknisi" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="hp_pelanggan" class="java.lang.String">
+	<field name="hp_teknisi" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="jk_pelanggan" class="java.lang.String">
+	<field name="jk_teknisi" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="almt_pelanggan" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="tanggal_pelanggan" class="java.sql.Date">
+	<field name="almt_teknisi" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<background>
@@ -45,7 +42,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="34" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Data Pelanggan Super Celuler]]></text>
+				<text><![CDATA[Data Teknisi Super Celuler]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="10" y="81" width="423" height="51" uuid="ce776b26-6c01-43da-aeb3-868409aee113"/>
@@ -73,39 +70,32 @@
 				<text><![CDATA[ID]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="39" y="12" width="133" height="18" forecolor="#000000" uuid="aef5af79-429d-40a2-a605-dfc2483a2237"/>
+				<reportElement style="Column header" x="39" y="12" width="155" height="18" forecolor="#000000" uuid="aef5af79-429d-40a2-a605-dfc2483a2237"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[Nama]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="172" y="12" width="102" height="18" forecolor="#000000" uuid="8d020bf3-4923-4524-b706-f743d9fab83d"/>
+				<reportElement style="Column header" x="194" y="12" width="100" height="18" forecolor="#000000" uuid="8d020bf3-4923-4524-b706-f743d9fab83d"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[Nomor Hp]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="274" y="12" width="94" height="18" forecolor="#000000" uuid="d2ee8aa1-8c34-41bc-a914-75f8b9eced0f"/>
+				<reportElement style="Column header" x="294" y="12" width="99" height="18" forecolor="#000000" uuid="d2ee8aa1-8c34-41bc-a914-75f8b9eced0f"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[Jenis Kelamin]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="368" y="12" width="92" height="18" forecolor="#000000" uuid="d0df8046-1d05-49dc-9015-d1f9b33e3c5c"/>
+				<reportElement style="Column header" x="393" y="12" width="155" height="18" forecolor="#000000" uuid="d0df8046-1d05-49dc-9015-d1f9b33e3c5c"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[Alamat]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="Column header" x="460" y="12" width="95" height="18" forecolor="#000000" uuid="be8646ee-aaaa-4e66-b2a2-b3d67c0f9964"/>
-				<textElement>
-					<font isBold="false"/>
-				</textElement>
-				<text><![CDATA[Tanggal Daftar]]></text>
 			</staticText>
 			<line>
 				<reportElement x="0" y="33" width="555" height="1" uuid="d49be08b-c029-4fd8-ae71-482bc3afb424"/>
@@ -116,7 +106,7 @@
 			<line>
 				<reportElement x="0" y="10" width="555" height="1" uuid="641afc13-20da-4c6e-907f-eb6df8a0e1f5"/>
 				<graphicElement>
-					<pen lineWidth="2.5" lineStyle="Double"/>
+					<pen lineWidth="2.25" lineStyle="Double"/>
 				</graphicElement>
 			</line>
 		</band>
@@ -126,46 +116,39 @@
 			<frame>
 				<reportElement style="Row" mode="Opaque" x="0" y="0" width="555" height="18" uuid="0ebb56f9-068c-4438-a042-02230435f8b9"/>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="3" y="0" width="27" height="18" uuid="b71f0b22-956f-4994-ab42-5aac4b8034fd"/>
+					<reportElement style="Detail" positionType="Float" x="0" y="0" width="30" height="18" uuid="b71f0b22-956f-4994-ab42-5aac4b8034fd"/>
 					<textElement>
 						<font size="12"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{id_pelanggan}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{id_teknisi}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="42" y="0" width="120" height="18" uuid="0bdcb7a2-f9ab-467c-b77c-fd66e0e66bd3"/>
+					<reportElement style="Detail" positionType="Float" x="39" y="0" width="139" height="18" uuid="0bdcb7a2-f9ab-467c-b77c-fd66e0e66bd3"/>
 					<textElement>
 						<font size="12"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{nama_pelanggan}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{nama_teknisi}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="175" y="0" width="90" height="18" uuid="15b3501b-eaeb-41fc-9a6b-085466c34f01"/>
+					<reportElement style="Detail" positionType="Float" x="194" y="0" width="87" height="18" uuid="15b3501b-eaeb-41fc-9a6b-085466c34f01"/>
 					<textElement>
 						<font size="12"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{hp_pelanggan}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{hp_teknisi}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="277" y="0" width="70" height="18" uuid="de6c8d86-e3d1-417a-9769-d8a26bf1004f"/>
+					<reportElement style="Detail" positionType="Float" x="294" y="0" width="84" height="18" uuid="de6c8d86-e3d1-417a-9769-d8a26bf1004f"/>
 					<textElement>
 						<font size="12"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{jk_pelanggan}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{jk_teknisi}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="371" y="0" width="80" height="18" uuid="821b60bc-6751-491f-b798-0cc7e7fca23b"/>
+					<reportElement style="Detail" positionType="Float" x="393" y="0" width="138" height="18" uuid="821b60bc-6751-491f-b798-0cc7e7fca23b"/>
 					<textElement>
 						<font size="12"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{almt_pelanggan}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="463" y="0" width="82" height="18" uuid="67eb16eb-cbb9-48bf-a12e-9e5c5345cbb5"/>
-					<textElement>
-						<font size="12"/>
-					</textElement>
-					<textFieldExpression><![CDATA[new SimpleDateFormat("dd-MM-yyyy").format($F{tanggal_pelanggan})]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{almt_teknisi}]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>
@@ -197,31 +180,31 @@
 	<summary>
 		<band height="152" splitType="Stretch">
 			<line>
-				<reportElement x="381" y="124" width="170" height="1" uuid="f873ab62-42b3-433a-a2be-ce02896da6ca"/>
+				<reportElement x="380" y="124" width="171" height="1" uuid="f873ab62-42b3-433a-a2be-ce02896da6ca"/>
 			</line>
 			<staticText>
-				<reportElement x="381" y="38" width="171" height="20" uuid="df6bdc9d-b969-4971-9fe1-7b6f6d9a8c93"/>
+				<reportElement x="380" y="38" width="171" height="20" uuid="df6bdc9d-b969-4971-9fe1-7b6f6d9a8c93"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Dikeluarkan Oleh,]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="381" y="125" width="170" height="20" uuid="998d2542-b22d-4df8-ba01-b1f76cc86ccf"/>
+				<reportElement x="380" y="125" width="171" height="20" uuid="998d2542-b22d-4df8-ba01-b1f76cc86ccf"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Kasir Super Celuler]]></text>
 			</staticText>
 			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement style="Column header" x="421" y="14" width="131" height="20" forecolor="#000000" uuid="1c4d376a-c6d0-4039-bd46-272005b8f941"/>
+				<reportElement style="Column header" x="420" y="14" width="131" height="20" forecolor="#000000" uuid="1c4d376a-c6d0-4039-bd46-272005b8f941"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="381" y="14" width="40" height="20" uuid="911d7df8-3f06-4ecc-996e-4ccb4b7eb054"/>
+				<reportElement x="380" y="14" width="40" height="20" uuid="911d7df8-3f06-4ecc-996e-4ccb4b7eb054"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
@@ -234,7 +217,7 @@
 				</graphicElement>
 			</line>
 			<textField>
-				<reportElement x="381" y="104" width="171" height="20" uuid="5e78494d-7729-4254-bc19-34478284f6e9"/>
+				<reportElement x="380" y="104" width="171" height="20" uuid="5e78494d-7729-4254-bc19-34478284f6e9"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>

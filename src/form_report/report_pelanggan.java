@@ -85,13 +85,13 @@ public class report_pelanggan extends javax.swing.JFrame {
         cari_pelanggan = new javax.swing.JTextField();
         bcari = new javax.swing.JButton();
         bprint_pel = new javax.swing.JButton();
-        bkmbl_pel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(102, 102, 255));
+        jPanel1.setBackground(new java.awt.Color(0, 0, 204));
 
         tblpelanggan.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        tblpelanggan.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tblpelanggan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -140,15 +140,6 @@ public class report_pelanggan extends javax.swing.JFrame {
             }
         });
 
-        bkmbl_pel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/back.png"))); // NOI18N
-        bkmbl_pel.setText("KEMBALI");
-        bkmbl_pel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        bkmbl_pel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bkmbl_pelActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -162,9 +153,7 @@ public class report_pelanggan extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(bcari)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bprint_pel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bkmbl_pel)))
+                        .addComponent(bprint_pel)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -174,8 +163,7 @@ public class report_pelanggan extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cari_pelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bcari)
-                    .addComponent(bprint_pel)
-                    .addComponent(bkmbl_pel))
+                    .addComponent(bprint_pel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
                 .addContainerGap())
@@ -231,20 +219,26 @@ public class report_pelanggan extends javax.swing.JFrame {
 
             String reportPath = "./src/report/rep_pelanggan.jasper";
             HashMap parameter = new HashMap();
-            parameter.put("Kasir", loginKasir);
+            parameter.put("KASIR", loginKasir);
 
             JasperPrint print = JasperFillManager.fillReport(reportPath,parameter,conn);
-            JasperViewer.viewReport(print,false);
+            
+            form.menu_utama menuUtama = form.menu_utama.getInstance();
+        if (menuUtama != null) {
+            javax.swing.JPanel reportPanel = new javax.swing.JPanel(new java.awt.BorderLayout());
+            net.sf.jasperreports.swing.JRViewer viewer = new net.sf.jasperreports.swing.JRViewer(print);
+            reportPanel.add(viewer, java.awt.BorderLayout.CENTER);
+            // Load ke Pane1 di menu_utama
+            menuUtama.loadPanel(reportPanel);
+        } else {
+            JasperViewer.viewReport(print, false);
+        }
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Gagal mencetak report: " + e.getMessage());
             e.printStackTrace();
         }
     }//GEN-LAST:event_bprint_pelActionPerformed
-
-    private void bkmbl_pelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bkmbl_pelActionPerformed
-        dispose();
-    }//GEN-LAST:event_bkmbl_pelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -283,7 +277,6 @@ public class report_pelanggan extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bcari;
-    private javax.swing.JButton bkmbl_pel;
     private javax.swing.JButton bprint_pel;
     private javax.swing.JTextField cari_pelanggan;
     private javax.swing.JPanel jPanel1;
