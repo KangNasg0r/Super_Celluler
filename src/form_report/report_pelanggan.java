@@ -104,6 +104,7 @@ public class report_pelanggan extends javax.swing.JFrame {
             }
         ));
         tblpelanggan.setGridColor(new java.awt.Color(255, 255, 255));
+        tblpelanggan.setRowHeight(25);
         tblpelanggan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblpelangganMouseClicked(evt);
@@ -111,6 +112,7 @@ public class report_pelanggan extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblpelanggan);
 
+        cari_pelanggan.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         cari_pelanggan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cari_pelangganActionPerformed(evt);
@@ -122,6 +124,7 @@ public class report_pelanggan extends javax.swing.JFrame {
             }
         });
 
+        bcari.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         bcari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/search.png"))); // NOI18N
         bcari.setText("CARI");
         bcari.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -131,6 +134,7 @@ public class report_pelanggan extends javax.swing.JFrame {
             }
         });
 
+        bprint_pel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         bprint_pel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/printer.png"))); // NOI18N
         bprint_pel.setText("CETAK");
         bprint_pel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -165,7 +169,7 @@ public class report_pelanggan extends javax.swing.JFrame {
                     .addComponent(bcari)
                     .addComponent(bprint_pel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
                 .addContainerGap())
         );
 

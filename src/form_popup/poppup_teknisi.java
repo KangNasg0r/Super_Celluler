@@ -78,7 +78,6 @@ public class poppup_teknisi extends javax.swing.JFrame {
         tblteknisi = new javax.swing.JTable();
         cari_teknisi = new javax.swing.JTextField();
         bcari = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -101,6 +100,7 @@ public class poppup_teknisi extends javax.swing.JFrame {
             }
         ));
         tblteknisi.setGridColor(new java.awt.Color(255, 255, 255));
+        tblteknisi.setRowHeight(25);
         tblteknisi.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblteknisiMouseClicked(evt);
@@ -108,6 +108,7 @@ public class poppup_teknisi extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblteknisi);
 
+        cari_teknisi.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         cari_teknisi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cari_teknisiActionPerformed(evt);
@@ -122,7 +123,7 @@ public class poppup_teknisi extends javax.swing.JFrame {
             }
         });
 
-        bcari.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        bcari.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         bcari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/search.png"))); // NOI18N
         bcari.setText("CARI");
         bcari.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -131,9 +132,6 @@ public class poppup_teknisi extends javax.swing.JFrame {
                 bcariActionPerformed(evt);
             }
         });
-
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel9.setText("Cari :");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -147,16 +145,13 @@ public class poppup_teknisi extends javax.swing.JFrame {
                         .addComponent(cari_teknisi, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(bcari)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 969, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cari_teknisi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bcari))
@@ -270,7 +265,6 @@ public class poppup_teknisi extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bcari;
     private javax.swing.JTextField cari_teknisi;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;

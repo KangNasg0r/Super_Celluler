@@ -104,6 +104,7 @@ public class report_kasir extends javax.swing.JFrame {
             }
         ));
         tblkasir.setGridColor(new java.awt.Color(255, 255, 255));
+        tblkasir.setRowHeight(25);
         tblkasir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblkasirMouseClicked(evt);
@@ -111,6 +112,7 @@ public class report_kasir extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblkasir);
 
+        cari_kasir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         cari_kasir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cari_kasirActionPerformed(evt);
@@ -122,6 +124,7 @@ public class report_kasir extends javax.swing.JFrame {
             }
         });
 
+        bcari.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         bcari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/search.png"))); // NOI18N
         bcari.setText("CARI");
         bcari.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -131,6 +134,7 @@ public class report_kasir extends javax.swing.JFrame {
             }
         });
 
+        bprint_kas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         bprint_kas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/printer.png"))); // NOI18N
         bprint_kas.setText("CETAK");
         bprint_kas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -165,7 +169,7 @@ public class report_kasir extends javax.swing.JFrame {
                     .addComponent(bcari)
                     .addComponent(bprint_kas))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
                 .addContainerGap())
         );
 

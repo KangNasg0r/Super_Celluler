@@ -65,10 +65,10 @@ ORDER BY
 			</image>
 			<staticText>
 				<reportElement x="12" y="66" width="679" height="40" uuid="530d35b6-9e40-4463-bdce-1b1d5178fad8"/>
-				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="SansSerif" size="17" isBold="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="16" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Jl. Raya Tengah No.80, RT.6/RW.1, Daerah Khusus Ibukota Jakarta 13760, Indonesia]]></text>
+				<text><![CDATA[ITC DEPOK Lantai 3 Blok A No. 129 Jl. Margonda Raya - Depok Telp./WA. 082114601461]]></text>
 			</staticText>
 		</band>
 	</title>

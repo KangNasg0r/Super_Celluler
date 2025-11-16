@@ -163,6 +163,7 @@ private Connection conn = new koneksi().connect();
             }
         ));
         tblsparepart.setGridColor(new java.awt.Color(255, 255, 255));
+        tblsparepart.setRowHeight(25);
         tblsparepart.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblsparepartMouseClicked(evt);
@@ -170,6 +171,7 @@ private Connection conn = new koneksi().connect();
         });
         jScrollPane1.setViewportView(tblsparepart);
 
+        cari_sparepart.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         cari_sparepart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cari_sparepartActionPerformed(evt);
@@ -184,7 +186,7 @@ private Connection conn = new koneksi().connect();
             }
         });
 
-        bcari.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        bcari.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         bcari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/search.png"))); // NOI18N
         bcari.setText("CARI");
         bcari.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -211,7 +213,7 @@ private Connection conn = new koneksi().connect();
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(bcari)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 713, Short.MAX_VALUE)))
+                        .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 703, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(

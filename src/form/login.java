@@ -63,7 +63,7 @@ public class login extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel2.setText("ID Kasir :");
 
-        bregis.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        bregis.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         bregis.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/create.png"))); // NOI18N
         bregis.setText("DAFTAR");
         bregis.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -102,7 +102,7 @@ public class login extends javax.swing.JFrame {
             }
         });
 
-        blogin.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        blogin.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         blogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/login.png"))); // NOI18N
         blogin.setText("MASUK");
         blogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -145,9 +145,9 @@ public class login extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(blogin, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
-                        .addComponent(bregis))
+                        .addComponent(blogin, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                        .addComponent(bregis, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(sandi)
                     .addComponent(id_kasir)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)

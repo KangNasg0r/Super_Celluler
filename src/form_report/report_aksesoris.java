@@ -98,6 +98,7 @@ public class report_aksesoris extends javax.swing.JFrame {
             }
         ));
         tblaksesoris.setGridColor(new java.awt.Color(255, 255, 255));
+        tblaksesoris.setRowHeight(25);
         tblaksesoris.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblaksesorisMouseClicked(evt);
@@ -105,6 +106,7 @@ public class report_aksesoris extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblaksesoris);
 
+        cari_aksesoris.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         cari_aksesoris.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cari_aksesorisActionPerformed(evt);
@@ -116,6 +118,7 @@ public class report_aksesoris extends javax.swing.JFrame {
             }
         });
 
+        bcari.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         bcari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/search.png"))); // NOI18N
         bcari.setText("CARI");
         bcari.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -125,6 +128,7 @@ public class report_aksesoris extends javax.swing.JFrame {
             }
         });
 
+        bprint_ak.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         bprint_ak.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/printer.png"))); // NOI18N
         bprint_ak.setText("CETAK");
         bprint_ak.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -159,7 +163,7 @@ public class report_aksesoris extends javax.swing.JFrame {
                     .addComponent(bcari)
                     .addComponent(bprint_ak))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -214,7 +218,17 @@ public class report_aksesoris extends javax.swing.JFrame {
             parameter.put("KASIR", loginKasir);
 
             JasperPrint print = JasperFillManager.fillReport(reportPath,parameter,conn);
-            JasperViewer.viewReport(print,false);
+            
+            form.menu_utama menuUtama = form.menu_utama.getInstance();
+        if (menuUtama != null) {
+            javax.swing.JPanel reportPanel = new javax.swing.JPanel(new java.awt.BorderLayout());
+            net.sf.jasperreports.swing.JRViewer viewer = new net.sf.jasperreports.swing.JRViewer(print);
+            reportPanel.add(viewer, java.awt.BorderLayout.CENTER);
+            // Load ke Pane1 di menu_utama
+            menuUtama.loadPanel(reportPanel);
+        } else {
+            JasperViewer.viewReport(print, false);
+        }
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Gagal mencetak report: " + e.getMessage());

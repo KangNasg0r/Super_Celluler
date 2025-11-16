@@ -208,7 +208,17 @@ public class riwayat_transaksi extends javax.swing.JFrame {
             parameter.put("KASIR", loginKasir);
             
             JasperPrint print = JasperFillManager.fillReport(path,parameter,conn);
-            JasperViewer.viewReport(print,false);
+            
+            form.menu_utama menuUtama = form.menu_utama.getInstance();
+        if (menuUtama != null) {
+            javax.swing.JPanel reportPanel = new javax.swing.JPanel(new java.awt.BorderLayout());
+            net.sf.jasperreports.swing.JRViewer viewer = new net.sf.jasperreports.swing.JRViewer(print);
+            reportPanel.add(viewer, java.awt.BorderLayout.CENTER);
+            // Load ke Pane1 di menu_utama
+            menuUtama.loadPanel(reportPanel);
+        } else {
+            JasperViewer.viewReport(print, false);
+        }
         }catch(Exception ex){
             JOptionPane.showMessageDialog(rootPane,"Dokumen Tidak Ada" +ex);   
         }
@@ -288,6 +298,7 @@ public class riwayat_transaksi extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tb_nota_detail.setRowHeight(25);
         jScrollPane2.setViewportView(tb_nota_detail);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -442,6 +453,7 @@ public class riwayat_transaksi extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tb_nota.setRowHeight(25);
         tb_nota.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tb_notaMouseClicked(evt);
@@ -449,7 +461,7 @@ public class riwayat_transaksi extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tb_nota);
 
-        bcetak.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        bcetak.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         bcetak.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/printer.png"))); // NOI18N
         bcetak.setText("CETAK NOTA");
         bcetak.addActionListener(new java.awt.event.ActionListener() {
@@ -538,11 +550,11 @@ public class riwayat_transaksi extends javax.swing.JFrame {
                     .addComponent(cari_tanggal_akhir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txt_cari, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+                        .addComponent(txt_cari, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(bcetak, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))

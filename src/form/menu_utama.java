@@ -226,18 +226,20 @@ public class menu_utama extends javax.swing.JFrame {
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
         );
 
-        keluar_aplikasi.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        keluar_aplikasi.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         keluar_aplikasi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/exit.png"))); // NOI18N
         keluar_aplikasi.setText("KELUAR APLIKASI");
+        keluar_aplikasi.setToolTipText("Keluar dari aplikasi kasir");
         keluar_aplikasi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 keluar_aplikasiActionPerformed(evt);
             }
         });
 
-        keluar_akun.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        keluar_akun.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         keluar_akun.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/login.png"))); // NOI18N
         keluar_akun.setText("KELUAR AKUN");
+        keluar_akun.setToolTipText("Keluar dari akun kasir kamu");
         keluar_akun.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 keluar_akunActionPerformed(evt);
@@ -245,9 +247,9 @@ public class menu_utama extends javax.swing.JFrame {
         });
 
         jPanel4.setBackground(new java.awt.Color(0, 0, 204));
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true), "KASIR", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14), new java.awt.Color(255, 255, 255))); // NOI18N
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true), "KASIR", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
 
-        label_jenkel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        label_jenkel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         label_jenkel.setForeground(new java.awt.Color(255, 255, 255));
         label_jenkel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         label_jenkel.setText("Jenkel Kasir");
@@ -289,13 +291,13 @@ public class menu_utama extends javax.swing.JFrame {
         labeling7.setText(":");
         labeling7.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
-        label_nama.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        label_nama.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         label_nama.setForeground(new java.awt.Color(255, 255, 255));
         label_nama.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         label_nama.setText("Nama Kasir");
         label_nama.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
-        label_id.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        label_id.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         label_id.setForeground(new java.awt.Color(255, 255, 255));
         label_id.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         label_id.setText("Id Kasir");
@@ -313,7 +315,7 @@ public class menu_utama extends javax.swing.JFrame {
         labeling8.setText(":");
         labeling8.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
-        label_hp.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        label_hp.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         label_hp.setForeground(new java.awt.Color(255, 255, 255));
         label_hp.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         label_hp.setText("Hp Kasir");
@@ -444,7 +446,7 @@ public class menu_utama extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 642, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 638, Short.MAX_VALUE)
         );
 
         jLayeredPane1.add(jPanel2, java.awt.BorderLayout.CENTER);

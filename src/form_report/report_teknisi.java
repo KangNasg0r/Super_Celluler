@@ -102,6 +102,7 @@ public class report_teknisi extends javax.swing.JFrame {
             }
         ));
         tblteknisi.setGridColor(new java.awt.Color(255, 255, 255));
+        tblteknisi.setRowHeight(25);
         tblteknisi.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblteknisiMouseClicked(evt);
@@ -109,6 +110,7 @@ public class report_teknisi extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblteknisi);
 
+        cari_teknisi.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         cari_teknisi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cari_teknisiActionPerformed(evt);
@@ -120,6 +122,7 @@ public class report_teknisi extends javax.swing.JFrame {
             }
         });
 
+        bcari.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         bcari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/search.png"))); // NOI18N
         bcari.setText("CARI");
         bcari.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -129,6 +132,7 @@ public class report_teknisi extends javax.swing.JFrame {
             }
         });
 
+        bprint_tek.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         bprint_tek.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/printer.png"))); // NOI18N
         bprint_tek.setText("CETAK");
         bprint_tek.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -163,7 +167,7 @@ public class report_teknisi extends javax.swing.JFrame {
                     .addComponent(bcari)
                     .addComponent(bprint_tek))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
                 .addContainerGap())
         );
 

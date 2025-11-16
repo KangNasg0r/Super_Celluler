@@ -136,7 +136,16 @@ private Connection conn = new koneksi().connect();
 
             JasperPrint print = JasperFillManager.fillReport(path, parameters, conn);
 
+            form.menu_utama menuUtama = form.menu_utama.getInstance();
+        if (menuUtama != null) {
+            javax.swing.JPanel reportPanel = new javax.swing.JPanel(new java.awt.BorderLayout());
+            net.sf.jasperreports.swing.JRViewer viewer = new net.sf.jasperreports.swing.JRViewer(print);
+            reportPanel.add(viewer, java.awt.BorderLayout.CENTER);
+            // Load ke Pane1 di menu_utama
+            menuUtama.loadPanel(reportPanel);
+        } else {
             JasperViewer.viewReport(print, false);
+        }
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(rootPane,
@@ -192,6 +201,7 @@ private Connection conn = new koneksi().connect();
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Tanggal Akhir :");
 
+        bcari.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         bcari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/search.png"))); // NOI18N
         bcari.setText("CARI DATA");
         bcari.addActionListener(new java.awt.event.ActionListener() {
@@ -225,6 +235,7 @@ private Connection conn = new koneksi().connect();
         label_total_pendapatan.setForeground(new java.awt.Color(255, 255, 255));
         label_total_pendapatan.setText("---------------------------------------");
 
+        bcetak_chart.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         bcetak_chart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/printer.png"))); // NOI18N
         bcetak_chart.setText("CETAK");
         bcetak_chart.addActionListener(new java.awt.event.ActionListener() {
@@ -280,7 +291,7 @@ private Connection conn = new koneksi().connect();
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
