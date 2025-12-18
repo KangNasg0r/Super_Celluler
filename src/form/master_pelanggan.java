@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package form;
-
 import form_report.report_pelanggan;
 import java.sql.*;
 import javax.swing.JOptionPane;
@@ -217,7 +216,7 @@ public class master_pelanggan extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel8.setText("Nomor Handphone :");
+        jLabel8.setText("Nomor Telepon :");
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -571,7 +570,7 @@ public class master_pelanggan extends javax.swing.JFrame {
 
     private void bprint_pelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bprint_pelActionPerformed
         try {
-            String loginId = UserID.getIdKasir();
+            String loginId = UserID.getIdAdmin();
             String loginKasir = "Tidak Diketahui";
 
             try (PreparedStatement teknama = conn.prepareStatement("SELECT nama FROM tb_kasir WHERE id_kasir = ?")) {

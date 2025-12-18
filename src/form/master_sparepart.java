@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package form;
-
 import form_report.report_sparepart;
 import java.sql.*;
 import javax.swing.JOptionPane;
@@ -206,10 +205,15 @@ public class master_sparepart extends javax.swing.JFrame {
         jLabel5.setText("Harga Jual :");
 
         jenis_barang.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jenis_barang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Jenis Barang" }));
+        jenis_barang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Jenis Servis" }));
+        jenis_barang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jenis_barangActionPerformed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel6.setText("Jenis Service Barang :");
+        jLabel6.setText("Jenis Servis Barang :");
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel8.setText("Merek Barang :");
@@ -668,7 +672,7 @@ public class master_sparepart extends javax.swing.JFrame {
 
     private void bprint_spareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bprint_spareActionPerformed
         try {
-            String loginId = UserID.getIdKasir();
+            String loginId = UserID.getIdAdmin();
             String loginKasir = "Tidak Diketahui";
             try (PreparedStatement teknama = conn.prepareStatement("SELECT nama FROM tb_kasir WHERE id_kasir = ?")) {
                 teknama.setString(1, loginId);
@@ -703,6 +707,10 @@ public class master_sparepart extends javax.swing.JFrame {
     private void txtcariKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcariKeyTyped
         datatable();
     }//GEN-LAST:event_txtcariKeyTyped
+
+    private void jenis_barangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jenis_barangActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jenis_barangActionPerformed
 
     /**
      * @param args the command line arguments

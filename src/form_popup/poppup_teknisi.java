@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package form_popup;
-
 import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;

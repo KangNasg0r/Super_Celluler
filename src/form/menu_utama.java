@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package form;
-
 import javax.swing.JOptionPane;
 import java.util.Date;
 import java.text.SimpleDateFormat;
@@ -33,13 +32,13 @@ public class menu_utama extends javax.swing.JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         setupResizeListener();
         
-        String idKasir = UserID.getIdKasir();
+        String idKasir = UserID.getIdAdmin();
         label_id.setText(idKasir);
-        String namaKasir = UserID.getNamaKasir();
+        String namaKasir = UserID.getNamaAdmin();
         label_nama.setText(namaKasir);
-        String jenkelKasir = UserID.getJenkelKasir();
+        String jenkelKasir = UserID.getJenkelAdmin();
         label_jenkel.setText(jenkelKasir);
-        String hpKasir = UserID.getHPKasir();
+        String hpKasir = UserID.getHPAdmin();
         label_hp.setText(hpKasir);
         
         tampilkanTanggal_hariini();
@@ -53,16 +52,16 @@ public class menu_utama extends javax.swing.JFrame {
     }
      
      public void refreshKasirInfo() {
-        String idKasir = UserID.getIdKasir();
+        String idKasir = UserID.getIdAdmin();
         label_id.setText(idKasir);
         
-        String namaKasir = UserID.getNamaKasir();
+        String namaKasir = UserID.getNamaAdmin();
         label_nama.setText(namaKasir);
         
-        String jenkelKasir = UserID.getJenkelKasir();
+        String jenkelKasir = UserID.getJenkelAdmin();
         label_jenkel.setText(jenkelKasir);
         
-        String hpKasir = UserID.getHPKasir();
+        String hpKasir = UserID.getHPAdmin();
         label_hp.setText(hpKasir);
     }
     
@@ -169,11 +168,11 @@ public class menu_utama extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         menu_pelanggan = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
-        menu_sparepart = new javax.swing.JMenuItem();
-        jSeparator4 = new javax.swing.JPopupMenu.Separator();
-        menu_aksesoris = new javax.swing.JMenuItem();
-        jSeparator5 = new javax.swing.JPopupMenu.Separator();
         menu_service = new javax.swing.JMenuItem();
+        jSeparator4 = new javax.swing.JPopupMenu.Separator();
+        menu_sparepart = new javax.swing.JMenuItem();
+        jSeparator5 = new javax.swing.JPopupMenu.Separator();
+        menu_aksesoris = new javax.swing.JMenuItem();
         transaksi = new javax.swing.JMenu();
         menu_pembayaran = new javax.swing.JMenuItem();
         report = new javax.swing.JMenu();
@@ -247,12 +246,12 @@ public class menu_utama extends javax.swing.JFrame {
         });
 
         jPanel4.setBackground(new java.awt.Color(0, 0, 204));
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true), "KASIR", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true), "ADMIN", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
 
         label_jenkel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         label_jenkel.setForeground(new java.awt.Color(255, 255, 255));
         label_jenkel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        label_jenkel.setText("Jenkel Kasir");
+        label_jenkel.setText("Jenkel Admin");
         label_jenkel.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
         labeling1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -294,13 +293,13 @@ public class menu_utama extends javax.swing.JFrame {
         label_nama.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         label_nama.setForeground(new java.awt.Color(255, 255, 255));
         label_nama.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        label_nama.setText("Nama Kasir");
+        label_nama.setText("Nama Admin");
         label_nama.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
         label_id.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         label_id.setForeground(new java.awt.Color(255, 255, 255));
         label_id.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        label_id.setText("Id Kasir");
+        label_id.setText("Id Admin");
         label_id.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
         labeling2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -318,7 +317,7 @@ public class menu_utama extends javax.swing.JFrame {
         label_hp.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         label_hp.setForeground(new java.awt.Color(255, 255, 255));
         label_hp.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        label_hp.setText("Hp Kasir");
+        label_hp.setText("Hp Admin");
         label_hp.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
         jam_label.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -479,7 +478,7 @@ public class menu_utama extends javax.swing.JFrame {
 
         menu_teknisi.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         menu_teknisi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/kasir.png"))); // NOI18N
-        menu_teknisi.setText("Kasir");
+        menu_teknisi.setText("Admin");
         menu_teknisi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         menu_teknisi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -512,6 +511,18 @@ public class menu_utama extends javax.swing.JFrame {
         master.add(menu_pelanggan);
         master.add(jSeparator3);
 
+        menu_service.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        menu_service.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/service.png"))); // NOI18N
+        menu_service.setText("Servis");
+        menu_service.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        menu_service.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_serviceActionPerformed(evt);
+            }
+        });
+        master.add(menu_service);
+        master.add(jSeparator4);
+
         menu_sparepart.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         menu_sparepart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/sparepart.png"))); // NOI18N
         menu_sparepart.setText("Sparepart");
@@ -522,7 +533,7 @@ public class menu_utama extends javax.swing.JFrame {
             }
         });
         master.add(menu_sparepart);
-        master.add(jSeparator4);
+        master.add(jSeparator5);
 
         menu_aksesoris.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         menu_aksesoris.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/aksesoris.png"))); // NOI18N
@@ -534,18 +545,6 @@ public class menu_utama extends javax.swing.JFrame {
             }
         });
         master.add(menu_aksesoris);
-        master.add(jSeparator5);
-
-        menu_service.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        menu_service.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/service.png"))); // NOI18N
-        menu_service.setText("Servis");
-        menu_service.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        menu_service.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menu_serviceActionPerformed(evt);
-            }
-        });
-        master.add(menu_service);
 
         rep_teknisi.add(master);
 
@@ -556,7 +555,7 @@ public class menu_utama extends javax.swing.JFrame {
 
         menu_pembayaran.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         menu_pembayaran.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/transaction.png"))); // NOI18N
-        menu_pembayaran.setText("Nota Servis");
+        menu_pembayaran.setText("Nota Pembayaran");
         menu_pembayaran.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         menu_pembayaran.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -574,7 +573,7 @@ public class menu_utama extends javax.swing.JFrame {
 
         menu_rkasir.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         menu_rkasir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/printer.png"))); // NOI18N
-        menu_rkasir.setText("Data Kasir");
+        menu_rkasir.setText("Data Admin");
         menu_rkasir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         menu_rkasir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -645,7 +644,7 @@ public class menu_utama extends javax.swing.JFrame {
 
         menu_rpenjualan.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         menu_rpenjualan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/printer.png"))); // NOI18N
-        menu_rpenjualan.setText("Data Penjualan");
+        menu_rpenjualan.setText("Data Pendapatan");
         menu_rpenjualan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menu_rpenjualanActionPerformed(evt);
@@ -683,11 +682,11 @@ public class menu_utama extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
   
     private void menu_rkasirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_rkasirActionPerformed
-        loadPanel(new form_report.report_kasir().getMainPanel());
+        loadPanel(new form_report.report_admin().getMainPanel());
     }//GEN-LAST:event_menu_rkasirActionPerformed
 
     private void menu_teknisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_teknisiActionPerformed
-        loadPanel(new master_kasir().getMainPanel());
+        loadPanel(new master_admin().getMainPanel());
     }//GEN-LAST:event_menu_teknisiActionPerformed
 
     private void menu_raksesorisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_raksesorisActionPerformed
@@ -731,7 +730,7 @@ public class menu_utama extends javax.swing.JFrame {
     }//GEN-LAST:event_riwayat_transaksiActionPerformed
 
     private void menu_rpenjualanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_rpenjualanActionPerformed
-        loadPanel(new form_report.report_penjualan().getMainPanel());
+        loadPanel(new form_report.report_pendapatan().getMainPanel());
     }//GEN-LAST:event_menu_rpenjualanActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed

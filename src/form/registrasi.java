@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package form;
-
 import java.sql.*;
 import javax.swing.JOptionPane;
 import koneksi.koneksi;
@@ -64,7 +63,7 @@ public class registrasi extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Daftar");
+        jLabel1.setText("DAFTAR ADMIN");
         jLabel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
 
         id_kasir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -109,7 +108,7 @@ public class registrasi extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel2.setText("ID Kasir :");
+        jLabel2.setText("ID Admin :");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -160,7 +159,7 @@ public class registrasi extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel8.setText("Nomor Handphone :");
+        jLabel8.setText("Nomor Telepon :");
 
         nama.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 

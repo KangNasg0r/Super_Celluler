@@ -211,7 +211,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Kasir Super Celuler]]></text>
+				<text><![CDATA[Admin Super Celuler]]></text>
 			</staticText>
 			<textField pattern="EEEEE dd MMMMM yyyy">
 				<reportElement style="Column header" x="421" y="14" width="131" height="20" forecolor="#000000" uuid="1c4d376a-c6d0-4039-bd46-272005b8f941"/>

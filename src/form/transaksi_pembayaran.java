@@ -1,5 +1,4 @@
 package form;
-
 import form_popup.poppup_sparepart;
 import form_popup.poppup_aksesoris;
 import form_popup.poppup_service;
@@ -16,7 +15,6 @@ import koneksi.koneksi;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
-
 import java.awt.event.FocusAdapter; 
 import java.awt.event.FocusEvent;   
 import java.awt.Color;               
@@ -27,7 +25,6 @@ import javax.swing.JTextField;
  * @author Ahmad Nur Latif P
  */
 public class transaksi_pembayaran extends javax.swing.JFrame {
-
     public String id, nama, telp, jenis, almt, tgl;
     public String idTek, namaTek, telpTek, jenisTek, almtTek;
     public String id_ser, jenis_ser, biaya_ser;
@@ -35,8 +32,8 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
     public String id_aks, nama_aks, harga_bel_aks, harga_ju_aks;
     private Connection conn = new koneksi().connect();
     private DefaultTableModel tabmode;
-    
     private static final String PLACEHOLDER_QTY = "Masukkan jumlah";
+    
 
     /**
      * Creates new form transaksi_pembayaran
@@ -49,14 +46,13 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
         tampilkanIdKasir();
         bcari_sparepart.setEnabled(false);
         bcari_sparepart.setToolTipText("Pilih jenis service terlebih dahulu");
-        String kasir = UserID.getNamaKasir();
+        String kasir = UserID.getNamaAdmin();
         label_namaKasir.setText(kasir);
         almt_pelanggan.setLineWrap(true);
         almt_pelanggan.setWrapStyleWord(true);
         almt_teknisi.setLineWrap(true);
         almt_teknisi.setWrapStyleWord(true);
         autonumber();
-        
         addPlaceholder(qtySparepart, PLACEHOLDER_QTY);
         addPlaceholder(qtyAksesoris, PLACEHOLDER_QTY);
     }
@@ -65,10 +61,10 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
         return nota;
     }
     
+    
     private void addPlaceholder(JTextField textField, String placeholderText) {
         textField.setText(placeholderText);
         textField.setForeground(Color.BLACK);
-
         textField.addFocusListener(new FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
@@ -88,14 +84,12 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
     }
 
     protected void aktif() {
-        //jtgl.requestFocus();
         jtgl.setFormats(new SimpleDateFormat("yyyy/MM/dd"));
         jtgl.setDate(new Date());
         jtgl.setEditable(false);
         Object[] Baris = {"ID Barang", "Nama Barang", "Harga Beli", "Harga Jual", "Kuantitas", "Total"};
         tabmode = new DefaultTableModel(null, Baris);
         tbl_transaksi.setModel(tabmode);
-        
         id_nota.setEditable(false);
         id_pelanggan.setEditable(false);
         nama_pelanggan.setEditable(false);
@@ -142,24 +136,20 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
         harga_beli.setText("");
         harga_jual.setText("");
         merk_barang.setText("");
-        
         qtySparepart.setText(PLACEHOLDER_QTY);
-        
         subTotalSparepart.setText("");
         id_aksesoris.setText("");
         nama_aksesoris.setText("");
         harga_beliAk.setText("");
         harga_jualAk.setText("");
-        
         qtyAksesoris.setText(PLACEHOLDER_QTY);
-        
         subTotalAksesoris.setText("");
         total_biaya.setText("");
 
     }
     
     private void tampilkanIdKasir() {
-        String idKasir = UserID.getIdKasir();
+        String idKasir = UserID.getIdAdmin();
         label_idKasir.setText(idKasir);
     }
 
@@ -185,12 +175,9 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
     public void itemTerpilihSrvc() {
         poppup_service ps = new poppup_service();
         ps.srvc = this;
-    
         id_service.setText(id_ser);
         jenis_service.setText(jenis_ser);
         biaya_service.setText(biaya_ser);
-    
-        // TAMBAHKAN INI - Enable button sparepart
         bcari_sparepart.setEnabled(true);
         bcari_sparepart.setToolTipText("Cari sparepart untuk " + jenis_ser);
         
@@ -219,7 +206,6 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
         nama_aksesoris.setText(nama_aks);
         harga_beliAk.setText(harga_bel_aks);
         harga_jualAk.setText(harga_ju_aks);
-        
         qtyAksesoris.setText(PLACEHOLDER_QTY);
         subTotalAksesoris.setText("");
     }
@@ -261,7 +247,7 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
     
     public void cetak() {
         try{
-            String loginId = UserID.getIdKasir();
+            String loginId = UserID.getIdAdmin();
             String loginKasir = "Tidak Diketahui";
             
             try (PreparedStatement kasnama = conn.prepareStatement("SELECT nama FROM tb_kasir WHERE id_kasir = ?")) {
@@ -272,20 +258,17 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
                     }
                 }
             }
-            
             String path="./src/report/nota1.jasper";
             HashMap parameter = new HashMap();
             parameter.put("id_nota",id_nota.getText());
             parameter.put("KASIR", loginKasir);
-            
             JasperPrint print = JasperFillManager.fillReport(path,parameter,conn);
-            
+
             form.menu_utama menuUtama = form.menu_utama.getInstance();
         if (menuUtama != null) {
             javax.swing.JPanel reportPanel = new javax.swing.JPanel(new java.awt.BorderLayout());
             net.sf.jasperreports.swing.JRViewer viewer = new net.sf.jasperreports.swing.JRViewer(print);
             reportPanel.add(viewer, java.awt.BorderLayout.CENTER);
-            // Load ke Pane1 di menu_utama
             menuUtama.loadPanel(reportPanel);
         } else {
             JasperViewer.viewReport(print, false);
@@ -436,11 +419,11 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("ID Kasir");
+        jLabel2.setText("ID Admin");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Nama Kasir");
+        jLabel3.setText("Nama Admin");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -454,11 +437,11 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
 
         label_idKasir.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         label_idKasir.setForeground(new java.awt.Color(255, 255, 255));
-        label_idKasir.setText("MUNCUL ID KASIR");
+        label_idKasir.setText("MUNCUL ID ADMIN");
 
         label_namaKasir.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         label_namaKasir.setForeground(new java.awt.Color(255, 255, 255));
-        label_namaKasir.setText("MUNCUL NAMA KASIR");
+        label_namaKasir.setText("MUNCUL NAMA ADMIN");
 
         javax.swing.GroupLayout panel_teknisiLayout = new javax.swing.GroupLayout(panel_teknisi);
         panel_teknisi.setLayout(panel_teknisiLayout);
@@ -652,7 +635,7 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel5.setBackground(new java.awt.Color(0, 0, 204));
+        jPanel5.setBackground(new java.awt.Color(29, 114, 211));
         jPanel5.setAutoscrolls(true);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -685,7 +668,7 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setText("Nomor Hp");
+        jLabel13.setText("Nomor Tlp");
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
@@ -798,7 +781,7 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel18.setText("ID Service");
+        jLabel18.setText("ID Servis");
 
         id_service.setBackground(java.awt.SystemColor.controlHighlight);
         id_service.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -819,7 +802,7 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel20.setText("Jenis Service");
+        jLabel20.setText("Jenis Servis");
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(255, 255, 255));
@@ -1121,7 +1104,7 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
 
         jLabel56.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel56.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel56.setText("Nomor Hp");
+        jLabel56.setText("Nomor Tlp");
 
         jLabel57.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel57.setForeground(new java.awt.Color(255, 255, 255));
@@ -1151,6 +1134,11 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
 
         hp_teknisi.setBackground(java.awt.SystemColor.controlHighlight);
         hp_teknisi.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        hp_teknisi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hp_teknisiActionPerformed(evt);
+            }
+        });
 
         almt_teknisi.setBackground(java.awt.SystemColor.controlHighlight);
         almt_teknisi.setColumns(20);
@@ -1545,9 +1533,8 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
         return;
     }
     
-    // Buka popup dengan filter
     form_popup.poppup_sparepart pop = new form_popup.poppup_sparepart(this, jenisService);
-    pop.sppt = this; // Set reference
+    pop.sppt = this;
     pop.setVisible(true);
     pop.setLocationRelativeTo(null);    
     }//GEN-LAST:event_bcari_sparepartActionPerformed
@@ -1643,7 +1630,6 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
     }//GEN-LAST:event_qtyAksesorisKeyReleased
 
     private void bsimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bsimpanActionPerformed
-        // Validasi pelanggan dan teknisi
     String idPelangganText = id_pelanggan.getText().trim();
     String idTeknisiText = id_teknisi.getText().trim();
     
@@ -1665,7 +1651,6 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
         return;
     }
     
-    // validasi minimal ada 1 service dan sparepart
     int rowCount = tbl_transaksi.getRowCount();
     
     if (rowCount < 2) {
@@ -1678,20 +1663,19 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
         return;
     }
     
-    // Validasi apakah ada service dan sparepart
     boolean hasService = false;
     boolean hasSparepart = false;
  
     for (int i = 0; i < rowCount; i++) {
-        String idItem = tbl_transaksi.getValueAt(i, 0).toString();
-        
-        String hargaBeli = tbl_transaksi.getValueAt(i, 2).toString();
-        
-        if (hargaBeli.equals("0")) {
-            hasService = true;
-        } else {
-            hasSparepart = true;
-        }
+    String idItem = tbl_transaksi.getValueAt(i, 0).toString();
+    String hargaBeli = tbl_transaksi.getValueAt(i, 2).toString();
+    String hargaJual = tbl_transaksi.getValueAt(i, 3).toString();
+    
+    if (hargaBeli.equals("0") && !hargaJual.equals("0")) {
+        hasSparepart = true;
+    } else {
+        hasService = true;
+    }
     }
     
     if (!hasService) {
@@ -1714,7 +1698,6 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
         return;
     }
     
-    // validasi total tidak boleh Rp 0
     String totalText = total_biaya.getText().trim();
     if (totalText.isEmpty() || totalText.equals("0")) {
         JOptionPane.showMessageDialog(this, 
@@ -1725,7 +1708,6 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
         return;
     }
     
-    // Memproses Simpan
     Date selectedDate = jtgl.getDate();
     if (selectedDate == null) {
         JOptionPane.showMessageDialog(this, 
@@ -1831,6 +1813,10 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
         
         subTotalAksesoris.setText("");
     }//GEN-LAST:event_bbatal_akseActionPerformed
+
+    private void hp_teknisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hp_teknisiActionPerformed
+
+    }//GEN-LAST:event_hp_teknisiActionPerformed
 
     /**
      * @param args the command line arguments

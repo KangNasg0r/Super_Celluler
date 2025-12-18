@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package form_report;
-
 import form.UserID;
 import java.sql.*;
 import javax.swing.JOptionPane;
@@ -23,7 +22,7 @@ import form.menu_utama;
  *
  * @author Ahmad Nur Latif P
  */
-public class report_kasir extends javax.swing.JFrame {
+public class report_admin extends javax.swing.JFrame {
 
     private Connection conn = new koneksi().connect();
     private DefaultTableModel tabmode;
@@ -31,7 +30,7 @@ public class report_kasir extends javax.swing.JFrame {
     /**
      * Creates new form report_karyawan
      */
-    public report_kasir() {
+    public report_admin() {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         datatable();
@@ -42,7 +41,7 @@ public class report_kasir extends javax.swing.JFrame {
     }
 
     protected void datatable() {
-        Object[] Baris = {"ID Kasir", "Password", "Nama", "Jenis Kelamin", "No Handphone","Alamat"};
+        Object[] Baris = {"ID Admin", "Password", "Nama", "Jenis Kelamin", "No Handphone","Alamat"};
         tabmode = new DefaultTableModel(null, Baris);
         String cariitem = cari_kasir.getText();
 
@@ -85,6 +84,7 @@ public class report_kasir extends javax.swing.JFrame {
         cari_kasir = new javax.swing.JTextField();
         bcari = new javax.swing.JButton();
         bprint_kas = new javax.swing.JButton();
+        label_id = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -144,6 +144,12 @@ public class report_kasir extends javax.swing.JFrame {
             }
         });
 
+        label_id.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        label_id.setForeground(new java.awt.Color(255, 255, 255));
+        label_id.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_id.setText("Laporan Data Admin");
+        label_id.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+
         javax.swing.GroupLayout report_kasirLayout = new javax.swing.GroupLayout(report_kasir);
         report_kasir.setLayout(report_kasirLayout);
         report_kasirLayout.setHorizontalGroup(
@@ -156,7 +162,9 @@ public class report_kasir extends javax.swing.JFrame {
                         .addComponent(cari_kasir, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(bcari)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(label_id, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(bprint_kas)))
                 .addContainerGap())
         );
@@ -167,9 +175,10 @@ public class report_kasir extends javax.swing.JFrame {
                 .addGroup(report_kasirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cari_kasir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bcari)
-                    .addComponent(bprint_kas))
+                    .addComponent(bprint_kas)
+                    .addComponent(label_id, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -207,7 +216,7 @@ public class report_kasir extends javax.swing.JFrame {
 
     private void bprint_kasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bprint_kasActionPerformed
         try {
-        String loginId = UserID.getIdKasir();
+        String loginId = UserID.getIdAdmin();
         String loginKasir = "Tidak Diketahui";
 
         try (PreparedStatement kasnama = conn.prepareStatement("SELECT nama FROM tb_kasir WHERE id_kasir = ?")) {
@@ -258,14 +267,18 @@ public class report_kasir extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(report_kasir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(report_admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(report_kasir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(report_admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(report_kasir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(report_admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(report_kasir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(report_admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -274,7 +287,7 @@ public class report_kasir extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new report_kasir().setVisible(true);
+                new report_admin().setVisible(true);
             }
         });
     }
@@ -284,6 +297,7 @@ public class report_kasir extends javax.swing.JFrame {
     private javax.swing.JButton bprint_kas;
     private javax.swing.JTextField cari_kasir;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel label_id;
     private javax.swing.JPanel report_kasir;
     private javax.swing.JTable tblkasir;
     // End of variables declaration//GEN-END:variables

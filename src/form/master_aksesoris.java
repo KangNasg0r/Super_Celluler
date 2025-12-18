@@ -552,7 +552,7 @@ private Connection conn = new koneksi().connect();
 
     private void bprint_pelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bprint_pelActionPerformed
         try {
-            String loginId = UserID.getIdKasir();
+            String loginId = UserID.getIdAdmin();
             String loginKasir = "Tidak Diketahui";
 
             try (PreparedStatement kasnama = conn.prepareStatement("SELECT nama FROM tb_kasir WHERE id_kasir = ?")) {

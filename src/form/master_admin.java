@@ -4,8 +4,7 @@
  * and open the template in the editor.
  */
 package form;
-
-import form_report.report_kasir;
+import form_report.report_admin;
 import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -16,15 +15,13 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
 import net.sf.jasperreports.swing.JRViewer;
-
-
 /**
  * /**
  * /**
  *
  * @author Ahmad Nur Latif P
  */
-public class master_kasir extends javax.swing.JFrame {
+public class master_admin extends javax.swing.JFrame {
 
     private Connection conn = new koneksi().connect();
     private DefaultTableModel tabmode;
@@ -32,7 +29,7 @@ public class master_kasir extends javax.swing.JFrame {
     /**
      * Creates new form report_karyawan
      */
-    public master_kasir() {
+    public master_admin() {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         kosong();
@@ -57,13 +54,11 @@ public class master_kasir extends javax.swing.JFrame {
         nama.setText("");
         hp.setText("");
         alamat.setText("");
-        
         bhapus_kas.setEnabled(true);
-        bhapus_kas.setToolTipText("Hapus data kasir");
     }
 
     protected void datatable() {
-        Object[] Baris = {"ID Kasir", "Password", "Nama", "Jenis Kelamin", "No Handphone", "Alamat"};
+        Object[] Baris = {"ID Admin", "Password", "Nama", "Jenis Kelamin", "No Handphone", "Alamat"};
         tabmode = new DefaultTableModel(null, Baris);
         String cariitem = cari_kasir.getText();
 
@@ -137,7 +132,7 @@ public class master_kasir extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("DATA KASIR");
+        jLabel1.setText("DATA ADMIN");
         jLabel1.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 0, 3, 0, new java.awt.Color(0, 0, 0)));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -176,7 +171,7 @@ public class master_kasir extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel2.setText("ID Kasir :");
+        jLabel2.setText("ID Admin :");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -196,13 +191,14 @@ public class master_kasir extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel8.setText("Nomor Handphone :");
+        jLabel8.setText("Nomor Telepon :");
 
         hp.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         bsimpan_kas.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         bsimpan_kas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/save.png"))); // NOI18N
         bsimpan_kas.setText("SIMPAN");
+        bsimpan_kas.setToolTipText("Simpan data admin");
         bsimpan_kas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bsimpan_kasActionPerformed(evt);
@@ -212,6 +208,7 @@ public class master_kasir extends javax.swing.JFrame {
         bubah_kas.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         bubah_kas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/edit.png"))); // NOI18N
         bubah_kas.setText("UBAH");
+        bubah_kas.setToolTipText("Ubah data admin");
         bubah_kas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bubah_kasActionPerformed(evt);
@@ -221,6 +218,7 @@ public class master_kasir extends javax.swing.JFrame {
         bhapus_kas.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         bhapus_kas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/delete.png"))); // NOI18N
         bhapus_kas.setText("HAPUS");
+        bhapus_kas.setToolTipText("Hapus data admin");
         bhapus_kas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bhapus_kasActionPerformed(evt);
@@ -230,6 +228,7 @@ public class master_kasir extends javax.swing.JFrame {
         bbatal.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         bbatal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/cancel.png"))); // NOI18N
         bbatal.setText("BATAL");
+        bbatal.setToolTipText("Batalkan pengisian");
         bbatal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bbatalActionPerformed(evt);
@@ -410,6 +409,7 @@ public class master_kasir extends javax.swing.JFrame {
         bprint_kas.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         bprint_kas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/printer.png"))); // NOI18N
         bprint_kas.setText("CETAK");
+        bprint_kas.setToolTipText("Cetak semua data admin");
         bprint_kas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         bprint_kas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -512,7 +512,7 @@ public class master_kasir extends javax.swing.JFrame {
         hp.setText(e);
         alamat.setText(f);
         
-        String loginId = UserID.getIdKasir();
+        String loginId = UserID.getIdAdmin();
          if (a.equals(loginId)) {
         bhapus_kas.setEnabled(false);
         bhapus_kas.setToolTipText("Tidak dapat menghapus akun yang sedang digunakan");
@@ -676,12 +676,12 @@ public class master_kasir extends javax.swing.JFrame {
             if (rowsUpdated > 0) {
                 JOptionPane.showMessageDialog(null, "Data berhasil diubah!");
                 // Cek apakah data yang diubah adalah kasir yang sedang login
-            String loginId = UserID.getIdKasir();
+            String loginId = UserID.getIdAdmin();
             if (id_kasirText.equals(loginId)) {
                 // Update UserID
-                UserID.setNamaKasir(namaText);
-                UserID.setJenkelKasir(jenis);
-                UserID.setHPKasir(hpText);
+                UserID.setNamaAdmin(namaText);
+                UserID.setJenkelAdmin(jenis);
+                UserID.setHPAdmin(hpText);
                 
                 // Refresh label di menu_utama
                 menu_utama menuUtama = menu_utama.getInstance();
@@ -711,7 +711,7 @@ public class master_kasir extends javax.swing.JFrame {
 
     private void bprint_kasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bprint_kasActionPerformed
         try {
-        String loginId = UserID.getIdKasir();
+        String loginId = UserID.getIdAdmin();
         String loginKasir = "Tidak Diketahui";
 
         try (PreparedStatement kasnama = conn.prepareStatement("SELECT nama FROM tb_kasir WHERE id_kasir = ?")) {
@@ -767,14 +767,22 @@ public class master_kasir extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(master_kasir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(master_admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(master_kasir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(master_admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(master_kasir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(master_admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(master_kasir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(master_admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -787,7 +795,7 @@ public class master_kasir extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new master_kasir().setVisible(true);
+                new master_admin().setVisible(true);
             }
         });
     }

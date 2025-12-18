@@ -191,7 +191,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Kasir Super Celuler]]></text>
+				<text><![CDATA[Admin Super Celuler]]></text>
 			</staticText>
 			<line>
 				<reportElement x="0" y="2" width="555" height="1" uuid="0f92781c-06fa-4b1e-b030-369038db375b"/>

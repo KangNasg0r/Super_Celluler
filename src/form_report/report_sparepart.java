@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package form_report;
-
 import form.UserID;
 import java.sql.*;
 import javax.swing.JOptionPane;
@@ -82,6 +81,7 @@ public class report_sparepart extends javax.swing.JFrame {
         cari_sparepart = new javax.swing.JTextField();
         bcari3 = new javax.swing.JButton();
         bprint_sp = new javax.swing.JButton();
+        label_id = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -141,6 +141,12 @@ public class report_sparepart extends javax.swing.JFrame {
             }
         });
 
+        label_id.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        label_id.setForeground(new java.awt.Color(255, 255, 255));
+        label_id.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_id.setText("Laporan Data Sparepart");
+        label_id.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -153,7 +159,9 @@ public class report_sparepart extends javax.swing.JFrame {
                         .addComponent(cari_sparepart, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(bcari3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(label_id, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(bprint_sp)))
                 .addContainerGap())
         );
@@ -161,12 +169,14 @@ public class report_sparepart extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cari_sparepart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bcari3)
-                    .addComponent(bprint_sp))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cari_sparepart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(bcari3)
+                        .addComponent(bprint_sp))
+                    .addComponent(label_id))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -204,7 +214,7 @@ public class report_sparepart extends javax.swing.JFrame {
 
     private void bprint_spActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bprint_spActionPerformed
         try {
-            String loginId = UserID.getIdKasir();
+            String loginId = UserID.getIdAdmin();
             String loginKasir = "Tidak Diketahui";
 
             try (PreparedStatement teknama = conn.prepareStatement("SELECT nama FROM tb_kasir WHERE id_kasir = ?")) {
@@ -280,6 +290,7 @@ public class report_sparepart extends javax.swing.JFrame {
     private javax.swing.JTextField cari_sparepart;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JLabel label_id;
     private javax.swing.JTable tblsparepart;
     // End of variables declaration//GEN-END:variables
 }

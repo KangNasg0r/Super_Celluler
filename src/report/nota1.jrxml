@@ -103,6 +103,16 @@ INNER JOIN tb_teknisi tb_teknisi ON tb_nota.id_teknisi = tb_teknisi.id_teknisi
 WHERE
     tb_nota.id_nota = $P{id_nota}]]>
 	</queryString>
+	<field name="tb_nota_detail_harga_beli" class="java.lang.Integer"/>
+	<field name="tb_nota_detail_harga_jual" class="java.lang.Integer"/>
+	<field name="tb_nota_detail_kuantitas" class="java.lang.Integer"/>
+	<field name="final_harga_beli_item" class="java.lang.Integer"/>
+	<field name="final_harga_jual_item" class="java.lang.Integer"/>
+	<field name="tb_aksesoris_harga_beliAk" class="java.lang.Integer"/>
+	<field name="tb_aksesoris_harga_jualAk" class="java.lang.Integer"/>
+	<field name="tb_service_biaya_service" class="java.lang.Integer"/>
+	<field name="tb_sparepart_harga_beli" class="java.lang.Integer"/>
+	<field name="tb_sparepart_harga_jual" class="java.lang.Integer"/>
 	<field name="tb_nota_id_nota" class="java.lang.String"/>
 	<field name="tb_nota_tanggal_formatted" class="java.lang.String"/>
 	<field name="tb_nota_id_kasir" class="java.lang.String"/>
@@ -110,16 +120,9 @@ WHERE
 	<field name="tb_nota_id_teknisi" class="java.lang.String"/>
 	<field name="tb_nota_detail_id_item" class="java.lang.String"/>
 	<field name="tb_nota_detail_nama_item_from_detail" class="java.lang.String"/>
-	<field name="tb_nota_detail_harga_beli" class="java.lang.Integer"/>
-	<field name="tb_nota_detail_harga_jual" class="java.lang.Integer"/>
-	<field name="tb_nota_detail_kuantitas" class="java.lang.Integer"/>
 	<field name="final_nama_item" class="java.lang.String"/>
-	<field name="final_harga_beli_item" class="java.lang.Integer"/>
-	<field name="final_harga_jual_item" class="java.lang.Integer"/>
 	<field name="tb_aksesoris_id_aksesoris" class="java.lang.String"/>
 	<field name="tb_aksesoris_nama_aksesoris" class="java.lang.String"/>
-	<field name="tb_aksesoris_harga_beliAk" class="java.lang.Integer"/>
-	<field name="tb_aksesoris_harga_jualAk" class="java.lang.Integer"/>
 	<field name="tb_kasir_id_kasir" class="java.lang.String"/>
 	<field name="tb_kasir_sandi" class="java.lang.String"/>
 	<field name="tb_kasir_nama" class="java.lang.String"/>
@@ -131,21 +134,18 @@ WHERE
 	<field name="tb_pelanggan_hp_pelanggan" class="java.lang.String"/>
 	<field name="tb_pelanggan_jk_pelanggan" class="java.lang.String"/>
 	<field name="tb_pelanggan_almt_pelanggan" class="java.lang.String"/>
-	<field name="tb_pelanggan_tanggal_pelanggan" class="java.sql.Date"/>
 	<field name="tb_service_id_service" class="java.lang.String"/>
 	<field name="tb_service_jenis_service" class="java.lang.String"/>
-	<field name="tb_service_biaya_service" class="java.lang.Integer"/>
 	<field name="tb_sparepart_kd_barang" class="java.lang.String"/>
 	<field name="tb_sparepart_nama_barang" class="java.lang.String"/>
-	<field name="tb_sparepart_harga_beli" class="java.lang.Integer"/>
-	<field name="tb_sparepart_harga_jual" class="java.lang.Integer"/>
 	<field name="tb_sparepart_jenis_barang" class="java.lang.String"/>
 	<field name="tb_sparepart_merk_barang" class="java.lang.String"/>
 	<field name="tb_teknisi_id_teknisi" class="java.lang.String"/>
 	<field name="tb_teknisi_nama_teknisi" class="java.lang.String"/>
-	<field name="tb_teknisi_hp_teknisi" class="java.lang.Integer"/>
+	<field name="tb_teknisi_hp_teknisi" class="java.lang.String"/>
 	<field name="tb_teknisi_jk_teknisi" class="java.lang.String"/>
 	<field name="tb_teknisi_almt_teknisi" class="java.lang.String"/>
+	<field name="tb_pelanggan_tanggal_pelanggan" class="java.sql.Date"/>
 	<variable name="subtotal" class="java.lang.Integer">
 		<variableExpression><![CDATA[$F{tb_nota_detail_kuantitas}*$F{tb_nota_detail_harga_jual}]]></variableExpression>
 	</variable>
@@ -229,7 +229,7 @@ WHERE
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Kasir]]></text>
+				<text><![CDATA[Admin]]></text>
 			</staticText>
 			<line>
 				<reportElement x="0" y="54" width="575" height="1" uuid="c7783d93-c6d5-4faa-bdfd-0ae55d495fe2"/>
@@ -430,7 +430,7 @@ WHERE
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Kasir Super Celuler]]></text>
+				<text><![CDATA[Admin Super Celuler]]></text>
 			</staticText>
 			<line>
 				<reportElement x="404" y="132" width="171" height="1" uuid="c9ab643c-7c9c-477b-a467-3b507fac691b"/>

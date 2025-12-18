@@ -10,20 +10,13 @@ import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import koneksi.koneksi;
-
-/**
- *
- * @author Ahmad Nur Latif P
- */
 public class login extends javax.swing.JFrame {
 
     private Connection conn = new koneksi().connect();
-
     public login() {
         initComponents();
         aktif();
     }
-
     protected void aktif() {
         id_kasir.requestFocus();
     }
@@ -61,7 +54,7 @@ public class login extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel2.setText("ID Kasir :");
+        jLabel2.setText("ID Admin :");
 
         bregis.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         bregis.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/create.png"))); // NOI18N
@@ -205,10 +198,10 @@ public class login extends javax.swing.JFrame {
             ResultSet hasil = stat.executeQuery();
 
             if (hasil.next()) {
-                UserID.setIdKasir(hasil.getString("id_kasir"));
-                UserID.setNamaKasir(hasil.getString("nama"));
-                UserID.setJenkelKasir(hasil.getString("jenkel"));
-                UserID.setHPKasir(hasil.getString("hp"));
+                UserID.setIdAdmin(hasil.getString("id_kasir"));
+                UserID.setNamaAdmin(hasil.getString("nama"));
+                UserID.setJenkelAdmin(hasil.getString("jenkel"));
+                UserID.setHPAdmin(hasil.getString("hp"));
                 JOptionPane.showMessageDialog(null, "Login Berhasil");
                 this.setVisible(false);
                 menu_utama sett = new menu_utama();

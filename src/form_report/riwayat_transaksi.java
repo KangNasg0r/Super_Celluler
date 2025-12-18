@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package form_report;
-
 import form.UserID;
 import java.sql.*;
 import javax.swing.JOptionPane;
@@ -49,7 +48,6 @@ public class riwayat_transaksi extends javax.swing.JFrame {
     protected void NamaDariId(String idKasir, String idPelanggan) {
         label_kasir.setText("------------");
         label_pelanggan.setText("------------");
-
         if (idKasir.isEmpty() || idPelanggan.isEmpty()) {
             return;
         }
@@ -64,9 +62,7 @@ public class riwayat_transaksi extends javax.swing.JFrame {
                 } else {
                     label_kasir.setText("Nama Kasir Tidak Ditemukan");
                 }
-            }
-
-            
+            }            
             PPelanggan.setString(1, idPelanggan);
             try (ResultSet rsPelanggan = PPelanggan.executeQuery()) {
                 if (rsPelanggan.next()) {
@@ -109,16 +105,14 @@ public class riwayat_transaksi extends javax.swing.JFrame {
 }
     
     protected void datatable_nota() {
-        Object[] Baris = {"ID Nota", "Tanggal", "ID Kasir", "ID Pelanggan"};
+        Object[] Baris = {"ID Nota", "Tanggal", "ID Admin", "ID Pelanggan"};
         tabmode = new DefaultTableModel(null, Baris);
         String cariitem = txtcari.getText();
         java.util.Date tanggalMulai = cari_tanggal.getDate();
         java.util.Date tanggalAkhir = cari_tanggal_akhir.getDate();
-
         try {
             String sql;
             SimpleDateFormat sdfDatabase = new SimpleDateFormat("yyyy-MM-dd");
-            
             if (tanggalMulai != null && tanggalAkhir != null) {
             String tanggalMulaiStr = sdfDatabase.format(tanggalMulai);
             String tanggalAkhirStr = sdfDatabase.format(tanggalAkhir);
@@ -190,7 +184,7 @@ public class riwayat_transaksi extends javax.swing.JFrame {
     
     public void cetak() {
         try{
-            String loginId = UserID.getIdKasir();
+            String loginId = UserID.getIdAdmin();
             String loginKasir = "Tidak Diketahui";
             
             try (PreparedStatement kasnama = conn.prepareStatement("SELECT nama FROM tb_kasir WHERE id_kasir = ?")) {
@@ -206,7 +200,6 @@ public class riwayat_transaksi extends javax.swing.JFrame {
             HashMap parameter = new HashMap();
             parameter.put("id_nota",txt_cari.getText());
             parameter.put("KASIR", loginKasir);
-            
             JasperPrint print = JasperFillManager.fillReport(path,parameter,conn);
             
             form.menu_utama menuUtama = form.menu_utama.getInstance();
@@ -214,7 +207,6 @@ public class riwayat_transaksi extends javax.swing.JFrame {
             javax.swing.JPanel reportPanel = new javax.swing.JPanel(new java.awt.BorderLayout());
             net.sf.jasperreports.swing.JRViewer viewer = new net.sf.jasperreports.swing.JRViewer(print);
             reportPanel.add(viewer, java.awt.BorderLayout.CENTER);
-            // Load ke Pane1 di menu_utama
             menuUtama.loadPanel(reportPanel);
         } else {
             JasperViewer.viewReport(print, false);
@@ -303,7 +295,7 @@ public class riwayat_transaksi extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Kasir");
+        jLabel1.setText("Admin");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -588,7 +580,6 @@ public class riwayat_transaksi extends javax.swing.JFrame {
             datatable_transaksi();
             NamaDariId(idKasir, idPelanggan);
             txtcari.requestFocus();
-            //cetak();
         }
     }//GEN-LAST:event_tb_notaMouseClicked
 

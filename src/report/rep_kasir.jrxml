@@ -129,7 +129,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="40" isBold="false"/>
 					</textElement>
-					<text><![CDATA[Data Kasir Super Celluler]]></text>
+					<text><![CDATA[Data Admin Super Celluler]]></text>
 				</staticText>
 			</frame>
 			<staticText>
@@ -155,7 +155,7 @@
 				<textElement verticalAlignment="Middle">
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[ID Kasir]]></text>
+				<text><![CDATA[ID Admin]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="95" y="10" width="83" height="25" forecolor="#000000" uuid="0f07da6c-9fba-43cb-97c4-fecad2b6bdbf"/>
@@ -280,7 +280,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Kasir Super Celluler]]></text>
+				<text><![CDATA[Admin Super Celluler]]></text>
 			</staticText>
 			<line>
 				<reportElement x="384" y="117" width="171" height="1" uuid="85410623-052d-43a8-a965-ce134b1ac0d1"/>

@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package form;
-
 import form_report.report_service;
 import java.sql.*;
 import javax.swing.JOptionPane;
@@ -532,7 +531,7 @@ public class master_service extends javax.swing.JFrame {
 
     private void bprint_serActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bprint_serActionPerformed
         try {
-            String loginId = UserID.getIdKasir();
+            String loginId = UserID.getIdAdmin();
             String loginKasir = "Tidak Diketahui";
 
             try (PreparedStatement teknama = conn.prepareStatement("SELECT nama FROM tb_kasir WHERE id_kasir = ?")) {

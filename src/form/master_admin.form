@@ -88,7 +88,7 @@
               <Font name="Tahoma" size="24" style="1"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="DATA KASIR"/>
+            <Property name="text" type="java.lang.String" value="DATA ADMIN"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
                 <MatteColorBorder bottom="3" left="0" right="0" top="3"/>
@@ -280,7 +280,7 @@
                   <Font name="Tahoma" size="18" style="0"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="2"/>
-                <Property name="text" type="java.lang.String" value="ID Kasir :"/>
+                <Property name="text" type="java.lang.String" value="ID Admin :"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel3">
@@ -327,7 +327,7 @@
                   <Font name="Tahoma" size="18" style="0"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="2"/>
-                <Property name="text" type="java.lang.String" value="Nomor Handphone :"/>
+                <Property name="text" type="java.lang.String" value="Nomor Telepon :"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="hp">
@@ -346,6 +346,7 @@
                   <Image iconType="3" name="/gambar/save.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="SIMPAN"/>
+                <Property name="toolTipText" type="java.lang.String" value="Simpan data admin"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bsimpan_kasActionPerformed"/>
@@ -360,6 +361,7 @@
                   <Image iconType="3" name="/gambar/edit.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="UBAH"/>
+                <Property name="toolTipText" type="java.lang.String" value="Ubah data admin"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bubah_kasActionPerformed"/>
@@ -374,6 +376,7 @@
                   <Image iconType="3" name="/gambar/delete.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="HAPUS"/>
+                <Property name="toolTipText" type="java.lang.String" value="Hapus data admin"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bhapus_kasActionPerformed"/>
@@ -388,6 +391,7 @@
                   <Image iconType="3" name="/gambar/cancel.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="BATAL"/>
+                <Property name="toolTipText" type="java.lang.String" value="Batalkan pengisian"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bbatalActionPerformed"/>
@@ -579,6 +583,7 @@
                   <Image iconType="3" name="/gambar/printer.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="CETAK"/>
+                <Property name="toolTipText" type="java.lang.String" value="Cetak semua data admin"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                   <Color id="Hand Cursor"/>
                 </Property>

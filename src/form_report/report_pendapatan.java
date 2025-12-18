@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package form_report;
-
 import form.UserID;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,14 +23,14 @@ import java.text.SimpleDateFormat;
  *
  * @author Ahmad Nur Latif P
  */
-public class report_penjualan extends javax.swing.JFrame {
+public class report_pendapatan extends javax.swing.JFrame {
 private Connection conn = new koneksi().connect();
     private DefaultTableModel tabmode;
 
     /**
      * Creates new form report_penjualan
      */
-    public report_penjualan() {
+    public report_pendapatan() {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -117,7 +116,7 @@ private Connection conn = new koneksi().connect();
 
     public void DiagramBatang(Date tglMulai, Date tglSelesai) {
         try {
-            String loginId = UserID.getIdKasir();
+            String loginId = UserID.getIdAdmin();
             String loginKasir = "Tidak Diketahui";
 
             try (PreparedStatement kasnama = conn.prepareStatement("SELECT nama FROM tb_kasir WHERE id_kasir = ?")) {
@@ -190,7 +189,7 @@ private Connection conn = new koneksi().connect();
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Diagram Batang Pendapatan Penjualan");
+        jLabel1.setText("Diagram Pendapatan Penjualan");
         jLabel1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 0, 2, 0, new java.awt.Color(255, 255, 255)));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -404,20 +403,21 @@ private Connection conn = new koneksi().connect();
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(report_penjualan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(report_pendapatan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(report_penjualan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(report_pendapatan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(report_penjualan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(report_pendapatan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(report_penjualan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(report_pendapatan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new report_penjualan().setVisible(true);
+                new report_pendapatan().setVisible(true);
             }
         });
     }
