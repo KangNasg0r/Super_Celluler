@@ -567,26 +567,25 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                              <Component id="labeling4" max="32767" attributes="0"/>
-                                              <Component id="labeling1" pref="53" max="32767" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="labeling3" max="32767" attributes="0"/>
-                                              <Component id="labeling5" max="32767" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
                                           <Component id="labeling6" min="-2" pref="53" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="labeling7" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="labeling2" min="-2" pref="53" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                              <Component id="labeling2" max="32767" attributes="0"/>
+                                              <Component id="labeling4" max="32767" attributes="0"/>
+                                              <Component id="labeling1" max="32767" attributes="0"/>
+                                          </Group>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="labeling8" min="-2" pref="5" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                                                  <Component id="labeling3" max="32767" attributes="0"/>
+                                                  <Component id="labeling5" max="32767" attributes="0"/>
+                                              </Group>
+                                              <Component id="labeling8" alignment="1" min="-2" pref="5" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -594,7 +593,7 @@
                                       <Component id="label_hp" max="32767" attributes="0"/>
                                       <Component id="label_id" max="32767" attributes="0"/>
                                       <Component id="label_nama" max="32767" attributes="0"/>
-                                      <Component id="label_jenkel" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="label_jenkel" alignment="0" pref="110" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <Component id="tanggal_label" max="32767" attributes="0"/>

@@ -127,7 +127,7 @@ private Connection conn = new koneksi().connect();
                     }
                 }
             }
-            String path = "./src/report/penjualan_ChartBar.jasper";
+            String path = "./src/report/Total_Pendapatan.jasper";
             HashMap<String, Object> parameters = new HashMap<>();
             parameters.put("KASIR", loginKasir);
             parameters.put("TANGGAL_MULAI", new java.sql.Date(tglMulai.getTime()));
@@ -189,7 +189,7 @@ private Connection conn = new koneksi().connect();
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Diagram Pendapatan Penjualan");
+        jLabel1.setText("Pendapatan Penjualan");
         jLabel1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 0, 2, 0, new java.awt.Color(255, 255, 255)));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -228,7 +228,7 @@ private Connection conn = new koneksi().connect();
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Total Pendapatan");
+        jLabel4.setText("Pendapatan Kotor");
 
         label_total_pendapatan.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         label_total_pendapatan.setForeground(new java.awt.Color(255, 255, 255));
@@ -249,7 +249,7 @@ private Connection conn = new koneksi().connect();
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Keuntungan Bersih");
+        jLabel5.setText("Pendapatan Bersih");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));

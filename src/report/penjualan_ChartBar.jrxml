@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a83c2275-df02-4e1d-8580-1211d1efc7f0">
-	<property name="ireport.zoom" value="0.826446280991739"/>
+	<property name="ireport.zoom" value="1.0000000000000042"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="TANGGAL_MULAI" class="java.lang.String"/>
@@ -51,7 +51,7 @@ ORDER BY
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Calibri" size="40" isBold="true"/>
 				</textElement>
-				<text><![CDATA[TOTAL PENDAPATAN GADGET HOUSE]]></text>
+				<text><![CDATA[TOTAL PENDAPATAN SUPER CELLULER]]></text>
 			</staticText>
 			<line>
 				<reportElement x="0" y="110" width="802" height="1" uuid="6b4abb18-9d43-410f-80da-f70ccd4905da"/>
@@ -104,7 +104,7 @@ ORDER BY
 			</staticText>
 			<barChart>
 				<chart theme="default">
-					<reportElement x="0" y="96" width="802" height="333" uuid="bc5eccac-4760-4e59-b92e-a1447f8bf3ee"/>
+					<reportElement x="0" y="96" width="802" height="231" uuid="bc5eccac-4760-4e59-b92e-a1447f8bf3ee"/>
 					<chartTitle>
 						<font size="18" isBold="true"/>
 						<titleExpression><![CDATA["Keuntungan Bersih Harian"]]></titleExpression>
@@ -192,7 +192,7 @@ ORDER BY
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="14" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Kasir Super Celluler]]></text>
+				<text><![CDATA[Admin Super Celluler]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="451" y="28" width="123" height="20" uuid="37739cd4-2319-4386-8b81-556af708c01f"/>
@@ -270,6 +270,44 @@ ORDER BY
 				</textElement>
 				<textFieldExpression><![CDATA[$P{KASIR}]]></textFieldExpression>
 			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="668" y="327" width="131" height="20" uuid="31116019-8f66-4288-923c-bbe962614ac2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="628" y="413" width="171" height="1" uuid="a767c416-f50b-42dd-8d8c-c52cbfb1e165"/>
+			</line>
+			<staticText>
+				<reportElement x="628" y="414" width="171" height="20" uuid="2dc89ea9-9a3e-49ec-b552-5eadad765dd4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Admin Super Celuler]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="628" y="347" width="171" height="20" uuid="13c32d11-1ede-41aa-a39d-93388f5cf7e5"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hormat Kami,]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="628" y="392" width="171" height="20" uuid="f520a4ee-4ca4-4a35-8958-fafa21240b31"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{KASIR}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="628" y="327" width="40" height="20" uuid="02d044a4-034c-47c2-93d2-733f186fcdbe"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Jakarta,]]></text>
+			</staticText>
 		</band>
 	</summary>
 </jasperReport>

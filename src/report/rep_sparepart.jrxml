@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4ad4883c-aad5-40dc-9423-751646d79e03">
 	<property name="ireport.zoom" value="1.2100000000000053"/>
-	<property name="ireport.x" value="117"/>
+	<property name="ireport.x" value="140"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
@@ -39,11 +39,11 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="92" splitType="Stretch">
+		<band height="98" splitType="Stretch">
 			<staticText>
-				<reportElement x="2" y="43" width="679" height="46" uuid="f38e01ac-fac4-4044-b6ad-0516a0d0a56a"/>
+				<reportElement x="57" y="43" width="624" height="54" uuid="f38e01ac-fac4-4044-b6ad-0516a0d0a56a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12" isBold="true"/>
+					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[ITC DEPOK Lantai 3 Blok A No. 129 Jl. Margonda Raya - Depok Telp./WA. 082114601461]]></text>
 			</staticText>
@@ -55,8 +55,12 @@
 				<text><![CDATA[Data Sparepart Super Celluler]]></text>
 			</staticText>
 			<image>
-				<reportElement x="691" y="7" width="80" height="80" uuid="6e11d14c-ba55-4ec3-8339-e5436ca1195f"/>
+				<reportElement x="697" y="4" width="87" height="90" uuid="6e11d14c-ba55-4ec3-8339-e5436ca1195f"/>
 				<imageExpression><![CDATA["../gambar/menu_super.png"]]></imageExpression>
+			</image>
+			<image hAlign="Right">
+				<reportElement x="2" y="43" width="55" height="54" uuid="483fe090-3c5c-411a-a52e-54ffd54271a8"/>
+				<imageExpression><![CDATA["../gambar/logo_itc_depok 76x51.png"]]></imageExpression>
 			</image>
 		</band>
 	</title>

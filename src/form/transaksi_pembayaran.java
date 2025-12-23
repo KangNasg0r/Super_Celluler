@@ -635,7 +635,7 @@ public class transaksi_pembayaran extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel5.setBackground(new java.awt.Color(29, 114, 211));
+        jPanel5.setBackground(new java.awt.Color(0, 0, 204));
         jPanel5.setAutoscrolls(true);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
