@@ -20,7 +20,7 @@ Proyek ini dibuat sebagai *academic project* pada studi Teknik Informatika denga
 Secara umum, proses pelayanan pada aplikasi berjalan melalui alur berikut:
 
 ```text
-Kelola data master → Input transaksi service → Tambahkan sparepart/aksesoris → Hitung total pembayaran → Cetak data atau laporan
+Kelola data master → Input transaksi service → Tambahkan data pelanggan → Tambahkan sparepart/aksesoris → Hitung total pembayaran → Cetak data atau laporan
 ```
 
 ## Fitur Utama
@@ -64,8 +64,6 @@ Sebelum menjalankan proyek, pastikan perangkat telah memiliki:
 6. Jalankan proyek dari NetBeans.
 7. Masuk menggunakan akun yang telah tersedia pada database aplikasi.
 
-> **Catatan:** Nama database, akun pengguna, dan lokasi konfigurasi dapat berbeda sesuai struktur source code proyek yang digunakan.
-
 ## Akun Demo
 
 | Field | Nilai |
@@ -73,11 +71,7 @@ Sebelum menjalankan proyek, pastikan perangkat telah memiliki:
 | ID Teknisi | `T01` |
 | Sandi | `123` |
 
-> Akun demo ini sesuai dengan data yang terlihat pada dokumentasi aplikasi. Ganti sandi akun apabila aplikasi akan digunakan di luar lingkungan pengembangan.
-
 ## Dokumentasi Antarmuka
-
-Simpan seluruh gambar yang digunakan di dalam folder `asset_tutor/` pada repository agar dokumentasi berikut dapat tampil di GitHub.
 
 ### 1. Login
 
@@ -115,9 +109,9 @@ Simpan seluruh gambar yang digunakan di dalam folder `asset_tutor/` pada reposit
 
 <img src="asset_tutor/transaksi.png" width="80%" alt="Halaman transaksi service gadget">
 
-### 10. Contoh Cetak Data Teknisi
+### 10. Contoh Cetak Data Transaksi
 
-<img src="asset_tutor/contoh_cetak_data.png" width="80%" alt="Contoh cetak data teknisi gadget house">
+<img src="asset_tutor/cetak_nota.png" width="80%" alt="Contoh cetak data teknisi gadget house">
 
 ## Pengembangan Selanjutnya
 
@@ -125,7 +119,6 @@ Beberapa pengembangan yang dapat dilakukan pada proyek ini:
 
 - Menambahkan status pengerjaan service secara lebih rinci, misalnya *menunggu*, *diproses*, dan *selesai*.
 - Menambahkan notifikasi kepada pelanggan saat service telah selesai.
-- Menyediakan fitur ekspor laporan layanan ke PDF.
 - Menambahkan pengelolaan stok sparepart dan aksesoris secara otomatis.
 - Mengembangkan aplikasi ke versi web atau mobile agar dapat diakses lebih fleksibel.
 
@@ -133,7 +126,3 @@ Beberapa pengembangan yang dapat dilakukan pada proyek ini:
 
 **Ahmad Nur Latif Prayoga**  
 Teknik Informatika — Universitas Indraprasta PGRI
-
----
-
-Jika proyek ini bermanfaat, silakan berikan ⭐ pada repository ini.
